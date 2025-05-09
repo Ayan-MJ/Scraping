@@ -1,0 +1,98 @@
+name: Test Backend
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+jobs:
+  test-inmemory:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      
+      - name: Run tests with in-memory database
+        env:
+          USE_INMEM_DB: "true"
+        run: |
+          cd backend
+          pytest -v
+
+  test-supabase:
+    runs-on: ubuntu-latest
+    # Only run this job on specific branches or after manual approval
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    
+    services:
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+      
+      # Use Supabase local development setup for integration testing
+      supabase:
+        image: supabase/supabase-local:latest
+        ports:
+          - 54321:54321
+        env:
+          POSTGRES_PASSWORD: postgres
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      
+      - name: Wait for Supabase to be ready
+        run: |
+          cd backend
+          # Wait for Supabase to be ready
+          timeout 300 bash -c 'until curl -s http://localhost:54321/health > /dev/null; do sleep 1; done'
+      
+      - name: Run migrations
+        run: |
+          cd backend
+          # Apply the SQL migrations
+          cat supabase/migrations/*.sql | curl -X POST http://localhost:54321/rest/v1/sql -H "Content-Type: application/json" -d @-
+      
+      - name: Run tests against real Supabase
+        env:
+          USE_INMEM_DB: "false"
+          SUPABASE_URL: "http://localhost:54321"
+          SUPABASE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+          SUPABASE_SERVICE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+        run: |
+          cd backend
+          pytest -v 

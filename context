@@ -1,0 +1,29 @@
+You are Cursor, an AI coding assistant.  
+Repo: github.com/Ayan-MJ/scraping (backend folder)  
+Current state:
+- FastAPI CRUD for Projects, Runs, Schedules, Templates, Results.
+- Results table stores JSONB data, created_at.
+- Celery worker (process_scrape_run) writes results and streams SSE.
+Next objective: implement error flagging & retry endpoint.
+
+Tasks:
+1. Extend the results table and Pydantic models to include:
+   - url: TEXT NOT NULL
+   - status: TEXT NOT NULL (“success” | “failed”)
+   - error_message: TEXT NULL
+2. Update migrations: alter `scripts/init_results_table.sql` or create a new migration.
+3. In `app/schemas/result.py`, add `url`, `status`, and `error_message` fields to models.
+4. In `app/services/result_service.py`, adjust `create_result` to accept url, status, error_message.
+   Add a helper to fetch failed records: `get_failed_results(run_id: int) -> List[Result]`.
+5. In `app/worker.py`, wrap each URL extraction in try/except:
+   - On success: create_result(url=url, status="success", error_message=None).
+   - On failure: create_result(url=url, status="failed", error_message=str(exception)).
+6. Create a new Celery task `process_single_url(run_id: int, url: str, selector_schema: dict)`, extracting one URL and recording its result.
+7. In `app/routers/runs.py`, add endpoint:
+POST /projects/{project_id}/runs/{run_id}/retry
+Handler should:
+- Call `get_failed_results(run_id)`
+- For each, dispatch `process_single_url.delay(run_id, result.url, selector_schema)`
+- Return JSON `{ retried: <count> }`.
+8. Write tests for the retry endpoint: seed a failed result, call `/retry`, and assert tasks are enqueued.
+9. Update README with the new endpoint documentation.
