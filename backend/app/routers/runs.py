@@ -140,7 +140,7 @@ async def delete_existing_run(
     await project_service.get_project(run.project_id, current_user.id)
     
     await run_service.delete_run(run_id)
-    return None
+    return None 
 
 
 @router.post("/projects/{project_id}/runs/{run_id}/retry", response_model=Dict[str, int])

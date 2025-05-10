@@ -58,11 +58,11 @@ async def create_result(data: ResultCreate) -> Result:
         
         # Update the run's records_extracted count - only increment for successful scrapes
         if data.status == "success":
-            run_id = data.run_id
-            update_response = supabase.table("runs").select("records_extracted").eq("id", run_id).execute()
-            if update_response.data:
-                current_count = update_response.data[0].get("records_extracted", 0) or 0
-                supabase.table("runs").update({"records_extracted": current_count + 1}).eq("id", run_id).execute()
+        run_id = data.run_id
+        update_response = supabase.table("runs").select("records_extracted").eq("id", run_id).execute()
+        if update_response.data:
+            current_count = update_response.data[0].get("records_extracted", 0) or 0
+            supabase.table("runs").update({"records_extracted": current_count + 1}).eq("id", run_id).execute()
         
         return Result(**response.data[0])
     except Exception as e:
