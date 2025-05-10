@@ -3,6 +3,23 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 import asyncio
 
+# Import Sentry
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
+
+# Initialize Sentry
+sentry_sdk.init(
+    dsn=settings.SENTRY_DSN,
+    integrations=[
+        FastApiIntegration(),
+    ],
+    traces_sample_rate=0.1,
+    # Set to True to capture potentially sensitive data (URL, headers, etc.)
+    send_default_pii=False,
+    environment=settings.ENVIRONMENT,
+)
+
 # Import routers
 from app.routers import projects, runs, schedules, templates, results, stream
 
@@ -47,6 +64,9 @@ app.add_middleware(
     allow_headers=["Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"],
 )
 
+# Add Sentry middleware
+app = SentryAsgiMiddleware(app)
+
 # Include routers
 app.include_router(projects.router, prefix=settings.API_V1_STR)
 app.include_router(runs.router, prefix=settings.API_V1_STR)
@@ -64,6 +84,19 @@ async def health_check():
         dict: Status message
     """
     return {"status": "ok", "message": "Scraping Wizard API is running"}
+
+# Test endpoint to verify Sentry is working
+@app.get("/debug-sentry", tags=["health"])
+async def test_sentry():
+    """
+    Endpoint to trigger a test error for Sentry.
+    This endpoint intentionally raises an exception to test Sentry integration.
+    
+    Only available in development.
+    """
+    if settings.ENVIRONMENT == "development":
+        raise Exception("This is a test error to verify Sentry is capturing exceptions")
+    return {"message": "Sentry test endpoint only available in development mode"}
 
 @app.on_event("startup")
 async def startup_event():

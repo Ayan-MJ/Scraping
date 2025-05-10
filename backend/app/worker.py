@@ -8,6 +8,20 @@ import asyncio
 import json
 import aioredis
 
+# Import and configure Sentry
+import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
+
+# Initialize Sentry for Celery tasks
+sentry_sdk.init(
+    dsn=settings.SENTRY_DSN,
+    integrations=[
+        CeleryIntegration(),
+    ],
+    traces_sample_rate=0.1,
+    environment=settings.ENVIRONMENT,
+)
+
 logger = logging.getLogger(__name__)
 
 celery = Celery(
