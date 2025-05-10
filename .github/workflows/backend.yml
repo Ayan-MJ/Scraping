@@ -28,7 +28,7 @@ jobs:
         working-directory: backend
         
       - name: Install development tools
-        run: pip install flake8 pytest
+        run: pip install flake8 pytest sentry-sdk
         working-directory: backend
         
       - name: Lint

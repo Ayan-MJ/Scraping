@@ -4,9 +4,13 @@ from app.core.config import settings
 import asyncio
 
 # Import Sentry
-import sentry_sdk
-from sentry_sdk.integrations.fastapi import FastApiIntegration
-from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
+try:
+    import sentry_sdk
+    from sentry_sdk.integrations.fastapi import FastApiIntegration
+    from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
+    SENTRY_AVAILABLE = True
+except ImportError:
+    SENTRY_AVAILABLE = False
 
 # Define a hook to filter sensitive data before sending to Sentry
 def before_send(event, hint):
@@ -18,22 +22,23 @@ def before_send(event, hint):
 
     return event
 
-# Initialize Sentry
-sentry_sdk.init(
-    dsn=settings.SENTRY_DSN,
-    integrations=[
-        FastApiIntegration(),
-    ],
-    traces_sample_rate=0.1,
-    # Set to True to capture potentially sensitive data (URL, headers, etc.)
-    send_default_pii=False,
-    environment=settings.ENVIRONMENT,
-    before_send=before_send,
-    # Add release information if available
-    release=settings.VERSION if hasattr(settings, 'VERSION') else None,
-    # Add server_name if you want to identify which server instance sent the event
-    server_name=settings.SERVER_NAME if hasattr(settings, 'SERVER_NAME') else None,
-)
+# Initialize Sentry only if it's available and DSN is configured
+if SENTRY_AVAILABLE and settings.SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        integrations=[
+            FastApiIntegration(),
+        ],
+        traces_sample_rate=0.1,
+        # Set to True to capture potentially sensitive data (URL, headers, etc.)
+        send_default_pii=False,
+        environment=settings.ENVIRONMENT,
+        before_send=before_send,
+        # Add release information if available
+        release=settings.VERSION if hasattr(settings, 'VERSION') else None,
+        # Add server_name if you want to identify which server instance sent the event
+        server_name=settings.SERVER_NAME if hasattr(settings, 'SERVER_NAME') else None,
+    )
 
 # Import routers
 from app.routers import projects, runs, schedules, templates, results, stream
@@ -79,8 +84,9 @@ app.add_middleware(
     allow_headers=["Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"],
 )
 
-# Add Sentry middleware
-app = SentryAsgiMiddleware(app)
+# Add Sentry middleware only if Sentry is available
+if SENTRY_AVAILABLE and settings.SENTRY_DSN:
+    app = SentryAsgiMiddleware(app)
 
 # Include routers
 app.include_router(projects.router, prefix=settings.API_V1_STR)
@@ -109,6 +115,9 @@ async def test_sentry():
 
     Only available in development.
     """
+    if not SENTRY_AVAILABLE or not settings.SENTRY_DSN:
+        return {"message": "Sentry is not configured or available"}
+        
     if settings.ENVIRONMENT == "development":
         raise Exception("This is a test error to verify Sentry is capturing exceptions")
     return {"message": "Sentry test endpoint only available in development mode"}
