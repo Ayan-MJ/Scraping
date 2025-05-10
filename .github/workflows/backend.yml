@@ -39,7 +39,7 @@ jobs:
         working-directory: backend
         
       - name: Install additional packages
-        run: poetry add requests sentry-sdk --group dev
+        run: poetry add requests sentry-sdk croniter --group dev
         working-directory: backend
         
       - name: Create test configuration
