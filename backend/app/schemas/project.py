@@ -32,4 +32,4 @@ class Project(ProjectBase):
     updated_at: datetime = Field(..., description="Last update timestamp")
 
     class Config:
-        from_attributes = True 
+        from_attributes = True

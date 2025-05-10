@@ -39,7 +39,7 @@ async def test_create_template():
         assert data["description"] == test_template["description"]
         assert data["thumbnail_url"] == test_template["thumbnail_url"]
         assert "id" in data
-        
+
         # Save the created template ID for other tests
         test_template["id"] = data["id"]
 
@@ -73,7 +73,7 @@ async def test_update_template():
         "name": "Updated Template Name",
         "description": "Updated description"
     }
-    
+
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.put(
             f"{API_BASE_URL}/templates/{test_template['id']}",
@@ -108,4 +108,4 @@ async def test_delete_template():
 
         # Verify it's gone
         response = await client.get(f"{API_BASE_URL}/templates/{test_template['id']}")
-        assert response.status_code == status.HTTP_404_NOT_FOUND 
+        assert response.status_code == status.HTTP_404_NOT_FOUND

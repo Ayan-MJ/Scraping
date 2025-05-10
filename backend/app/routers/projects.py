@@ -12,7 +12,7 @@ router = APIRouter(prefix="/projects", tags=["projects"])
 async def get_all_projects(current_user = Depends(get_current_user)):
     """
     Retrieve all projects owned by the authenticated user.
-    
+
     Returns:
         List[Project]: List of projects owned by the user
     """
@@ -23,13 +23,13 @@ async def get_all_projects(current_user = Depends(get_current_user)):
 async def get_project_by_id(id: int, current_user = Depends(get_current_user)):
     """
     Retrieve a project by ID if it belongs to the authenticated user.
-    
+
     Args:
         id (int): Project ID
-        
+
     Returns:
         Project: The requested project
-        
+
     Raises:
         HTTPException: If project not found or doesn't belong to the user
     """
@@ -40,10 +40,10 @@ async def get_project_by_id(id: int, current_user = Depends(get_current_user)):
 async def create_new_project(project: ProjectCreate, current_user = Depends(get_current_user)):
     """
     Create a new project owned by the authenticated user.
-    
+
     Args:
         project (ProjectCreate): Project data
-        
+
     Returns:
         Project: The created project
     """
@@ -52,20 +52,20 @@ async def create_new_project(project: ProjectCreate, current_user = Depends(get_
 
 @router.put("/{id}", response_model=Project)
 async def update_existing_project(
-    id: int, 
+    id: int,
     project: ProjectUpdate,
     current_user = Depends(get_current_user)
 ):
     """
     Update an existing project if it belongs to the authenticated user.
-    
+
     Args:
         id (int): Project ID
         project (ProjectUpdate): Project data to update
-        
+
     Returns:
         Project: The updated project
-        
+
     Raises:
         HTTPException: If project not found or doesn't belong to the user
     """
@@ -76,12 +76,12 @@ async def update_existing_project(
 async def delete_existing_project(id: int, current_user = Depends(get_current_user)):
     """
     Delete a project if it belongs to the authenticated user.
-    
+
     Args:
         id (int): Project ID
-        
+
     Raises:
         HTTPException: If project not found or doesn't belong to the user
     """
     await project_service.delete_project(id, current_user.id)
-    return None 
+    return None

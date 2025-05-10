@@ -46,4 +46,4 @@ class Run(RunBase):
     error: Optional[str] = Field(None, description="Error message if run failed")
 
     class Config:
-        from_attributes = True 
+        from_attributes = True

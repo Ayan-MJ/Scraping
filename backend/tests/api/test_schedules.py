@@ -32,7 +32,7 @@ async def test_create_schedule():
         assert data["cron_expression"] == test_schedule["cron_expression"]
         assert data["status"] == ScheduleStatus.ACTIVE
         assert "id" in data
-        
+
         # Save the created schedule ID for other tests
         test_schedule["id"] = data["id"]
 
@@ -80,7 +80,7 @@ async def test_update_schedule():
         "name": "Updated Schedule Name",
         "description": "Updated description"
     }
-    
+
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.put(
             f"{API_BASE_URL}/schedules/{test_schedule['id']}",
@@ -137,4 +137,4 @@ async def test_delete_schedule():
 
         # Verify it's gone
         response = await client.get(f"{API_BASE_URL}/schedules/{test_schedule['id']}")
-        assert response.status_code == status.HTTP_404_NOT_FOUND 
+        assert response.status_code == status.HTTP_404_NOT_FOUND
