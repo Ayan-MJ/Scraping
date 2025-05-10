@@ -12,7 +12,7 @@ COPY pyproject.toml ./
 RUN poetry config virtualenvs.create false
 
 # Install dependencies
-RUN poetry install --no-dev --no-interaction --no-ansi
+RUN poetry install --without dev --no-interaction --no-ansi
 
 # Install Playwright browsers
 RUN apt-get update && apt-get install -y wget gnupg && \
@@ -24,9 +24,19 @@ RUN apt-get update && apt-get install -y wget gnupg && \
 # Copy application code
 COPY app/ ./app/
 
+# Accept build arguments for Sentry and environment
+ARG SENTRY_DSN
+ARG ENVIRONMENT=production
+ARG VERSION=1.0.0
+ARG SERVER_NAME=scraping-wizard-api
+
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
+ENV SENTRY_DSN=${SENTRY_DSN}
+ENV ENVIRONMENT=${ENVIRONMENT}
+ENV VERSION=${VERSION}
+ENV SERVER_NAME=${SERVER_NAME}
 
 # Expose the API port
 EXPOSE 8000
