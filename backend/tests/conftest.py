@@ -8,20 +8,73 @@ from fastapi.testclient import TestClient
 app_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, app_path)
 
-# Mock croniter module if not available
+# Import mocks
 try:
-    import croniter
+    from tests.mocks import MockRedis, MockSupabase
 except ImportError:
-    print("Croniter not found, creating mock module")
-    import types
-    croniter = types.ModuleType('croniter')
-    croniter.croniter = type('croniter', (), {
-        '__init__': lambda *args, **kwargs: None,
-        'get_next': lambda self: None,
-        'get_prev': lambda self: None,
-        'get_current': lambda self: None
-    })
-    sys.modules['croniter'] = croniter
+    # If mocks.py doesn't exist yet, create simple mock classes
+    from unittest.mock import MagicMock
+    
+    class MockRedis:
+        def __init__(self, *args, **kwargs):
+            self.data = {}
+        
+        def get(self, key):
+            return self.data.get(key)
+            
+        def set(self, key, value, *args, **kwargs):
+            self.data[key] = value
+            return True
+    
+    class MockSupabase:
+        def table(self, name):
+            return MagicMock()
+            
+        def rpc(self, *args, **kwargs):
+            mock_response = MagicMock()
+            mock_response.execute.return_value.data = {}
+            mock_response.execute.return_value.error = None
+            return mock_response
+
+# Mock dependencies that might not be available in CI environment
+MOCK_MODULES = ['croniter', 'playwright', 'redis', 'celery']
+for module_name in MOCK_MODULES:
+    try:
+        __import__(module_name)
+    except ImportError:
+        print(f"{module_name} not found, creating mock module")
+        import types
+        mock_module = types.ModuleType(module_name)
+        sys.modules[module_name] = mock_module
+        
+        # Add specific mocks based on module
+        if module_name == 'croniter':
+            mock_module.croniter = type('croniter', (), {
+                '__init__': lambda *args, **kwargs: None,
+                'get_next': lambda self, *args: None,
+                'get_prev': lambda self: None,
+                'get_current': lambda self: None
+            })
+        elif module_name == 'celery':
+            # Create a basic mock for Celery
+            class MockCelery:
+                def __init__(self, *args, **kwargs):
+                    self.conf = type('conf', (), {'beat_schedule': {}})
+                    
+                def task(self, *args, **kwargs):
+                    def decorator(func):
+                        return func
+                    return decorator
+                    
+                def send_task(self, *args, **kwargs):
+                    return type('AsyncResult', (), {'id': 'mock-task-id'})
+            
+            mock_module.Celery = MockCelery
+            mock_module.schedules = types.ModuleType('celery.schedules')
+            mock_module.schedules.crontab = lambda **kwargs: None
+            sys.modules['celery.schedules'] = mock_module.schedules
+        elif module_name == 'redis':
+            mock_module.Redis = MockRedis
 
 # Load environment variables from .env.test BEFORE importing app
 env_file = ".env.test"
@@ -45,6 +98,19 @@ os.environ["CELERY_RESULT_BACKEND"] = os.environ.get("CELERY_RESULT_BACKEND", "r
 # Set null value for Sentry during testing unless explicitly provided
 if "SENTRY_DSN" not in os.environ:
     os.environ["SENTRY_DSN"] = ""
+
+# Mock Supabase client
+sys.modules['app.core.supabase'] = type('module', (), {'supabase': MockSupabase()})
+
+# Mock Redis client
+if 'redis' in sys.modules:
+    # Patch Redis to return our mock
+    original_redis = sys.modules['redis'].Redis
+    sys.modules['redis'].Redis = MockRedis
+    
+    # Also patch aioredis if it exists
+    if 'aioredis' in sys.modules:
+        sys.modules['aioredis'].Redis = MockRedis
 
 # Now import the app
 try:
@@ -74,3 +140,19 @@ def client():
     """Test client for FastAPI application."""
     with TestClient(app) as test_client:
         yield test_client
+
+@pytest.fixture
+def mock_db():
+    """Fixture to provide a mock database for testing."""
+    return {
+        "projects": [],
+        "runs": [],
+        "schedules": [],
+        "templates": [],
+        "results": []
+    }
+
+@pytest.fixture
+def mock_redis():
+    """Fixture to provide a mock Redis client for testing."""
+    return MockRedis()
