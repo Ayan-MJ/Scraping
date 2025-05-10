@@ -1,0 +1,1271 @@
+Run poetry run flake8
+./app/__init__.py:3:5: W292 no newline at end of file
+./app/__init__.py:3:37: W291 trailing whitespace
+./app/aioredis/client.py:222:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:466:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:492:80: E501 line too long (87 > 79 characters)
+./app/aioredis/client.py:518:8: E721 do not compare types, for exact checks use `is` / `is not`, for instance checks use `isinstance()`
+./app/aioredis/client.py:523:80: E501 line too long (88 > 79 characters)
+./app/aioredis/client.py:537:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:638:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:691:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:737:80: E501 line too long (87 > 79 characters)
+./app/aioredis/client.py:843:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:913:80: E501 line too long (88 > 79 characters)
+./app/aioredis/client.py:941:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:1082:80: E501 line too long (84 > 79 characters)
+./app/aioredis/client.py:1097:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:1279:80: E501 line too long (85 > 79 characters)
+./app/aioredis/client.py:1331:80: E501 line too long (85 > 79 characters)
+./app/aioredis/client.py:1360:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:1395:80: E501 line too long (84 > 79 characters)
+./app/aioredis/client.py:1426:80: E501 line too long (85 > 79 characters)
+./app/aioredis/client.py:1464:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:1468:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:1484:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:1602:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:1633:80: E501 line too long (85 > 79 characters)
+./app/aioredis/client.py:1643:80: E501 line too long (88 > 79 characters)
+./app/aioredis/client.py:1655:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:1753:80: E501 line too long (88 > 79 characters)
+./app/aioredis/client.py:1960:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:1971:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:2071:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:2086:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:2156:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:2201:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:2256:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:2338:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:2464:80: E501 line too long (87 > 79 characters)
+./app/aioredis/client.py:2505:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:2592:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:2605:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:2614:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:2630:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:2650:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:2659:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:2736:80: E501 line too long (85 > 79 characters)
+./app/aioredis/client.py:2744:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:2780:80: E501 line too long (88 > 79 characters)
+./app/aioredis/client.py:2804:80: E501 line too long (88 > 79 characters)
+./app/aioredis/client.py:2814:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:2984:80: E501 line too long (85 > 79 characters)
+./app/aioredis/client.py:3022:80: E501 line too long (84 > 79 characters)
+./app/aioredis/client.py:3097:80: E501 line too long (84 > 79 characters)
+./app/aioredis/client.py:3104:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:3105:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:3121:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:3198:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:3202:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:3220:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:3242:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:3271:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:3278:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:3292:80: E501 line too long (88 > 79 characters)
+./app/aioredis/client.py:3341:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:3366:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:3373:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:3446:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:3461:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:3506:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:3524:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:3582:80: E501 line too long (87 > 79 characters)
+./app/aioredis/client.py:3632:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:3636:80: E501 line too long (84 > 79 characters)
+./app/aioredis/client.py:3793:80: E501 line too long (85 > 79 characters)
+./app/aioredis/client.py:3854:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:3985:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:4023:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:4030:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:4055:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:4084:80: E501 line too long (92 > 79 characters)
+./app/aioredis/client.py:4095:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:4098:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:4158:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:4160:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:4266:80: E501 line too long (84 > 79 characters)
+./app/aioredis/client.py:4269:80: E501 line too long (84 > 79 characters)
+./app/aioredis/client.py:4332:80: E501 line too long (81 > 79 characters)
+./app/aioredis/client.py:4407:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:4438:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:4549:80: E501 line too long (83 > 79 characters)
+./app/aioredis/client.py:4568:80: E501 line too long (82 > 79 characters)
+./app/aioredis/client.py:4578:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:4582:80: E501 line too long (80 > 79 characters)
+./app/aioredis/client.py:4618:80: E501 line too long (86 > 79 characters)
+./app/aioredis/client.py:4633:80: E501 line too long (86 > 79 characters)
+./app/aioredis/connection.py:91:80: E501 line too long (80 > 79 characters)
+./app/aioredis/connection.py:93:80: E501 line too long (84 > 79 characters)
+./app/aioredis/connection.py:117:80: E501 line too long (84 > 79 characters)
+./app/aioredis/connection.py:147:80: E501 line too long (82 > 79 characters)
+./app/aioredis/connection.py:153:80: E501 line too long (87 > 79 characters)
+./app/aioredis/connection.py:168:80: E501 line too long (97 > 79 characters)
+./app/aioredis/connection.py:171:80: E501 line too long (97 > 79 characters)
+./app/aioredis/connection.py:200:52: E203 whitespace before ':'
+./app/aioredis/connection.py:203:80: E501 line too long (86 > 79 characters)
+./app/aioredis/connection.py:228:80: E501 line too long (82 > 79 characters)
+./app/aioredis/connection.py:291:80: E501 line too long (80 > 79 characters)
+./app/aioredis/connection.py:447:80: E501 line too long (87 > 79 characters)
+./app/aioredis/connection.py:484:80: E501 line too long (87 > 79 characters)
+./app/aioredis/connection.py:519:80: E501 line too long (80 > 79 characters)
+./app/aioredis/connection.py:527:80: E501 line too long (81 > 79 characters)
+./app/aioredis/connection.py:616:80: E501 line too long (83 > 79 characters)
+./app/aioredis/connection.py:637:80: E501 line too long (86 > 79 characters)
+./app/aioredis/connection.py:645:80: E501 line too long (81 > 79 characters)
+./app/aioredis/connection.py:746:80: E501 line too long (87 > 79 characters)
+./app/aioredis/connection.py:749:80: E501 line too long (84 > 79 characters)
+./app/aioredis/connection.py:776:80: E501 line too long (82 > 79 characters)
+./app/aioredis/connection.py:806:80: E501 line too long (88 > 79 characters)
+./app/aioredis/connection.py:813:80: E501 line too long (83 > 79 characters)
+./app/aioredis/connection.py:825:80: E501 line too long (80 > 79 characters)
+./app/aioredis/connection.py:886:80: E501 line too long (83 > 79 characters)
+./app/aioredis/connection.py:968:80: E501 line too long (85 > 79 characters)
+./app/aioredis/connection.py:1081:80: E501 line too long (85 > 79 characters)
+./app/aioredis/connection.py:1114:80: E501 line too long (86 > 79 characters)
+./app/aioredis/connection.py:1147:80: E501 line too long (88 > 79 characters)
+./app/aioredis/connection.py:1166:80: E501 line too long (83 > 79 characters)
+./app/aioredis/connection.py:1203:80: E501 line too long (86 > 79 characters)
+./app/aioredis/connection.py:1237:80: E501 line too long (84 > 79 characters)
+./app/aioredis/connection.py:1332:80: E501 line too long (81 > 79 characters)
+./app/aioredis/lock.py:145:80: E501 line too long (82 > 79 characters)
+./app/aioredis/lock.py:157:80: E501 line too long (80 > 79 characters)
+./app/aioredis/lock.py:239:80: E501 line too long (80 > 79 characters)
+./app/aioredis/lock.py:255:80: E501 line too long (86 > 79 characters)
+./app/aioredis/lock.py:281:80: E501 line too long (85 > 79 characters)
+./app/aioredis/lock.py:285:80: E501 line too long (85 > 79 characters)
+./app/aioredis/lock.py:302:80: E501 line too long (85 > 79 characters)
+./app/aioredis/lock.py:305:80: E501 line too long (88 > 79 characters)
+./app/aioredis/sentinel.py:6:80: E501 line too long (85 > 79 characters)
+./app/aioredis/sentinel.py:54:80: E501 line too long (82 > 79 characters)
+./app/aioredis/sentinel.py:102:80: E501 line too long (86 > 79 characters)
+./app/aioredis/sentinel.py:112:80: E501 line too long (88 > 79 characters)
+./app/aioredis/sentinel.py:117:80: E501 line too long (87 > 79 characters)
+./app/aioredis/sentinel.py:133:80: E501 line too long (81 > 79 characters)
+./app/aioredis/sentinel.py:184:80: E501 line too long (85 > 79 characters)
+./app/aioredis/sentinel.py:202:80: E501 line too long (87 > 79 characters)
+./app/aioredis/sentinel.py:264:80: E501 line too long (85 > 79 characters)
+./app/aioredis/sentinel.py:302:80: E501 line too long (85 > 79 characters)
+./app/aioredis/utils.py:56:80: E501 line too long (86 > 79 characters)
+./app/async_timeout/__init__.py:113:80: E501 line too long (80 > 79 characters)
+./app/async_timeout/__init__.py:117:80: E501 line too long (87 > 79 characters)
+./app/async_timeout/__init__.py:154:80: E501 line too long (81 > 79 characters)
+./app/async_timeout/__init__.py:210:80: E501 line too long (80 > 79 characters)
+./app/async_timeout/__init__.py:214:80: E501 line too long (87 > 79 characters)
+./app/async_timeout/__init__.py:229:80: E501 line too long (87 > 79 characters)
+./app/async_timeout/__init__.py:252:80: E501 line too long (86 > 79 characters)
+./app/async_timeout/__init__.py:261:80: E501 line too long (84 > 79 characters)
+./app/core/__init__.py:3:5: W292 no newline at end of file
+./app/core/__init__.py:3:41: W291 trailing whitespace
+./app/core/auth.py:9:1: E302 expected 2 blank lines, found 1
+./app/core/auth.py:10:80: E501 line too long (80 > 79 characters)
+./app/core/auth.py:13:1: E302 expected 2 blank lines, found 1
+./app/core/auth.py:14:80: E501 line too long (80 > 79 characters)
+./app/core/auth.py:17:1: E302 expected 2 blank lines, found 1
+./app/core/auth.py:22:1: W293 blank line contains whitespace
+./app/core/auth.py:32:58: W291 trailing whitespace
+./app/core/auth.py:40:10: W291 trailing whitespace
+./app/core/auth.py:40:11: W292 no newline at end of file
+./app/core/config.py:10:1: E302 expected 2 blank lines, found 1
+./app/core/config.py:14:1: W293 blank line contains whitespace
+./app/core/config.py:17:1: W293 blank line contains whitespace
+./app/core/config.py:20:1: W293 blank line contains whitespace
+./app/core/config.py:25:1: W293 blank line contains whitespace
+./app/core/config.py:28:1: W293 blank line contains whitespace
+./app/core/config.py:31:1: W293 blank line contains whitespace
+./app/core/config.py:36:1: W293 blank line contains whitespace
+./app/core/config.py:40:1: W293 blank line contains whitespace
+./app/core/config.py:43:1: W293 blank line contains whitespace
+./app/core/config.py:47:1: W293 blank line contains whitespace
+./app/core/config.py:58:1: E305 expected 2 blank lines after class or function definition, found 1
+./app/core/config.py:61:23: W291 trailing whitespace
+./app/core/config.py:61:24: W292 no newline at end of file
+./app/core/supabase.py:8:1: E302 expected 2 blank lines, found 1
+./app/core/supabase.py:23:1: E305 expected 2 blank lines after class or function definition, found 1
+./app/core/supabase.py:23:33: W291 trailing whitespace
+./app/core/supabase.py:23:34: W292 no newline at end of file
+./app/main.py:4:1: F401 'asyncio' imported but unused
+./app/main.py:24:1: E402 module level import not at top of file
+./app/main.py:30:1: W293 blank line contains whitespace
+./app/main.py:32:1: W293 blank line contains whitespace
+./app/main.py:38:1: W293 blank line contains whitespace
+./app/main.py:40:1: W293 blank line contains whitespace
+./app/main.py:41:52: W291 trailing whitespace
+./app/main.py:42:1: W293 blank line contains whitespace
+./app/main.py:44:66: W291 trailing whitespace
+./app/main.py:46:1: W293 blank line contains whitespace
+./app/main.py:48:1: W293 blank line contains whitespace
+./app/main.py:64:80: E501 line too long (92 > 79 characters)
+./app/main.py:78:1: E302 expected 2 blank lines, found 1
+./app/main.py:82:1: W293 blank line contains whitespace
+./app/main.py:89:1: E302 expected 2 blank lines, found 1
+./app/main.py:94:1: W293 blank line contains whitespace
+./app/main.py:98:80: E501 line too long (88 > 79 characters)
+./app/main.py:99:80: E501 line too long (81 > 79 characters)
+./app/main.py:101:1: E302 expected 2 blank lines, found 1
+./app/main.py:110:1: W293 blank line contains whitespace
+./app/main.py:114:1: W293 blank line contains whitespace
+./app/main.py:116:9: F841 local variable 'result' is assigned to but never used
+./app/main.py:132:1: W293 blank line contains whitespace
+./app/main.py:139:72: W291 trailing whitespace
+./app/main.py:139:73: W292 no newline at end of file
+./app/models/__init__.py:3:5: W292 no newline at end of file
+./app/models/__init__.py:3:25: W291 trailing whitespace
+./app/routers/__init__.py:5:1: F401 'app.routers.projects' imported but unused
+./app/routers/__init__.py:5:1: F401 'app.routers.runs' imported but unused
+./app/routers/__init__.py:5:1: F401 'app.routers.schedules' imported but unused
+./app/routers/__init__.py:5:1: F401 'app.routers.templates' imported but unused
+./app/routers/__init__.py:5:1: F401 'app.routers.results' imported but unused
+./app/routers/__init__.py:5:70: W291 trailing whitespace
+./app/routers/__init__.py:5:71: W292 no newline at end of file
+./app/routers/projects.py:1:1: F401 'fastapi.HTTPException' imported but unused
+./app/routers/projects.py:2:1: F401 'typing.Annotated' imported but unused
+./app/routers/projects.py:12:40: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:12:42: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:15:1: W293 blank line contains whitespace
+./app/routers/projects.py:23:50: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:23:52: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:26:1: W293 blank line contains whitespace
+./app/routers/projects.py:29:1: W293 blank line contains whitespace
+./app/routers/projects.py:32:1: W293 blank line contains whitespace
+./app/routers/projects.py:40:66: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:40:68: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:40:80: E501 line too long (95 > 79 characters)
+./app/routers/projects.py:43:1: W293 blank line contains whitespace
+./app/routers/projects.py:46:1: W293 blank line contains whitespace
+./app/routers/projects.py:55:13: W291 trailing whitespace
+./app/routers/projects.py:57:17: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:57:19: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:61:1: W293 blank line contains whitespace
+./app/routers/projects.py:65:1: W293 blank line contains whitespace
+./app/routers/projects.py:68:1: W293 blank line contains whitespace
+./app/routers/projects.py:76:56: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:76:58: E251 unexpected spaces around keyword / parameter equals
+./app/routers/projects.py:76:80: E501 line too long (85 > 79 characters)
+./app/routers/projects.py:79:1: W293 blank line contains whitespace
+./app/routers/projects.py:82:1: W293 blank line contains whitespace
+./app/routers/projects.py:87:16: W291 trailing whitespace
+./app/routers/projects.py:87:17: W292 no newline at end of file
+./app/routers/runs.py:1:80: E501 line too long (80 > 79 characters)
+./app/routers/runs.py:3:1: F401 'app.schemas.run.RunCreate' imported but unused
+./app/routers/runs.py:15:17: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:15:19: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:19:1: W293 blank line contains whitespace
+./app/routers/runs.py:22:1: W293 blank line contains whitespace
+./app/routers/runs.py:28:1: W293 blank line contains whitespace
+./app/routers/runs.py:35:17: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:35:19: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:39:1: W293 blank line contains whitespace
+./app/routers/runs.py:42:1: W293 blank line contains whitespace
+./app/routers/runs.py:45:1: W293 blank line contains whitespace
+./app/routers/runs.py:50:1: W293 blank line contains whitespace
+./app/routers/runs.py:53:1: W293 blank line contains whitespace
+./app/routers/runs.py:57:80: E501 line too long (100 > 79 characters)
+./app/routers/runs.py:61:80: E501 line too long (81 > 79 characters)
+./app/routers/runs.py:62:80: E501 line too long (83 > 79 characters)
+./app/routers/runs.py:63:17: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:63:19: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:67:1: W293 blank line contains whitespace
+./app/routers/runs.py:73:1: W293 blank line contains whitespace
+./app/routers/runs.py:79:1: W293 blank line contains whitespace
+./app/routers/runs.py:85:1: W293 blank line contains whitespace
+./app/routers/runs.py:98:17: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:98:19: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:102:1: W293 blank line contains whitespace
+./app/routers/runs.py:106:1: W293 blank line contains whitespace
+./app/routers/runs.py:109:1: W293 blank line contains whitespace
+./app/routers/runs.py:115:1: W293 blank line contains whitespace
+./app/routers/runs.py:118:1: W293 blank line contains whitespace
+./app/routers/runs.py:125:17: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:125:19: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:129:1: W293 blank line contains whitespace
+./app/routers/runs.py:132:1: W293 blank line contains whitespace
+./app/routers/runs.py:138:1: W293 blank line contains whitespace
+./app/routers/runs.py:141:1: W293 blank line contains whitespace
+./app/routers/runs.py:146:80: E501 line too long (89 > 79 characters)
+./app/routers/runs.py:150:17: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:150:19: E251 unexpected spaces around keyword / parameter equals
+./app/routers/runs.py:154:1: W293 blank line contains whitespace
+./app/routers/runs.py:158:1: W293 blank line contains whitespace
+./app/routers/runs.py:161:1: W293 blank line contains whitespace
+./app/routers/runs.py:163:80: E501 line too long (80 > 79 characters)
+./app/routers/runs.py:167:1: W293 blank line contains whitespace
+./app/routers/runs.py:170:1: W293 blank line contains whitespace
+./app/routers/runs.py:176:1: W293 blank line contains whitespace
+./app/routers/runs.py:179:1: W293 blank line contains whitespace
+./app/routers/runs.py:183:1: W293 blank line contains whitespace
+./app/routers/runs.py:186:80: E501 line too long (80 > 79 characters)
+./app/routers/runs.py:187:80: E501 line too long (82 > 79 characters)
+./app/routers/runs.py:189:1: W293 blank line contains whitespace
+./app/routers/runs.py:195:1: W293 blank line contains whitespace
+./app/routers/runs.py:198:1: W293 blank line contains whitespace
+./app/routers/runs.py:202:34: W291 trailing whitespace
+./app/routers/runs.py:205:1: W293 blank line contains whitespace
+./app/routers/runs.py:206:44: W291 trailing whitespace
+./app/routers/runs.py:206:45: W292 no newline at end of file
+./app/routers/schedules.py:1:1: F401 'fastapi.Depends' imported but unused
+./app/routers/schedules.py:1:1: F401 'fastapi.HTTPException' imported but unused
+./app/routers/schedules.py:3:80: E501 line too long (89 > 79 characters)
+./app/routers/schedules.py:5:1: F401 'datetime.datetime' imported but unused
+./app/routers/schedules.py:16:80: E501 line too long (89 > 79 characters)
+./app/routers/schedules.py:80:55: W291 trailing whitespace
+./app/routers/schedules.py:80:56: W292 no newline at end of file
+./app/routers/stream.py:1:1: F401 'fastapi.Depends' imported but unused
+./app/routers/stream.py:2:50: E261 at least two spaces before inline comment
+./app/routers/stream.py:5:15: E261 at least two spaces before inline comment
+./app/routers/stream.py:8:80: E501 line too long (92 > 79 characters)
+./app/routers/stream.py:9:80: E501 line too long (80 > 79 characters)
+./app/routers/stream.py:10:1: E302 expected 2 blank lines, found 1
+./app/routers/stream.py:13:1: E305 expected 2 blank lines after class or function definition, found 1
+./app/routers/stream.py:13:33: E261 at least two spaces before inline comment
+./app/routers/stream.py:17:1: E302 expected 2 blank lines, found 1
+./app/routers/stream.py:18:60: E261 at least two spaces before inline comment
+./app/routers/stream.py:18:80: E501 line too long (102 > 79 characters)
+./app/routers/stream.py:20:1: W293 blank line contains whitespace
+./app/routers/stream.py:29:80: E501 line too long (87 > 79 characters)
+./app/routers/stream.py:39:80: E501 line too long (114 > 79 characters)
+./app/routers/stream.py:39:96: E261 at least two spaces before inline comment
+./app/routers/stream.py:42:80: E501 line too long (93 > 79 characters)
+./app/routers/stream.py:43:80: E501 line too long (128 > 79 characters)
+./app/routers/stream.py:44:80: E501 line too long (117 > 79 characters)
+./app/routers/stream.py:45:80: E501 line too long (99 > 79 characters)
+./app/routers/stream.py:46:80: E501 line too long (100 > 79 characters)
+./app/routers/stream.py:47:80: E501 line too long (113 > 79 characters)
+./app/routers/stream.py:48:80: E501 line too long (140 > 79 characters)
+./app/routers/stream.py:49:1: W293 blank line contains whitespace
+./app/routers/stream.py:50:80: E501 line too long (82 > 79 characters)
+./app/routers/stream.py:51:80: E501 line too long (105 > 79 characters)
+./app/routers/stream.py:52:69: E261 at least two spaces before inline comment
+./app/routers/stream.py:52:80: E501 line too long (103 > 79 characters)
+./app/routers/stream.py:53:1: W293 blank line contains whitespace
+./app/routers/stream.py:54:80: E501 line too long (134 > 79 characters)
+./app/routers/stream.py:55:80: E501 line too long (93 > 79 characters)
+./app/routers/stream.py:56:80: E501 line too long (93 > 79 characters)
+./app/routers/stream.py:59:80: E501 line too long (93 > 79 characters)
+./app/routers/stream.py:60:80: E501 line too long (117 > 79 characters)
+./app/routers/stream.py:62:80: E501 line too long (80 > 79 characters)
+./app/routers/stream.py:63:80: E501 line too long (107 > 79 characters)
+./app/routers/stream.py:66:80: E501 line too long (109 > 79 characters)
+./app/routers/stream.py:67:1: W293 blank line contains whitespace
+./app/routers/stream.py:68:41: E261 at least two spaces before inline comment
+./app/routers/stream.py:68:80: E501 line too long (111 > 79 characters)
+./app/routers/stream.py:71:80: E501 line too long (87 > 79 characters)
+./app/routers/stream.py:74:80: E501 line too long (82 > 79 characters)
+./app/routers/stream.py:78:32: E261 at least two spaces before inline comment
+./app/routers/stream.py:79:80: E501 line too long (88 > 79 characters)
+./app/routers/stream.py:82:80: E501 line too long (81 > 79 characters)
+./app/routers/stream.py:85:1: E402 module level import not at top of file
+./app/routers/stream.py:85:30: W291 trailing whitespace
+./app/routers/stream.py:85:31: W292 no newline at end of file
+./app/routers/templates.py:1:1: F401 'fastapi.Depends' imported but unused
+./app/routers/templates.py:1:1: F401 'fastapi.HTTPException' imported but unused
+./app/routers/templates.py:59:59: W291 trailing whitespace
+./app/routers/templates.py:59:60: W292 no newline at end of file
+./app/schemas/__init__.py:3:5: W292 no newline at end of file
+./app/schemas/__init__.py:3:53: W291 trailing whitespace
+./app/schemas/project.py:10:80: E501 line too long (95 > 79 characters)
+./app/schemas/project.py:15:80: E501 line too long (86 > 79 characters)
+./app/schemas/project.py:16:80: E501 line too long (82 > 79 characters)
+./app/schemas/project.py:17:80: E501 line too long (85 > 79 characters)
+./app/schemas/project.py:23:80: E501 line too long (86 > 79 characters)
+./app/schemas/project.py:24:80: E501 line too long (85 > 79 characters)
+./app/schemas/project.py:30:80: E501 line too long (82 > 79 characters)
+./app/schemas/project.py:35:31: W291 trailing whitespace
+./app/schemas/project.py:35:32: W292 no newline at end of file
+./app/schemas/run.py:18:80: E501 line too long (85 > 79 characters)
+./app/schemas/run.py:19:80: E501 line too long (89 > 79 characters)
+./app/schemas/run.py:20:80: E501 line too long (91 > 79 characters)
+./app/schemas/run.py:21:80: E501 line too long (85 > 79 characters)
+./app/schemas/run.py:22:80: E501 line too long (96 > 79 characters)
+./app/schemas/run.py:27:80: E501 line too long (82 > 79 characters)
+./app/schemas/run.py:28:80: E501 line too long (85 > 79 characters)
+./app/schemas/run.py:33:80: E501 line too long (86 > 79 characters)
+./app/schemas/run.py:34:80: E501 line too long (91 > 79 characters)
+./app/schemas/run.py:35:80: E501 line too long (85 > 79 characters)
+./app/schemas/run.py:36:80: E501 line too long (81 > 79 characters)
+./app/schemas/run.py:37:80: E501 line too long (85 > 79 characters)
+./app/schemas/run.py:45:80: E501 line too long (85 > 79 characters)
+./app/schemas/run.py:46:80: E501 line too long (81 > 79 characters)
+./app/schemas/run.py:49:31: W291 trailing whitespace
+./app/schemas/run.py:49:32: W292 no newline at end of file
+./app/schemas/schedule.py:15:80: E501 line too long (90 > 79 characters)
+./app/schemas/schedule.py:17:80: E501 line too long (88 > 79 characters)
+./app/schemas/schedule.py:18:80: E501 line too long (103 > 79 characters)
+./app/schemas/schedule.py:19:80: E501 line too long (90 > 79 characters)
+./app/schemas/schedule.py:20:80: E501 line too long (101 > 79 characters)
+./app/schemas/schedule.py:21:80: E501 line too long (96 > 79 characters)
+./app/schemas/schedule.py:22:80: E501 line too long (96 > 79 characters)
+./app/schemas/schedule.py:27:80: E501 line too long (82 > 79 characters)
+./app/schemas/schedule.py:28:80: E501 line too long (85 > 79 characters)
+./app/schemas/schedule.py:34:80: E501 line too long (99 > 79 characters)
+./app/schemas/schedule.py:35:80: E501 line too long (96 > 79 characters)
+./app/schemas/schedule.py:36:80: E501 line too long (90 > 79 characters)
+./app/schemas/schedule.py:37:80: E501 line too long (101 > 79 characters)
+./app/schemas/schedule.py:38:80: E501 line too long (96 > 79 characters)
+./app/schemas/schedule.py:39:80: E501 line too long (96 > 79 characters)
+./app/schemas/schedule.py:40:80: E501 line too long (85 > 79 characters)
+./app/schemas/schedule.py:48:80: E501 line too long (97 > 79 characters)
+./app/schemas/schedule.py:49:80: E501 line too long (101 > 79 characters)
+./app/schemas/schedule.py:52:31: W291 trailing whitespace
+./app/schemas/schedule.py:52:32: W292 no newline at end of file
+./app/schemas/template.py:10:80: E501 line too long (82 > 79 characters)
+./app/schemas/template.py:11:80: E501 line too long (116 > 79 characters)
+./app/schemas/template.py:22:80: E501 line too long (87 > 79 characters)
+./app/schemas/template.py:23:80: E501 line too long (93 > 79 characters)
+./app/schemas/template.py:24:80: E501 line too long (127 > 79 characters)
+./app/schemas/template.py:25:80: E501 line too long (85 > 79 characters)
+./app/schemas/template.py:33:1: W293 blank line contains whitespace
+./app/schemas/template.py:35:31: W291 trailing whitespace
+./app/schemas/template.py:35:32: W292 no newline at end of file
+./app/services/__init__.py:3:5: W292 no newline at end of file
+./app/services/__init__.py:3:33: W291 trailing whitespace
+./app/services/project_service.py:1:1: F401 'typing.Optional' imported but unused
+./app/services/project_service.py:18:1: W293 blank line contains whitespace
+./app/services/project_service.py:21:1: W293 blank line contains whitespace
+./app/services/project_service.py:26:80: E501 line too long (99 > 79 characters)
+./app/services/project_service.py:29:80: E501 line too long (83 > 79 characters)
+./app/services/project_service.py:30:1: W293 blank line contains whitespace
+./app/services/project_service.py:40:1: W293 blank line contains whitespace
+./app/services/project_service.py:44:1: W293 blank line contains whitespace
+./app/services/project_service.py:47:1: W293 blank line contains whitespace
+./app/services/project_service.py:52:80: E501 line too long (112 > 79 characters)
+./app/services/project_service.py:55:80: E501 line too long (82 > 79 characters)
+./app/services/project_service.py:56:1: W293 blank line contains whitespace
+./app/services/project_service.py:58:80: E501 line too long (90 > 79 characters)
+./app/services/project_service.py:59:1: W293 blank line contains whitespace
+./app/services/project_service.py:71:1: W293 blank line contains whitespace
+./app/services/project_service.py:75:1: W293 blank line contains whitespace
+./app/services/project_service.py:82:1: W293 blank line contains whitespace
+./app/services/project_service.py:88:1: W293 blank line contains whitespace
+./app/services/project_service.py:91:1: W293 blank line contains whitespace
+./app/services/project_service.py:92:80: E501 line too long (80 > 79 characters)
+./app/services/project_service.py:95:80: E501 line too long (83 > 79 characters)
+./app/services/project_service.py:96:1: W293 blank line contains whitespace
+./app/services/project_service.py:103:80: E501 line too long (81 > 79 characters)
+./app/services/project_service.py:106:1: W293 blank line contains whitespace
+./app/services/project_service.py:111:1: W293 blank line contains whitespace
+./app/services/project_service.py:114:1: W293 blank line contains whitespace
+./app/services/project_service.py:121:1: W293 blank line contains whitespace
+./app/services/project_service.py:126:1: W293 blank line contains whitespace
+./app/services/project_service.py:127:80: E501 line too long (120 > 79 characters)
+./app/services/project_service.py:130:80: E501 line too long (83 > 79 characters)
+./app/services/project_service.py:131:1: W293 blank line contains whitespace
+./app/services/project_service.py:133:80: E501 line too long (90 > 79 characters)
+./app/services/project_service.py:134:1: W293 blank line contains whitespace
+./app/services/project_service.py:146:1: W293 blank line contains whitespace
+./app/services/project_service.py:150:1: W293 blank line contains whitespace
+./app/services/project_service.py:152:80: E501 line too long (90 > 79 characters)
+./app/services/project_service.py:157:1: W293 blank line contains whitespace
+./app/services/project_service.py:159:80: E501 line too long (109 > 79 characters)
+./app/services/project_service.py:162:80: E501 line too long (83 > 79 characters)
+./app/services/project_service.py:168:1: W391 blank line at end of file
+./app/services/run_service.py:18:1: W293 blank line contains whitespace
+./app/services/run_service.py:21:1: W293 blank line contains whitespace
+./app/services/run_service.py:27:1: W293 blank line contains whitespace
+./app/services/run_service.py:30:1: W293 blank line contains whitespace
+./app/services/run_service.py:32:1: W293 blank line contains whitespace
+./app/services/run_service.py:36:1: W293 blank line contains whitespace
+./app/services/run_service.py:46:1: W293 blank line contains whitespace
+./app/services/run_service.py:49:1: W293 blank line contains whitespace
+./app/services/run_service.py:52:1: W293 blank line contains whitespace
+./app/services/run_service.py:57:80: E501 line too long (80 > 79 characters)
+./app/services/run_service.py:61:1: W293 blank line contains whitespace
+./app/services/run_service.py:63:80: E501 line too long (86 > 79 characters)
+./app/services/run_service.py:64:1: W293 blank line contains whitespace
+./app/services/run_service.py:76:1: W293 blank line contains whitespace
+./app/services/run_service.py:79:1: W293 blank line contains whitespace
+./app/services/run_service.py:86:1: W293 blank line contains whitespace
+./app/services/run_service.py:92:1: W293 blank line contains whitespace
+./app/services/run_service.py:97:1: W293 blank line contains whitespace
+./app/services/run_service.py:107:1: W293 blank line contains whitespace
+./app/services/run_service.py:111:1: W293 blank line contains whitespace
+./app/services/run_service.py:114:1: W293 blank line contains whitespace
+./app/services/run_service.py:121:1: W293 blank line contains whitespace
+./app/services/run_service.py:126:1: W293 blank line contains whitespace
+./app/services/run_service.py:127:80: E501 line too long (88 > 79 characters)
+./app/services/run_service.py:131:1: W293 blank line contains whitespace
+./app/services/run_service.py:143:1: W293 blank line contains whitespace
+./app/services/run_service.py:146:1: W293 blank line contains whitespace
+./app/services/run_service.py:153:1: W293 blank line contains whitespace
+./app/services/run_service.py:166:80: W291 trailing whitespace
+./app/services/run_service.py:167:22: E128 continuation line under-indented for visual indent
+./app/services/run_service.py:167:80: E501 line too long (89 > 79 characters)
+./app/services/run_service.py:170:1: W293 blank line contains whitespace
+./app/services/run_service.py:176:1: W293 blank line contains whitespace
+./app/services/run_service.py:189:1: W293 blank line contains whitespace
+./app/services/run_service.py:192:1: W293 blank line contains whitespace
+./app/services/run_service.py:199:1: W293 blank line contains whitespace
+./app/services/run_service.py:200:80: E501 line too long (90 > 79 characters)
+./app/services/run_service.py:204:80: E501 line too long (87 > 79 characters)
+./app/services/run_service.py:204:88: W291 trailing whitespace
+./app/services/run_service.py:204:89: W292 no newline at end of file
+./app/services/schedule_service.py:1:1: F401 'typing.Dict' imported but unused
+./app/services/schedule_service.py:1:1: F401 'typing.Any' imported but unused
+./app/services/schedule_service.py:4:80: E501 line too long (89 > 79 characters)
+./app/services/schedule_service.py:7:1: F401 'app.services.run_service' imported but unused
+./app/services/schedule_service.py:22:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:25:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:31:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:34:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:36:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:39:80: E501 line too long (84 > 79 characters)
+./app/services/schedule_service.py:40:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:44:80: E501 line too long (92 > 79 characters)
+./app/services/schedule_service.py:44:93: W291 trailing whitespace
+./app/services/schedule_service.py:45:58: E128 continuation line under-indented for visual indent
+./app/services/schedule_service.py:45:80: E501 line too long (87 > 79 characters)
+./app/services/schedule_service.py:47:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:57:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:60:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:63:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:68:80: E501 line too long (85 > 79 characters)
+./app/services/schedule_service.py:71:80: E501 line too long (83 > 79 characters)
+./app/services/schedule_service.py:72:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:74:80: E501 line too long (91 > 79 characters)
+./app/services/schedule_service.py:75:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:78:80: E501 line too long (88 > 79 characters)
+./app/services/schedule_service.py:78:89: W291 trailing whitespace
+./app/services/schedule_service.py:79:54: E128 continuation line under-indented for visual indent
+./app/services/schedule_service.py:79:80: E501 line too long (83 > 79 characters)
+./app/services/schedule_service.py:80:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:92:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:95:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:102:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:105:80: E501 line too long (92 > 79 characters)
+./app/services/schedule_service.py:106:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:112:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:116:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:117:80: E501 line too long (82 > 79 characters)
+./app/services/schedule_service.py:120:80: E501 line too long (84 > 79 characters)
+./app/services/schedule_service.py:121:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:123:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:127:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:140:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:144:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:147:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:154:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:157:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:159:80: E501 line too long (98 > 79 characters)
+./app/services/schedule_service.py:160:80: E501 line too long (90 > 79 characters)
+./app/services/schedule_service.py:161:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:164:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:165:80: E501 line too long (93 > 79 characters)
+./app/services/schedule_service.py:168:80: E501 line too long (84 > 79 characters)
+./app/services/schedule_service.py:169:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:171:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:177:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:181:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:196:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:199:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:206:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:209:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:211:80: E501 line too long (82 > 79 characters)
+./app/services/schedule_service.py:214:80: E501 line too long (84 > 79 characters)
+./app/services/schedule_service.py:225:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:228:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:234:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:238:80: E501 line too long (84 > 79 characters)
+./app/services/schedule_service.py:239:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:241:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:262:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:263:80: E501 line too long (87 > 79 characters)
+./app/services/schedule_service.py:265:80: E501 line too long (87 > 79 characters)
+./app/services/schedule_service.py:272:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:275:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:281:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:285:80: E501 line too long (84 > 79 characters)
+./app/services/schedule_service.py:287:80: E501 line too long (93 > 79 characters)
+./app/services/schedule_service.py:289:80: E501 line too long (80 > 79 characters)
+./app/services/schedule_service.py:296:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:299:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:311:80: E501 line too long (89 > 79 characters)
+./app/services/schedule_service.py:314:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:318:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:325:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:329:80: E501 line too long (83 > 79 characters)
+./app/services/schedule_service.py:334:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:336:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:339:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:342:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:346:80: E501 line too long (87 > 79 characters)
+./app/services/schedule_service.py:351:80: E501 line too long (83 > 79 characters)
+./app/services/schedule_service.py:352:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:357:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:359:80: E501 line too long (95 > 79 characters)
+./app/services/schedule_service.py:360:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:364:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:368:80: E501 line too long (92 > 79 characters)
+./app/services/schedule_service.py:368:93: W291 trailing whitespace
+./app/services/schedule_service.py:369:58: E128 continuation line under-indented for visual indent
+./app/services/schedule_service.py:369:80: E501 line too long (87 > 79 characters)
+./app/services/schedule_service.py:372:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:373:80: E501 line too long (82 > 79 characters)
+./app/services/schedule_service.py:382:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:385:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:388:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:395:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:404:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:411:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:412:80: E501 line too long (90 > 79 characters)
+./app/services/schedule_service.py:413:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:417:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:418:80: E501 line too long (93 > 79 characters)
+./app/services/schedule_service.py:420:80: E501 line too long (89 > 79 characters)
+./app/services/schedule_service.py:421:80: E501 line too long (98 > 79 characters)
+./app/services/schedule_service.py:422:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:424:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:427:46: W291 trailing whitespace
+./app/services/schedule_service.py:430:1: W293 blank line contains whitespace
+./app/services/schedule_service.py:436:60: W291 trailing whitespace
+./app/services/schedule_service.py:436:61: W292 no newline at end of file
+./app/services/template_service.py:1:1: F401 'typing.Optional' imported but unused
+./app/services/template_service.py:1:1: F401 'typing.Dict' imported but unused
+./app/services/template_service.py:1:1: F401 'typing.Any' imported but unused
+./app/services/template_service.py:6:1: F401 'app.core.config.settings' imported but unused
+./app/services/template_service.py:8:1: F401 'json' imported but unused
+./app/services/template_service.py:33:80: E501 line too long (112 > 79 characters)
+./app/services/template_service.py:39:1: W293 blank line contains whitespace
+./app/services/template_service.py:46:1: W293 blank line contains whitespace
+./app/services/template_service.py:49:1: W293 blank line contains whitespace
+./app/services/template_service.py:52:80: E501 line too long (84 > 79 characters)
+./app/services/template_service.py:53:1: W293 blank line contains whitespace
+./app/services/template_service.py:63:1: W293 blank line contains whitespace
+./app/services/template_service.py:66:1: W293 blank line contains whitespace
+./app/services/template_service.py:69:1: W293 blank line contains whitespace
+./app/services/template_service.py:78:80: E501 line too long (87 > 79 characters)
+./app/services/template_service.py:79:1: W293 blank line contains whitespace
+./app/services/template_service.py:81:80: E501 line too long (85 > 79 characters)
+./app/services/template_service.py:82:1: W293 blank line contains whitespace
+./app/services/template_service.py:85:80: E501 line too long (83 > 79 characters)
+./app/services/template_service.py:86:1: W293 blank line contains whitespace
+./app/services/template_service.py:88:80: E501 line too long (91 > 79 characters)
+./app/services/template_service.py:89:1: W293 blank line contains whitespace
+./app/services/template_service.py:101:1: W293 blank line contains whitespace
+./app/services/template_service.py:104:1: W293 blank line contains whitespace
+./app/services/template_service.py:109:1: W293 blank line contains whitespace
+./app/services/template_service.py:117:1: W293 blank line contains whitespace
+./app/services/template_service.py:120:1: W293 blank line contains whitespace
+./app/services/template_service.py:122:1: W293 blank line contains whitespace
+./app/services/template_service.py:126:1: W293 blank line contains whitespace
+./app/services/template_service.py:130:1: W293 blank line contains whitespace
+./app/services/template_service.py:131:80: E501 line too long (82 > 79 characters)
+./app/services/template_service.py:132:1: W293 blank line contains whitespace
+./app/services/template_service.py:135:80: E501 line too long (84 > 79 characters)
+./app/services/template_service.py:136:1: W293 blank line contains whitespace
+./app/services/template_service.py:146:1: W293 blank line contains whitespace
+./app/services/template_service.py:150:1: W293 blank line contains whitespace
+./app/services/template_service.py:153:1: W293 blank line contains whitespace
+./app/services/template_service.py:158:80: E501 line too long (82 > 79 characters)
+./app/services/template_service.py:168:1: W293 blank line contains whitespace
+./app/services/template_service.py:170:80: E501 line too long (91 > 79 characters)
+./app/services/template_service.py:171:1: W293 blank line contains whitespace
+./app/services/template_service.py:175:1: W293 blank line contains whitespace
+./app/services/template_service.py:178:1: W293 blank line contains whitespace
+./app/services/template_service.py:182:1: W293 blank line contains whitespace
+./app/services/template_service.py:183:80: E501 line too long (93 > 79 characters)
+./app/services/template_service.py:184:1: W293 blank line contains whitespace
+./app/services/template_service.py:187:80: E501 line too long (84 > 79 characters)
+./app/services/template_service.py:188:1: W293 blank line contains whitespace
+./app/services/template_service.py:200:1: W293 blank line contains whitespace
+./app/services/template_service.py:203:1: W293 blank line contains whitespace
+./app/services/template_service.py:208:80: E501 line too long (82 > 79 characters)
+./app/services/template_service.py:214:1: W293 blank line contains whitespace
+./app/services/template_service.py:215:80: E501 line too long (87 > 79 characters)
+./app/services/template_service.py:216:1: W293 blank line contains whitespace
+./app/services/template_service.py:220:1: W293 blank line contains whitespace
+./app/services/template_service.py:222:80: E501 line too long (82 > 79 characters)
+./app/services/template_service.py:223:1: W293 blank line contains whitespace
+./app/services/template_service.py:226:80: E501 line too long (84 > 79 characters)
+./app/services/template_service.py:237:1: W293 blank line contains whitespace
+./app/services/template_service.py:246:80: E501 line too long (115 > 79 characters)
+./app/services/template_service.py:247:80: E501 line too long (104 > 79 characters)
+./app/services/template_service.py:269:80: E501 line too long (80 > 79 characters)
+./app/services/template_service.py:270:80: E501 line too long (80 > 79 characters)
+./app/services/template_service.py:292:80: E501 line too long (92 > 79 characters)
+./app/services/template_service.py:293:80: E501 line too long (87 > 79 characters)
+./app/services/template_service.py:321:1: W293 blank line contains whitespace
+./app/services/template_service.py:326:1: W293 blank line contains whitespace
+./app/services/template_service.py:330:1: W293 blank line contains whitespace
+./app/services/template_service.py:339:1: W293 blank line contains whitespace
+./app/services/template_service.py:342:1: W293 blank line contains whitespace
+./app/services/template_service.py:345:80: E501 line too long (105 > 79 characters)
+./app/services/template_service.py:346:1: W293 blank line contains whitespace
+./app/services/template_service.py:349:1: W293 blank line contains whitespace
+./app/services/template_service.py:353:80: E501 line too long (107 > 79 characters)
+./app/services/template_service.py:358:80: E501 line too long (85 > 79 characters)
+./app/services/template_service.py:360:1: W293 blank line contains whitespace
+./app/services/template_service.py:362:80: E501 line too long (92 > 79 characters)
+./app/services/template_service.py:364:1: W293 blank line contains whitespace
+./app/services/template_service.py:366:1: W293 blank line contains whitespace
+./app/services/template_service.py:371:60: W291 trailing whitespace
+./app/services/template_service.py:371:61: W292 no newline at end of file
+./app/typing_extensions.py:185:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:195:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:275:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:331:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:336:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:339:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:340:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:432:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:443:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:448:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:475:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:480:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:556:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:588:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:596:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:597:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:601:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:630:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:632:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:650:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:662:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:752:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:753:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:760:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:761:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:775:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:846:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:857:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:890:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:943:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:944:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:945:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:946:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:948:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:949:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:960:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:991:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:995:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:996:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:999:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1006:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1008:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:1020:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:1024:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1054:24: E127 continuation line over-indented for visual indent
+./app/typing_extensions.py:1102:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1119:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:1121:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1136:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1151:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1152:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1153:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1160:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:1167:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:1179:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:1188:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:1194:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:1195:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:1204:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:1262:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:1269:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:1291:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:1319:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:1354:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:1363:13: E124 closing bracket does not match visual indentation
+./app/typing_extensions.py:1366:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:1391:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:1392:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:1396:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:1398:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:1408:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1416:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:1434:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:1469:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:1532:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:1546:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:1556:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:1570:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:1649:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:1651:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:1655:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:1657:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:1675:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:1703:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:1726:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:1757:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:1778:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:1782:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1791:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:1804:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1807:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1830:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:1840:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:1855:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:1863:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1913:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:1946:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:1956:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:1957:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:1958:25: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:1982:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:2003:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:2017:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:2027:21: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:2028:21: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:2029:21: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:2045:9: F811 redefinition of unused '_ConcatenateGenericAlias' from line 2040
+./app/typing_extensions.py:2045:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2046:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2054:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2055:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2056:29: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:2057:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:2061:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2067:21: E701 multiple statements on one line (colon)
+./app/typing_extensions.py:2077:41: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:2078:41: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:2085:37: E127 continuation line over-indented for visual indent
+./app/typing_extensions.py:2090:41: E127 continuation line over-indented for visual indent
+./app/typing_extensions.py:2106:21: E127 continuation line over-indented for visual indent
+./app/typing_extensions.py:2117:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2136:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:2154:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2155:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2158:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2159:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2161:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2186:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2189:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2190:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2193:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2196:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2203:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2208:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:2209:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2212:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2213:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2215:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2240:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2243:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2244:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2247:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2258:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2259:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2262:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2263:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2265:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2294:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2301:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2306:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:2307:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2310:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2311:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2313:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2356:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2357:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2358:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:2360:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:2361:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2362:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2373:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2380:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2388:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:2389:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2390:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:2392:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:2393:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2394:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2546:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:2563:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:2570:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2575:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2611:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2625:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:2632:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2637:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2719:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2736:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:2753:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2771:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2824:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:2825:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:2838:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:2848:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:2867:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:2877:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:2881:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:2992:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:3006:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:3050:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:3051:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3055:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3064:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3091:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:3179:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3209:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:3228:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:3237:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:3252:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:3259:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3265:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:3297:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3308:9: E124 closing bracket does not match visual indentation
+./app/typing_extensions.py:3322:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3323:80: E501 line too long (84 > 79 characters)
+./app/typing_extensions.py:3330:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3331:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3345:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3347:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3352:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3362:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3367:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3368:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3383:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3392:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3403:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:3405:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:3434:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3446:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3450:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:3457:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3458:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3494:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3507:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3517:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:3518:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:3543:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:3549:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:3555:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:3564:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:3568:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:3577:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3589:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:3593:80: E501 line too long (89 > 79 characters)
+./app/typing_extensions.py:3596:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:3609:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:3656:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:3658:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:3662:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:3665:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:3680:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:3734:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:3805:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:3854:80: E501 line too long (152 > 79 characters)
+./app/typing_extensions.py:3894:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:3896:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:3907:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:3924:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:3929:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:3931:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:3934:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:3946:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:3961:80: E501 line too long (90 > 79 characters)
+./app/typing_extensions.py:4013:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:4023:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:4095:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:4096:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4099:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:4104:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4109:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4185:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4187:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:4188:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:4189:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:4190:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4194:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4203:80: E501 line too long (88 > 79 characters)
+./app/typing_extensions.py:4231:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:4247:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:4255:80: E501 line too long (86 > 79 characters)
+./app/typing_extensions.py:4284:13: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:4284:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4285:13: E128 continuation line under-indented for visual indent
+./app/typing_extensions.py:4285:42: E202 whitespace before '}'
+./app/typing_extensions.py:4315:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:4342:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4359:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:4392:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4427:80: E501 line too long (85 > 79 characters)
+./app/typing_extensions.py:4453:80: E501 line too long (82 > 79 characters)
+./app/typing_extensions.py:4454:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4455:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4456:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4458:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4459:80: E501 line too long (83 > 79 characters)
+./app/typing_extensions.py:4460:80: E501 line too long (80 > 79 characters)
+./app/typing_extensions.py:4504:18: E131 continuation line unaligned for hanging indent
+./app/typing_extensions.py:4511:80: E501 line too long (87 > 79 characters)
+./app/typing_extensions.py:4524:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4532:80: E501 line too long (81 > 79 characters)
+./app/typing_extensions.py:4546:80: E501 line too long (80 > 79 characters)
+./app/worker.py:1:1: F401 'celery.group' imported but unused
+./app/worker.py:4:1: F401 'time' imported but unused
+./app/worker.py:5:1: F401 'requests' imported but unused
+./app/worker.py:46:1: E302 expected 2 blank lines, found 1
+./app/worker.py:52:1: E302 expected 2 blank lines, found 1
+./app/worker.py:62:1: E302 expected 2 blank lines, found 1
+./app/worker.py:71:80: E501 line too long (85 > 79 characters)
+./app/worker.py:72:1: W293 blank line contains whitespace
+./app/worker.py:77:1: W293 blank line contains whitespace
+./app/worker.py:82:36: E261 at least two spaces before inline comment
+./app/worker.py:88:80: E501 line too long (111 > 79 characters)
+./app/worker.py:89:1: W293 blank line contains whitespace
+./app/worker.py:92:1: W293 blank line contains whitespace
+./app/worker.py:95:80: E501 line too long (80 > 79 characters)
+./app/worker.py:97:1: W293 blank line contains whitespace
+./app/worker.py:98:80: E501 line too long (85 > 79 characters)
+./app/worker.py:100:80: E501 line too long (129 > 79 characters)
+./app/worker.py:102:80: E501 line too long (82 > 79 characters)
+./app/worker.py:103:1: W293 blank line contains whitespace
+./app/worker.py:106:80: E501 line too long (112 > 79 characters)
+./app/worker.py:107:80: E501 line too long (87 > 79 characters)
+./app/worker.py:108:80: E501 line too long (98 > 79 characters)
+./app/worker.py:109:1: W293 blank line contains whitespace
+./app/worker.py:112:80: E501 line too long (127 > 79 characters)
+./app/worker.py:114:1: W293 blank line contains whitespace
+./app/worker.py:117:32: E261 at least two spaces before inline comment
+./app/worker.py:118:80: E501 line too long (88 > 79 characters)
+./app/worker.py:119:18: E111 indentation is not a multiple of 4
+./app/worker.py:119:18: E117 over-indented
+./app/worker.py:120:56: E261 at least two spaces before inline comment
+./app/worker.py:120:80: E501 line too long (87 > 79 characters)
+./app/worker.py:121:18: E111 indentation is not a multiple of 4
+./app/worker.py:121:18: E117 over-indented
+./app/worker.py:125:80: E501 line too long (120 > 79 characters)
+./app/worker.py:127:1: W293 blank line contains whitespace
+./app/worker.py:130:1: W293 blank line contains whitespace
+./app/worker.py:134:1: W293 blank line contains whitespace
+./app/worker.py:138:1: W293 blank line contains whitespace
+./app/worker.py:144:1: W293 blank line contains whitespace
+./app/worker.py:152:80: E501 line too long (81 > 79 characters)
+./app/worker.py:154:80: E501 line too long (81 > 79 characters)
+./app/worker.py:156:80: E501 line too long (93 > 79 characters)
+./app/worker.py:158:80: E501 line too long (81 > 79 characters)
+./app/worker.py:161:80: E501 line too long (127 > 79 characters)
+./app/worker.py:163:1: W293 blank line contains whitespace
+./app/worker.py:166:1: W293 blank line contains whitespace
+./app/worker.py:173:1: W293 blank line contains whitespace
+./app/worker.py:176:39: W291 trailing whitespace
+./app/worker.py:183:21: F841 local variable 'persisted_result' is assigned to but never used
+./app/worker.py:183:80: E501 line too long (89 > 79 characters)
+./app/worker.py:184:1: W293 blank line contains whitespace
+./app/worker.py:186:59: E261 at least two spaces before inline comment
+./app/worker.py:186:80: E501 line too long (99 > 79 characters)
+./app/worker.py:189:80: E501 line too long (97 > 79 characters)
+./app/worker.py:193:60: W291 trailing whitespace
+./app/worker.py:197:1: W293 blank line contains whitespace
+./app/worker.py:202:1: W293 blank line contains whitespace
+./app/worker.py:206:1: W293 blank line contains whitespace
+./app/worker.py:214:1: W293 blank line contains whitespace
+./app/worker.py:218:1: W293 blank line contains whitespace
+./app/worker.py:220:1: W293 blank line contains whitespace
+./app/worker.py:222:80: E501 line too long (80 > 79 characters)
+./app/worker.py:223:36: W291 trailing whitespace
+./app/worker.py:226:1: W293 blank line contains whitespace
+./app/worker.py:228:1: W293 blank line contains whitespace
+./app/worker.py:235:80: E501 line too long (110 > 79 characters)
+./app/worker.py:235:111: W291 trailing whitespace
+./app/worker.py:242:1: W293 blank line contains whitespace
+./app/worker.py:243:80: E501 line too long (113 > 79 characters)
+./app/worker.py:247:48: W291 trailing whitespace
+./app/worker.py:251:1: W293 blank line contains whitespace
+./app/worker.py:256:43: E261 at least two spaces before inline comment
+./app/worker.py:256:80: E501 line too long (84 > 79 characters)
+./app/worker.py:260:1: W293 blank line contains whitespace
+./app/worker.py:262:41: E261 at least two spaces before inline comment
+./app/worker.py:264:80: E501 line too long (139 > 79 characters)
+./app/worker.py:265:1: W293 blank line contains whitespace
+./app/worker.py:268:80: E501 line too long (94 > 79 characters)
+./app/worker.py:269:80: E501 line too long (116 > 79 characters)
+./app/worker.py:271:26: E261 at least two spaces before inline comment
+./app/worker.py:271:80: E501 line too long (122 > 79 characters)
+./app/worker.py:272:14: E114 indentation is not a multiple of 4 (comment)
+./app/worker.py:272:14: E117 over-indented (comment)
+./app/worker.py:272:80: E501 line too long (85 > 79 characters)
+./app/worker.py:273:80: E501 line too long (131 > 79 characters)
+./app/worker.py:273:128: E202 whitespace before '}'
+./app/worker.py:280:21: E261 at least two spaces before inline comment
+./app/worker.py:288:1: W293 blank line contains whitespace
+./app/worker.py:293:1: W293 blank line contains whitespace
+./app/worker.py:298:1: W293 blank line contains whitespace
+./app/worker.py:301:1: W293 blank line contains whitespace
+./app/worker.py:306:1: W293 blank line contains whitespace
+./app/worker.py:309:1: W293 blank line contains whitespace
+./app/worker.py:314:1: W293 blank line contains whitespace
+./app/worker.py:316:21: F841 local variable 'element' is assigned to but never used
+./app/worker.py:317:1: W293 blank line contains whitespace
+./app/worker.py:326:1: W293 blank line contains whitespace
+./app/worker.py:329:80: E501 line too long (109 > 79 characters)
+./app/worker.py:331:1: W293 blank line contains whitespace
+./app/worker.py:335:1: W293 blank line contains whitespace
+./app/worker.py:343:1: W293 blank line contains whitespace
+./app/worker.py:349:1: W293 blank line contains whitespace
+./app/worker.py:350:13: F841 local variable 'result' is assigned to but never used
+./app/worker.py:358:1: W293 blank line contains whitespace
+./app/worker.py:361:1: W293 blank line contains whitespace
+./app/worker.py:369:1: W293 blank line contains whitespace
+./app/worker.py:384:1: W293 blank line contains whitespace
+./app/worker.py:393:1: W293 blank line contains whitespace
+./app/worker.py:398:1: W293 blank line contains whitespace
+./app/worker.py:407:1: W293 blank line contains whitespace
+./app/worker.py:414:1: W293 blank line contains whitespace
+./app/worker.py:422:1: W293 blank line contains whitespace
+./app/worker.py:431:1: W293 blank line contains whitespace
+./app/worker.py:438:1: W293 blank line contains whitespace
+./app/worker.py:446:1: W293 blank line contains whitespace
+./app/worker.py:456:1: W293 blank line contains whitespace
+./app/worker.py:461:1: W293 blank line contains whitespace
+./app/worker.py:465:80: E501 line too long (93 > 79 characters)
+./app/worker.py:466:1: W293 blank line contains whitespace
+./app/worker.py:469:1: W293 blank line contains whitespace
+./app/worker.py:478:1: W293 blank line contains whitespace
+./app/worker.py:484:1: W293 blank line contains whitespace
+./app/worker.py:488:1: W293 blank line contains whitespace
+./app/worker.py:492:1: W293 blank line contains whitespace
+./app/worker.py:495:1: W293 blank line contains whitespace
+./app/worker.py:498:1: W293 blank line contains whitespace
+./app/worker.py:500:1: W293 blank line contains whitespace
+./app/worker.py:502:1: W293 blank line contains whitespace
+./app/worker.py:508:1: W293 blank line contains whitespace
+./app/worker.py:511:1: W293 blank line contains whitespace
+./app/worker.py:519:1: W293 blank line contains whitespace
+./app/worker.py:527:80: E501 line too long (95 > 79 characters)
+./app/worker.py:528:1: W293 blank line contains whitespace
+./app/worker.py:537:14: W291 trailing whitespace
+./app/worker.py:539:1: E302 expected 2 blank lines, found 1
+./app/worker.py:544:1: W293 blank line contains whitespace
+./app/worker.py:549:1: W293 blank line contains whitespace
+./app/worker.py:556:1: W293 blank line contains whitespace
+./app/worker.py:560:1: W293 blank line contains whitespace
+./app/worker.py:563:1: W293 blank line contains whitespace
+./app/worker.py:567:1: W293 blank line contains whitespace
+./app/worker.py:579:80: E501 line too long (89 > 79 characters)
+./app/worker.py:584:80: E501 line too long (123 > 79 characters)
+./app/worker.py:586:1: W293 blank line contains whitespace
+./app/worker.py:589:1: W293 blank line contains whitespace
+./app/worker.py:596:1: W293 blank line contains whitespace
+./app/worker.py:599:35: W291 trailing whitespace
+./app/worker.py:605:1: W293 blank line contains whitespace
+./app/worker.py:607:17: F841 local variable 'persisted_result' is assigned to but never used
+./app/worker.py:607:80: E501 line too long (85 > 79 characters)
+./app/worker.py:608:1: W293 blank line contains whitespace
+./app/worker.py:611:80: E501 line too long (111 > 79 characters)
+./app/worker.py:613:80: E501 line too long (92 > 79 characters)
+./app/worker.py:614:80: E501 line too long (118 > 79 characters)
+./app/worker.py:615:1: W293 blank line contains whitespace
+./app/worker.py:617:80: E501 line too long (93 > 79 characters)
+./app/worker.py:618:1: W293 blank line contains whitespace
+./app/worker.py:625:1: W293 blank line contains whitespace
+./app/worker.py:627:80: E501 line too long (83 > 79 characters)
+./app/worker.py:629:1: W293 blank line contains whitespace
+./app/worker.py:630:80: E501 line too long (86 > 79 characters)
+./app/worker.py:633:1: W293 blank line contains whitespace
+./app/worker.py:641:1: W293 blank line contains whitespace
+./app/worker.py:644:1: W293 blank line contains whitespace
+./app/worker.py:647:32: W291 trailing whitespace
+./app/worker.py:650:1: W293 blank line contains whitespace
+./app/worker.py:651:80: E501 line too long (95 > 79 characters)
+./app/worker.py:660:80: E501 line too long (84 > 79 characters)
+./app/worker.py:667:21: W291 trailing whitespace
+./app/worker.py:667:22: W292 no newline at end of file
+./tests/api/test_schedules.py:6:1: F401 'json' imported but unused
+./tests/api/test_schedules.py:20:1: E302 expected 2 blank lines, found 1
+./tests/api/test_schedules.py:35:1: W293 blank line contains whitespace
+./tests/api/test_schedules.py:55:80: E501 line too long (86 > 79 characters)
+./tests/api/test_schedules.py:67:80: E501 line too long (80 > 79 characters)
+./tests/api/test_schedules.py:83:1: W293 blank line contains whitespace
+./tests/api/test_schedules.py:102:80: E501 line too long (93 > 79 characters)
+./tests/api/test_schedules.py:113:80: E501 line too long (96 > 79 characters)
+./tests/api/test_schedules.py:124:80: E501 line too long (95 > 79 characters)
+./tests/api/test_schedules.py:135:80: E501 line too long (89 > 79 characters)
+./tests/api/test_schedules.py:139:80: E501 line too long (86 > 79 characters)
+./tests/api/test_schedules.py:140:65: W291 trailing whitespace
+./tests/api/test_schedules.py:140:66: W292 no newline at end of file
+./tests/api/test_templates.py:5:1: F401 'json' imported but unused
+./tests/api/test_templates.py:28:1: E302 expected 2 blank lines, found 1
+./tests/api/test_templates.py:42:1: W293 blank line contains whitespace
+./tests/api/test_templates.py:62:80: E501 line too long (86 > 79 characters)
+./tests/api/test_templates.py:76:1: W293 blank line contains whitespace
+./tests/api/test_templates.py:99:80: E501 line too long (89 > 79 characters)
+./tests/api/test_templates.py:106:80: E501 line too long (89 > 79 characters)
+./tests/api/test_templates.py:110:80: E501 line too long (86 > 79 characters)
+./tests/api/test_templates.py:111:65: W291 trailing whitespace
+./tests/api/test_templates.py:111:66: W292 no newline at end of file
+./tests/conftest.py:7:1: E302 expected 2 blank lines, found 1
+./tests/conftest.py:12:1: W293 blank line contains whitespace
+./tests/conftest.py:15:1: W293 blank line contains whitespace
+./tests/conftest.py:18:1: W293 blank line contains whitespace
+./tests/conftest.py:22:1: E302 expected 2 blank lines, found 1
+./tests/conftest.py:25:27: W291 trailing whitespace
+./tests/conftest.py:25:28: W292 no newline at end of file
+./tests/test_auth.py:1:1: F401 'pytest' imported but unused
+./tests/test_auth.py:5:1: F401 'app.core.auth.get_current_user' imported but unused
+./tests/test_auth.py:10:19: W291 trailing whitespace
+./tests/test_auth.py:31:1: E302 expected 2 blank lines, found 1
+./tests/test_auth.py:36:1: E302 expected 2 blank lines, found 1
+./tests/test_auth.py:44:1: E302 expected 2 blank lines, found 1
+./tests/test_auth.py:50:1: E302 expected 2 blank lines, found 1
+./tests/test_auth.py:50:80: E501 line too long (84 > 79 characters)
+./tests/test_auth.py:55:1: W293 blank line contains whitespace
+./tests/test_auth.py:58:1: W293 blank line contains whitespace
+./tests/test_auth.py:59:1: E302 expected 2 blank lines, found 1
+./tests/test_auth.py:59:80: E501 line too long (86 > 79 characters)
+./tests/test_auth.py:64:1: W293 blank line contains whitespace
+./tests/test_auth.py:69:1: E302 expected 2 blank lines, found 1
+./tests/test_auth.py:73:1: W293 blank line contains whitespace
+./tests/test_auth.py:76:1: W293 blank line contains whitespace
+./tests/test_auth.py:77:1: E302 expected 2 blank lines, found 1
+./tests/test_auth.py:78:80: E501 line too long (84 > 79 characters)
+./tests/test_auth.py:83:1: W293 blank line contains whitespace
+./tests/test_auth.py:86:1: W293 blank line contains whitespace
+./tests/test_auth.py:88:65: W291 trailing whitespace
+./tests/test_auth.py:88:66: W292 no newline at end of file
+./tests/test_projects_api.py:20:5: E722 do not use bare 'except'
+./tests/test_projects_api.py:28:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:31:80: E501 line too long (80 > 79 characters)
+./tests/test_projects_api.py:33:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:36:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:48:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:51:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:63:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:66:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:78:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:83:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:86:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:98:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:101:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:104:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:121:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:127:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:130:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:133:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:136:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:139:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:147:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:150:80: E501 line too long (81 > 79 characters)
+./tests/test_projects_api.py:155:80: E501 line too long (81 > 79 characters)
+./tests/test_projects_api.py:157:1: W293 blank line contains whitespace
+./tests/test_projects_api.py:159:20: W291 trailing whitespace
+./tests/test_projects_api.py:159:21: W292 no newline at end of file
+./tests/test_runs_api.py:8:1: F401 'datetime.datetime' imported but unused
+./tests/test_runs_api.py:19:5: E722 do not use bare 'except'
+./tests/test_runs_api.py:27:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:30:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:42:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:49:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:61:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:64:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:76:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:81:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:84:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:96:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:99:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:102:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:119:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:122:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:128:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:131:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:134:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:137:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:145:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:148:80: E501 line too long (81 > 79 characters)
+./tests/test_runs_api.py:153:80: E501 line too long (81 > 79 characters)
+./tests/test_runs_api.py:155:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:157:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:161:80: E501 line too long (80 > 79 characters)
+./tests/test_runs_api.py:164:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:170:1: W293 blank line contains whitespace
+./tests/test_runs_api.py:171:30: W291 trailing whitespace
+./tests/test_runs_api.py:171:31: W292 no newline at end of file
+Error: Process completed with exit code 1.

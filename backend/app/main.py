@@ -8,6 +8,16 @@ import sentry_sdk
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
+# Define a hook to filter sensitive data before sending to Sentry
+def before_send(event, hint):
+    # You can modify the event here to remove sensitive data
+    # Example: scrubbing sensitive headers
+    if 'request' in event and 'headers' in event['request']:
+        if 'authorization' in event['request']['headers']:
+            event['request']['headers']['authorization'] = '[Filtered]'
+    
+    return event
+
 # Initialize Sentry
 sentry_sdk.init(
     dsn=settings.SENTRY_DSN,
@@ -18,6 +28,11 @@ sentry_sdk.init(
     # Set to True to capture potentially sensitive data (URL, headers, etc.)
     send_default_pii=False,
     environment=settings.ENVIRONMENT,
+    before_send=before_send,
+    # Add release information if available
+    release=settings.VERSION if hasattr(settings, 'VERSION') else None,
+    # Add server_name if you want to identify which server instance sent the event
+    server_name=settings.SERVER_NAME if hasattr(settings, 'SERVER_NAME') else None,
 )
 
 # Import routers
