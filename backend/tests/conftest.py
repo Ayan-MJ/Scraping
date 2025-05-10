@@ -8,6 +8,21 @@ from fastapi.testclient import TestClient
 app_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, app_path)
 
+# Mock croniter module if not available
+try:
+    import croniter
+except ImportError:
+    print("Croniter not found, creating mock module")
+    import types
+    croniter = types.ModuleType('croniter')
+    croniter.croniter = type('croniter', (), {
+        '__init__': lambda *args, **kwargs: None,
+        'get_next': lambda self: None,
+        'get_prev': lambda self: None,
+        'get_current': lambda self: None
+    })
+    sys.modules['croniter'] = croniter
+
 # Load environment variables from .env.test BEFORE importing app
 env_file = ".env.test"
 if os.path.exists(env_file):
