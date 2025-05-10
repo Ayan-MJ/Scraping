@@ -12,7 +12,7 @@ COPY pyproject.toml ./
 RUN poetry config virtualenvs.create false
 
 # Install dependencies
-RUN poetry install --without dev --no-interaction --no-ansi
+RUN poetry install --without dev --no-interaction --no-ansi --no-root
 
 # Install Playwright browsers
 RUN apt-get update && apt-get install -y wget gnupg && \

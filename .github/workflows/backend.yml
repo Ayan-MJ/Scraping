@@ -24,7 +24,7 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           
       - name: Install dependencies
-        run: poetry install --without dev
+        run: poetry install --without dev --no-root
         working-directory: backend
         
       - name: Lint
