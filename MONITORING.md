@@ -167,3 +167,48 @@ sentry_sdk.add_breadcrumb(
 - Configure privacy settings appropriately in both services
 - Use the `beforeSend` hook in Sentry to filter sensitive data
 - Review LogRocket's privacy settings to limit recording of sensitive fields 
+
+## Test Page
+
+We've created a dedicated test page to verify both Sentry and LogRocket integrations are working correctly:
+
+- **URL:** `/debug/monitoring`
+- **Components:**
+  - `SentryTest` - Triggers and captures test errors
+  - `LogRocketTest` - Logs events and identifies test users
+
+This page is useful during development to ensure monitoring tools are correctly configured before deploying to production.
+
+## Troubleshooting
+
+### Sentry Installation Issues
+
+If you encounter issues installing the Sentry SDK:
+
+1. Try installing with legacy peer dependencies:
+   ```bash
+   npm install @sentry/nextjs --legacy-peer-deps
+   ```
+
+2. Clear npm cache and try again:
+   ```bash
+   npm cache clean --force
+   npm install @sentry/nextjs
+   ```
+   
+3. Check Next.js version compatibility with the Sentry SDK
+
+### Common Issues
+
+1. **Missing DSN:** Ensure the DSN environment variables are set correctly
+2. **Error not showing in Sentry:** Confirm the environment is properly configured
+3. **Browser errors not captured:** Check that the Sentry browser SDK is properly initialized
+4. **LogRocket not recording sessions:** Verify that the app ID is correctly set and the initialization code runs
+
+## Performance Considerations
+
+- Both Sentry and LogRocket add some overhead to your application
+- In production, consider:
+  - Lowering the trace sample rate for Sentry
+  - Using LogRocket's sampling features for high-traffic applications
+  - Setting up alerting thresholds in both tools to get notified of issues 

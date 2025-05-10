@@ -56,4 +56,4 @@ async def seed_templates():
     """
     Seed initial templates for public tender sites.
     """
-    return await template_service.seed_initial_templates() 
+    return await template_service.seed_initial_templates()

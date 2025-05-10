@@ -77,4 +77,4 @@ async def run_schedule_now(id: int):
     """
     Trigger a schedule to run immediately.
     """
-    return await schedule_service.trigger_schedule(id) 
+    return await schedule_service.trigger_schedule(id)

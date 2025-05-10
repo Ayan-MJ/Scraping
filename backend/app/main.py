@@ -8,6 +8,16 @@ import sentry_sdk
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
+# Define a hook to filter sensitive data before sending to Sentry
+def before_send(event, hint):
+    # You can modify the event here to remove sensitive data
+    # Example: scrubbing sensitive headers
+    if 'request' in event and 'headers' in event['request']:
+        if 'authorization' in event['request']['headers']:
+            event['request']['headers']['authorization'] = '[Filtered]'
+
+    return event
+
 # Initialize Sentry
 sentry_sdk.init(
     dsn=settings.SENTRY_DSN,
@@ -18,6 +28,11 @@ sentry_sdk.init(
     # Set to True to capture potentially sensitive data (URL, headers, etc.)
     send_default_pii=False,
     environment=settings.ENVIRONMENT,
+    before_send=before_send,
+    # Add release information if available
+    release=settings.VERSION if hasattr(settings, 'VERSION') else None,
+    # Add server_name if you want to identify which server instance sent the event
+    server_name=settings.SERVER_NAME if hasattr(settings, 'SERVER_NAME') else None,
 )
 
 # Import routers
@@ -27,25 +42,25 @@ app = FastAPI(
     title="Scraping Wizard API",
     description="""
     API for a no-code web-scraping platform.
-    
+
     ## Features
-    
+
     * **Projects** - Manage web scraping projects
     * **Runs** - Manage individual scraping run instances
     * **Schedules** - Configure recurring scraping jobs
     * **Templates** - Manage scraping templates for different websites
     * **Results** - Access scraped data from completed runs
-    
+
     ## Authentication
-    
-    This API uses Supabase Auth for authentication. 
-    
+
+    This API uses Supabase Auth for authentication.
+
     All authenticated endpoints require a valid JWT token from Supabase Auth.
-    Pass the token in the Authorization header as a Bearer token: 
+    Pass the token in the Authorization header as a Bearer token:
     `Authorization: Bearer your-jwt-token`.
-    
+
     If authentication fails, a 401 Unauthorized response will be returned.
-    
+
     To obtain a token for testing, you can:
     1. Use the Supabase UI to sign in and copy the token
     2. Use the Supabase JS or other client to sign in programmatically
@@ -79,7 +94,7 @@ app.include_router(stream.router, prefix=settings.API_V1_STR, tags=["stream"])
 async def health_check():
     """
     Health check endpoint to verify the API is running.
-    
+
     Returns:
         dict: Status message
     """
@@ -91,7 +106,7 @@ async def test_sentry():
     """
     Endpoint to trigger a test error for Sentry.
     This endpoint intentionally raises an exception to test Sentry integration.
-    
+
     Only available in development.
     """
     if settings.ENVIRONMENT == "development":
@@ -107,11 +122,11 @@ async def startup_event():
     # Commented out for now as we need to initialize the database tables first
     # from app.services import schedule_service
     # await schedule_service.load_and_register_schedules()
-    
+
     # Create templates table for testing
     try:
         from app.core.supabase import supabase
-        
+
         # Create templates table if it doesn't exist
         result = supabase.rpc(
             "create_templates_table_if_not_exists",
@@ -129,11 +144,11 @@ async def startup_event():
                 """
             }
         ).execute()
-        
+
         print("Templates table ready for testing")
     except Exception as e:
         print(f"Error creating templates table: {e}")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True) 
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

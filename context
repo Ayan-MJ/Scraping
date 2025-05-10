@@ -1,32 +1,45 @@
 You are Cursor, an AI coding assistant.
-Repo: github.com/Ayan-MJ/scraping-wizard
+Repo: github.com/Ayan-MJ/scraping
 
-Current State:
-- Frontend: Next.js app in `frontend/`, fully wired to backend and Supabase Auth.
-- Backend: FastAPI service in `backend/`, containerized via Docker, connected to Supabase and Redis.
+Frontend:
+- Next.js (App Router), TypeScript, React Query, Tailwind.
+- Already integrated with Supabase Auth, SSE, Axios API client.
 
-Next Objective:
-Create GitHub Actions workflows for automated CI/CD:
+Backend:
+- FastAPI service, Celery worker, Playwright.
+- Dockerized, deployed to AWS ECS.
 
-1. **frontend/.github/workflows/frontend.yml**  
-   - Trigger: `push` and `pull_request` on `main`
-   - Steps:
-     • actions/checkout  
-     • setup-node@v3 (use Node 16)  
-     • `npm ci`, `npm run lint`, `npm test`, `npm run build` in `frontend/`  
-     • Deploy to Vercel via `amondnet/vercel-action@v20` using secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+Next Objective: Instrument both frontend and backend with Sentry for error and performance monitoring, and add LogRocket (or GA4) for frontend session analytics.
 
-2. **backend/.github/workflows/backend.yml**  
-   - Trigger: `push` and `pull_request` on `main`
-   - Steps:
-     • actions/checkout  
-     • setup-python@v4 (use Python 3.10)  
-     • Install Poetry, then `poetry install --no-dev` in `backend/`  
-     • `poetry run flake8` and `poetry run pytest`  
-     • Build Docker image `scraping-wizard-api:latest`  
-     • Log in and push to GitHub Container Registry (use secret `CR_PAT`)  
-     • Deploy to AWS ECS via AWS CLI, using secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `ECS_CLUSTER`, `ECS_SERVICE`
+Details:
+1. **Frontend (Next.js)**  
+   - Install `@sentry/nextjs` and configure DSN via `NEXT_PUBLIC_SENTRY_DSN`.  
+   - Wrap `_app.tsx` with Sentry’s `withSentry`.  
+   - Capture performance metrics (tracesSampleRate=0.2).  
+   - Optionally install `logrocket` and initialize in `_app.tsx` with `LOGROCKET_APP_ID`.
 
-Environment & Secrets:
-- Frontend: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`  
-- Backend: `CR_PAT`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `ECS_CLUSTER`, `ECS_SERVICE`  
+2. **Backend (FastAPI)**  
+   - Install `sentry-sdk[fastapi]`.  
+   - In `app/main.py`, initialize Sentry with:
+     ```python
+     import sentry_sdk
+     from sentry_sdk.integrations.fastapi import FastApiIntegration
+
+     sentry_sdk.init(
+         dsn=settings.SENTRY_DSN,
+         integrations=[FastApiIntegration()],
+         traces_sample_rate=0.1,
+     )
+     ```
+   - Wrap Celery tasks to capture exceptions automatically (using `CeleryIntegration`).
+
+3. **Environment & Secrets**  
+   - Add `NEXT_PUBLIC_SENTRY_DSN` to frontend env.  
+   - Add `SENTRY_DSN` to backend env.  
+   - Ensure sensitive keys are stored securely in GitHub Secrets.
+
+4. **Verification**  
+   - Trigger a test exception on frontend (e.g., in a dev-only route) and confirm it shows up in Sentry.  
+   - Throw a test error in a FastAPI endpoint and confirm backend capture.
+
+Keep existing code style, async/await, and ensure no break in functionality.
