@@ -70,8 +70,8 @@ jobs:
         
       - name: Install additional packages
         run: |
-          poetry add requests sentry-sdk croniter --group dev
-          pip install croniter
+          poetry add requests sentry-sdk croniter ormar --group dev
+          pip install croniter ormar
         working-directory: backend
         
       - name: Create test configuration

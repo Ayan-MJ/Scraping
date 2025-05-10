@@ -37,7 +37,7 @@ except ImportError:
             return mock_response
 
 # Mock dependencies that might not be available in CI environment
-MOCK_MODULES = ['croniter', 'playwright', 'redis', 'celery']
+MOCK_MODULES = ['croniter', 'playwright', 'redis', 'celery', 'ormar']
 for module_name in MOCK_MODULES:
     try:
         __import__(module_name)
@@ -75,6 +75,16 @@ for module_name in MOCK_MODULES:
             sys.modules['celery.schedules'] = mock_module.schedules
         elif module_name == 'redis':
             mock_module.Redis = MockRedis
+        elif module_name == 'ormar':
+            # Create basic ORM fields
+            mock_module.Model = type('Model', (), {})
+            mock_module.Integer = lambda **kwargs: None
+            mock_module.String = lambda **kwargs: None
+            mock_module.Text = lambda **kwargs: None
+            mock_module.JSON = lambda **kwargs: None
+            mock_module.DateTime = lambda **kwargs: None
+            mock_module.Boolean = lambda **kwargs: None
+            mock_module.ForeignKey = lambda model, **kwargs: None
 
 # Load environment variables from .env.test BEFORE importing app
 env_file = ".env.test"
