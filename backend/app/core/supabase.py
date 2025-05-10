@@ -20,4 +20,4 @@ def get_supabase_client() -> Client:
         raise
 
 # Create a singleton instance
-supabase = get_supabase_client() 
+supabase = get_supabase_client()

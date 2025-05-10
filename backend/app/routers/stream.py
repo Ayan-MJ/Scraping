@@ -17,7 +17,7 @@ router = APIRouter()
 @router.get("/runs/{run_id}/stream")
 async def stream_run_events(run_id: int, request: Request): # Added Request to check client connection
     """Streams events for a given scrape run_id using Server-Sent Events."""
-    
+
     # Initialize Redis connection within the endpoint handler
     # This ensures a fresh connection for each client, or use a shared pool
     try:
@@ -46,11 +46,11 @@ async def stream_run_events(run_id: int, request: Request): # Added Request to c
                         # However, the original request asked for f"data: {json.dumps(payload)}\n\n"
                         # Let's assume the worker sends a JSON string that IS the payload for SSE's `data` field.
                         # If worker sends a JSON string representing the *event object* {"type": ..., "data": ...}, then parse and reformat.
-                        
+
                         # Based on worker: {"type": event_type, "data": data_dict}
                         # We should send this entire structure as the event data for the client to parse.
                         event_data_to_send = json.loads(payload_str) # Parse the JSON string from Redis
-                        
+
                         yield {"event": event_data_to_send.get("type", "message"), "data": json.dumps(event_data_to_send.get("data"))}
                         # Example: yield {"event": "record", "data": json.dumps(record_data)}
                         # Example: yield {"event": "status", "data": json.dumps(status_data)}
@@ -64,7 +64,7 @@ async def stream_run_events(run_id: int, request: Request): # Added Request to c
                 else:
                     # Send a comment to keep the connection alive if no message
                     yield {"event": "ping", "data": json.dumps({"timestamp": datetime.utcnow().isoformat()})}
-                
+
                 await asyncio.sleep(0.1) # Small delay to prevent tight loop if Redis connection is problematic
 
         except asyncio.CancelledError:
@@ -82,4 +82,4 @@ async def stream_run_events(run_id: int, request: Request): # Added Request to c
     return EventSourceResponse(event_generator(), media_type="text/event-stream")
 
 # Need to import datetime for the ping event
-from datetime import datetime 
+from datetime import datetime

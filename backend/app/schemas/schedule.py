@@ -49,4 +49,4 @@ class Schedule(ScheduleBase):
     next_run: Optional[datetime] = Field(None, description="Next time the schedule will be executed")
 
     class Config:
-        from_attributes = True 
+        from_attributes = True

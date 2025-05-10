@@ -19,7 +19,7 @@ async def get_current_user(
 ):
     """
     Validate the JWT token and return the user.
-    
+
     This dependency can be used in any endpoint that requires authentication.
     """
     token = credentials.credentials
@@ -29,7 +29,7 @@ async def get_current_user(
         user = response.user
         if not user:
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, 
+                status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid authentication credentials"
             )
         return user
@@ -37,4 +37,4 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Invalid authentication credentials: {str(e)}",
-        ) 
+        )
