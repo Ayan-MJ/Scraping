@@ -10,6 +10,17 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
+    services:
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
     steps:
       - uses: actions/checkout@v3
       
@@ -31,6 +42,20 @@ jobs:
         run: poetry add requests sentry-sdk --group dev
         working-directory: backend
         
+      - name: Create test configuration
+        run: |
+          echo "ENVIRONMENT=test" > .env.test
+          echo "USE_INMEM_DB=true" >> .env.test
+          echo "SUPABASE_URL=https://example.com" >> .env.test
+          echo "SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test" >> .env.test
+          echo "SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test-service" >> .env.test
+          echo "REDIS_HOST=localhost" >> .env.test
+          echo "REDIS_PORT=6379" >> .env.test
+          echo "CELERY_BROKER_URL=redis://localhost:6379/0" >> .env.test
+          echo "CELERY_RESULT_BACKEND=redis://localhost:6379/0" >> .env.test
+          echo "SENTRY_DSN=${{ secrets.SENTRY_DSN || '' }}" >> .env.test
+        working-directory: backend
+        
       - name: Install test tools outside Poetry
         run: pip install flake8 pytest
         working-directory: backend
@@ -43,15 +68,23 @@ jobs:
         run: poetry run pytest --maxfail=1 --disable-warnings -q
         working-directory: backend
         env:
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           ENVIRONMENT: 'test'
+          USE_INMEM_DB: 'true'
+          SUPABASE_URL: 'https://example.com'
+          SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test'
+          SUPABASE_SERVICE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test-service'
+          REDIS_HOST: 'localhost'
+          REDIS_PORT: '6379'
+          CELERY_BROKER_URL: 'redis://localhost:6379/0'
+          CELERY_RESULT_BACKEND: 'redis://localhost:6379/0'
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN || '' }}
         
       - name: Build Docker image
         if: github.ref == 'refs/heads/main'
         run: |
           # Add build args for Sentry
           docker build \
-            --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN }} \
+            --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN || '' }} \
             --build-arg ENVIRONMENT=production \
             -t ghcr.io/${{ github.repository }}/scraping-wizard-api:latest ./backend
         
