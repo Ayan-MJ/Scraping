@@ -27,8 +27,8 @@ jobs:
         run: poetry install --without dev --no-root
         working-directory: backend
         
-      - name: Install development tools
-        run: pip install flake8 pytest sentry-sdk
+      - name: Install development tools and required packages
+        run: pip install flake8 pytest sentry-sdk requests
         working-directory: backend
         
       - name: Lint
