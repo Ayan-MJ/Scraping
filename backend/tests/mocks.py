@@ -131,4 +131,4 @@ class MockRPC:
         response = MagicMock()
         response.data = {}
         response.error = None
-        return response 
+        return response
