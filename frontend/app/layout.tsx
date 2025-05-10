@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from './providers'
+import { DashboardHeader } from '@/components/dashboard-header'
 
 export const metadata: Metadata = {
   title: 'Scraping Wizard',
@@ -15,9 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen flex flex-col bg-[#F9FAFB]">
         <Providers>
-          {children}
+          <DashboardHeader />
+          <div className="flex-1">
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

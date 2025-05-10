@@ -21,7 +21,17 @@ app = FastAPI(
     
     ## Authentication
     
-    This API uses Supabase for authentication. All endpoints require authentication.
+    This API uses Supabase Auth for authentication. 
+    
+    All authenticated endpoints require a valid JWT token from Supabase Auth.
+    Pass the token in the Authorization header as a Bearer token: 
+    `Authorization: Bearer your-jwt-token`.
+    
+    If authentication fails, a 401 Unauthorized response will be returned.
+    
+    To obtain a token for testing, you can:
+    1. Use the Supabase UI to sign in and copy the token
+    2. Use the Supabase JS or other client to sign in programmatically
     """,
     version="0.1.0",
     docs_url="/docs",
@@ -31,10 +41,10 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Modify in production
+    allow_origins=settings.CORS_ORIGINS,  # Modify in production
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"],
 )
 
 # Include routers

@@ -1,33 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { runsApi } from '@/lib/api';
+import api from '@/lib/api';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-
-// Types
-export interface Run {
-  id: number;
-  project_id: number;
-  status: 'pending' | 'running' | 'completed' | 'failed';
-  url?: string;
-  urls?: string[];
-  template_id?: number;
-  config?: {
-    selector_schema?: Record<string, any>;
-    [key: string]: any;
-  };
-  results?: Record<string, any>;
-  error?: string;
-  records_extracted?: number;
-  created_at: string;
-  updated_at: string;
-  finished_at?: string;
-}
+import { Run } from '@/types';
+import { QueryObserverResult } from '@tanstack/react-query';
 
 export interface CreateRunInput {
   projectId: number;
   url?: string;
   urls?: string[];
-  templateId?: number;
   config?: Record<string, any>;
 }
 
@@ -38,18 +19,30 @@ export const runKeys = {
   byProject: (projectId: number) => [...runKeys.all, 'by-project', projectId] as const,
 };
 
-// Hooks
-export function useRun(id: number) {
-  return useQuery({
+// Get runs for a project
+export function useProjectRuns(projectId: number) {
+  return useQuery<Run[]>({
+    queryKey: runKeys.byProject(projectId),
+    queryFn: async () => {
+      const response = await api.get(`/projects/${projectId}/runs`);
+      return response.data as Run[];
+    },
+    enabled: !!projectId,
+  });
+}
+
+// Get a single run by ID
+export function useRun(id: number): QueryObserverResult<Run> {
+  return useQuery<Run>({
     queryKey: runKeys.details(id),
     queryFn: async () => {
-      const response = await runsApi.getById(id);
-      return response.data as Run;
+      const response = await api.get(`/runs/${id}`);
+      return response.data;
     },
     enabled: !!id,
     refetchInterval: (data) => {
       // Poll more frequently if the run is still in progress
-      if (data?.status === 'pending' || data?.status === 'running') {
+      if (data && (data.status === 'pending' || data.status === 'running')) {
         return 3000; // 3 seconds
       }
       return false; // Don't poll if completed or failed
@@ -57,6 +50,7 @@ export function useRun(id: number) {
   });
 }
 
+// Create a new run
 export function useCreateRun() {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -64,7 +58,7 @@ export function useCreateRun() {
   return useMutation({
     mutationFn: async (input: CreateRunInput) => {
       const { projectId, ...data } = input;
-      const response = await runsApi.create(projectId, data);
+      const response = await api.post(`/projects/${projectId}/runs`, data);
       return response.data as Run;
     },
     onSuccess: (data, variables) => {
@@ -78,7 +72,29 @@ export function useCreateRun() {
       router.push(`/results-viewer/${data.id}`);
     },
     onError: (error: any) => {
-      toast.error(`Failed to start run: ${error.message}`);
+      toast.error(`Failed to start run: ${error.response?.data?.detail || error.message}`);
+    },
+  });
+}
+
+// Retry failed URLs in a run
+export function useRetryFailedUrls() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ projectId, runId }: { projectId: number; runId: number }) => {
+      const response = await api.post(`/projects/${projectId}/runs/${runId}/retry`);
+      return response.data as { retried: number };
+    },
+    onSuccess: (data, variables) => {
+      // Invalidate queries
+      queryClient.invalidateQueries({ queryKey: runKeys.details(variables.runId) });
+      
+      // Show success message
+      toast.success(`Retrying ${data.retried} failed URLs`);
+    },
+    onError: (error: any) => {
+      toast.error(`Failed to retry URLs: ${error.response?.data?.detail || error.message}`);
     },
   });
 } 

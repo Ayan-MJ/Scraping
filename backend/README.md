@@ -9,6 +9,84 @@ Backend for the Scraping Wizard platform - a no-code web scraping solution.
 - **Schedules API**: Set up recurring scraping jobs
 - **Templates API**: Reusable scraping configurations for common websites
 
+## Authentication
+
+The API uses Supabase Auth for authentication. All endpoints except the health check require a valid JWT token.
+
+### How Authentication Works
+
+1. Users authenticate via Supabase Auth (email/password, social login, etc.)
+2. Supabase provides a JWT token upon successful authentication
+3. This token must be included in all API requests in the Authorization header
+4. Row-Level Security (RLS) in the database ensures users can only access their own data
+
+### Getting a JWT Token
+
+#### Option 1: Using the Supabase UI
+
+1. Go to your Supabase project dashboard
+2. Navigate to the Authentication section
+3. Sign in with a test user
+4. Copy the JWT token from the browser's developer tools (localStorage)
+
+#### Option 2: Using the Supabase JavaScript Client
+
+```javascript
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY')
+
+const { data, error } = await supabase.auth.signInWithPassword({
+  email: 'example@email.com',
+  password: 'example-password',
+})
+
+// The JWT token is in data.session.access_token
+console.log(data.session.access_token)
+```
+
+#### Option 3: Using the Supabase CLI
+
+```bash
+# Install Supabase CLI
+npm install -g supabase
+
+# Login to Supabase
+supabase login
+
+# Link to your project
+supabase link --project-ref your-project-ref
+
+# Get a token
+supabase tokens create --name my-token
+
+# The output will include a JWT token
+```
+
+### Including the Token in API Requests
+
+Include the token in the Authorization header of all API requests:
+
+```bash
+curl -X GET "http://localhost:8000/api/v1/projects/" \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+For testing in Swagger UI:
+1. Click the "Authorize" button at the top of the page
+2. Enter your JWT token in the value field
+3. Click "Authorize" to save
+
+### Environment Variables
+
+Make sure to set these environment variables:
+
+```
+SUPABASE_URL=your-supabase-url
+SUPABASE_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_KEY=your-supabase-service-key
+```
+
 ## Development
 
 ### Prerequisites
@@ -164,7 +242,7 @@ The system now supports tracking failed scraping operations and provides a retry
 3. **Example Usage**:
    ```bash
    # Retry all failed URLs for run 123 in project 42
-   curl -X POST http://localhost:8000/api/v1/projects/42/runs/123/retry
+   curl -X POST http://localhost:8000/api/v1/projects/42/runs/123/retry -H "Authorization: Bearer YOUR_JWT_TOKEN"
    
    # Response: {"retried": 5}
    ```

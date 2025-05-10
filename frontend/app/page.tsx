@@ -1,61 +1,51 @@
-import { DashboardHeader } from "@/components/dashboard-header"
+'use client';
+
 import { DashboardHero } from "@/components/dashboard-hero"
-import { ProjectGrid } from "@/components/project-grid"
+import { ProjectGrid, ProjectWithUIData } from "@/components/project-grid"
 import { DashboardFooter } from "@/components/dashboard-footer"
+import { ProtectedRoute } from "@/components/auth/protected-route"
+import { useProjects } from "@/hooks/useProjects"
+import { Loader2 } from "lucide-react"
+import { ErrorAlert } from "@/components/ui/ErrorAlert"
 
 export default function Dashboard() {
-  // Sample projects data - in a real app, this would come from an API or database
-  const projects = [
-    {
-      id: "1",
-      name: "E-commerce Product Scraper",
-      status: "active",
-      lastRun: "2 hours ago",
-      duration: "1m 45s",
-    },
-    {
-      id: "2",
-      name: "News Article Aggregator",
-      status: "warning",
-      lastRun: "1 day ago",
-      duration: "3m 12s",
-    },
-    {
-      id: "3",
-      name: "Social Media Monitor",
-      status: "error",
-      lastRun: "3 days ago",
-      duration: "Failed",
-    },
-    {
-      id: "4",
-      name: "Price Comparison Tool",
-      status: "active",
-      lastRun: "5 hours ago",
-      duration: "2m 30s",
-    },
-    {
-      id: "5",
-      name: "Job Listings Tracker",
-      status: "active",
-      lastRun: "12 hours ago",
-      duration: "4m 10s",
-    },
-  ]
+  const { data: projects, isLoading, error } = useProjects();
 
-  // Toggle to show empty state
-  const showEmptyState = false
+  // Map API projects to ProjectWithUIData format
+  const projectsWithUI: ProjectWithUIData[] = projects?.map(project => ({
+    ...project,
+    // You'll need to fetch this data from an actual API endpoint in a real implementation
+    // For now, we'll add some placeholder UI data
+    status: Math.random() > 0.7 ? 'error' : Math.random() > 0.4 ? 'warning' : 'active',
+    lastRun: ['1 hour ago', '2 hours ago', '1 day ago', '3 days ago'][Math.floor(Math.random() * 4)],
+    duration: ['2m 30s', '45s', '1m 15s', 'Failed'][Math.floor(Math.random() * 4)],
+  })) || [];
+
+  const dashboardContent = (
+    <main className="flex-1">
+      <DashboardHero />
+      <div className="container mx-auto px-4 py-8">
+        {isLoading ? (
+          <div className="flex h-32 items-center justify-center">
+            <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            <span className="ml-2">Loading projects...</span>
+          </div>
+        ) : error ? (
+          <ErrorAlert
+            title="Error loading projects"
+            message={error instanceof Error ? error.message : "An unknown error occurred"}
+          />
+        ) : (
+          <ProjectGrid projects={projectsWithUI} />
+        )}
+      </div>
+      <DashboardFooter />
+    </main>
+  );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-      <DashboardHeader />
-      <main className="flex-1">
-        <DashboardHero />
-        <div className="container mx-auto px-4 py-8">
-          <ProjectGrid projects={showEmptyState ? [] : projects} />
-        </div>
-      </main>
-      <DashboardFooter />
-    </div>
-  )
+    <ProtectedRoute>
+      {dashboardContent}
+    </ProtectedRoute>
+  );
 }

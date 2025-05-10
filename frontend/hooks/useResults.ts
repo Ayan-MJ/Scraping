@@ -1,75 +1,67 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { runsApi } from '@/lib/api';
-
-// Types
-export interface ResultData {
-  url: string;
-  title: string;
-  extracted_at: string;
-  fields: Record<string, any>;
-  [key: string]: any;
-}
-
-export interface Result {
-  id: number;
-  run_id: number;
-  data: ResultData;
-  created_at: string;
-}
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+import { Result, PaginatedResponse } from '@/types';
 
 // Query keys
 export const resultKeys = {
   all: ['results'] as const,
-  run: (runId: number) => [...resultKeys.all, 'run', runId] as const,
-  runPaginated: (runId: number, page = 0, pageSize = 20) => 
-    [...resultKeys.run(runId), { page, pageSize }] as const,
+  byRun: (runId: number) => [...resultKeys.all, 'by-run', runId] as const,
+  failed: (runId: number) => [...resultKeys.all, 'failed', runId] as const,
   detail: (resultId: number) => [...resultKeys.all, 'detail', resultId] as const,
 };
 
-// Hooks
-export function useResults(runId: number, page = 0, pageSize = 20) {
-  return useQuery({
-    queryKey: resultKeys.runPaginated(runId, page, pageSize),
+/**
+ * Hook to fetch paginated results for a specific run
+ * 
+ * @param runId The ID of the run to get results for
+ * @param page Page number for pagination (optional)
+ * @param size Number of results per page (optional)
+ */
+export function useRunResults(
+  runId: number,
+  page: number = 1,
+  size: number = 50
+) {
+  return useQuery<PaginatedResponse<Result>>({
+    queryKey: [...resultKeys.byRun(runId), { page, size }],
     queryFn: async () => {
-      const response = await runsApi.getResults(runId, { page, pageSize });
-      return response.data as Result[];
+      const response = await api.get(`/runs/${runId}/results`, {
+        params: { page, size }
+      });
+      return response.data;
     },
     enabled: !!runId,
-    keepPreviousData: true, // Keep previous data while fetching new data
   });
 }
 
-// Utility hook to manage refreshing results
-export function useResultsRefresh(runId: number, intervalMs = 0) {
-  // For automatic polling at specified intervals (0 means disabled)
-  return useQuery({
-    queryKey: [...resultKeys.run(runId), 'refresh'],
+/**
+ * Hook to fetch a single result by ID
+ * 
+ * @param resultId The ID of the result to fetch
+ */
+export function useResult(resultId: number) {
+  return useQuery<Result>({
+    queryKey: resultKeys.detail(resultId),
     queryFn: async () => {
-      const response = await runsApi.getById(runId);
-      return {
-        runStatus: response.data.status,
-        recordsExtracted: response.data.records_extracted || 0,
-        finishedAt: response.data.finished_at,
-        updatedAt: response.data.updated_at,
-      };
+      const response = await api.get(`/results/${resultId}`);
+      return response.data;
     },
-    enabled: !!runId && !!intervalMs,
-    refetchInterval: intervalMs,
+    enabled: !!resultId,
   });
 }
 
-// Generate unique field keys from results
-export function useResultFields(results: Result[] | undefined) {
-  if (!results || results.length === 0) return [];
-  
-  // Get all unique fields across all results
-  const fieldKeys = new Set<string>();
-  
-  results.forEach(result => {
-    if (result.data?.fields) {
-      Object.keys(result.data.fields).forEach(key => fieldKeys.add(key));
-    }
+/**
+ * Hook to fetch failed results for a specific run
+ * 
+ * @param runId The ID of the run to get failed results for
+ */
+export function useFailedResults(runId: number) {
+  return useQuery<Result[]>({
+    queryKey: resultKeys.failed(runId),
+    queryFn: async () => {
+      const response = await api.get(`/runs/${runId}/results/failed`);
+      return response.data;
+    },
+    enabled: !!runId,
   });
-  
-  return Array.from(fieldKeys);
 } 

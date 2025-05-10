@@ -1,27 +1,28 @@
 from fastapi import APIRouter, HTTPException, status, Depends
-from typing import List
+from typing import List, Annotated
 from app.schemas.project import Project, ProjectCreate, ProjectUpdate
 from app.services import project_service
+from app.core.auth import get_current_user
 
 # Create router with prefix and tags
 router = APIRouter(prefix="/projects", tags=["projects"])
 
 
 @router.get("/", response_model=List[Project])
-async def get_all_projects():
+async def get_all_projects(current_user = Depends(get_current_user)):
     """
-    Retrieve all projects.
+    Retrieve all projects owned by the authenticated user.
     
     Returns:
-        List[Project]: List of all projects
+        List[Project]: List of projects owned by the user
     """
-    return await project_service.get_projects()
+    return await project_service.get_projects(current_user.id)
 
 
 @router.get("/{id}", response_model=Project)
-async def get_project_by_id(id: int):
+async def get_project_by_id(id: int, current_user = Depends(get_current_user)):
     """
-    Retrieve a project by ID.
+    Retrieve a project by ID if it belongs to the authenticated user.
     
     Args:
         id (int): Project ID
@@ -30,15 +31,15 @@ async def get_project_by_id(id: int):
         Project: The requested project
         
     Raises:
-        HTTPException: If project not found
+        HTTPException: If project not found or doesn't belong to the user
     """
-    return await project_service.get_project(id)
+    return await project_service.get_project(id, current_user.id)
 
 
 @router.post("/", response_model=Project, status_code=status.HTTP_201_CREATED)
-async def create_new_project(project: ProjectCreate):
+async def create_new_project(project: ProjectCreate, current_user = Depends(get_current_user)):
     """
-    Create a new project.
+    Create a new project owned by the authenticated user.
     
     Args:
         project (ProjectCreate): Project data
@@ -46,13 +47,17 @@ async def create_new_project(project: ProjectCreate):
     Returns:
         Project: The created project
     """
-    return await project_service.create_project(project)
+    return await project_service.create_project(project, current_user.id)
 
 
 @router.put("/{id}", response_model=Project)
-async def update_existing_project(id: int, project: ProjectUpdate):
+async def update_existing_project(
+    id: int, 
+    project: ProjectUpdate,
+    current_user = Depends(get_current_user)
+):
     """
-    Update an existing project.
+    Update an existing project if it belongs to the authenticated user.
     
     Args:
         id (int): Project ID
@@ -62,21 +67,21 @@ async def update_existing_project(id: int, project: ProjectUpdate):
         Project: The updated project
         
     Raises:
-        HTTPException: If project not found
+        HTTPException: If project not found or doesn't belong to the user
     """
-    return await project_service.update_project(id, project)
+    return await project_service.update_project(id, project, current_user.id)
 
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_existing_project(id: int):
+async def delete_existing_project(id: int, current_user = Depends(get_current_user)):
     """
-    Delete a project.
+    Delete a project if it belongs to the authenticated user.
     
     Args:
         id (int): Project ID
         
     Raises:
-        HTTPException: If project not found
+        HTTPException: If project not found or doesn't belong to the user
     """
-    await project_service.delete_project(id)
+    await project_service.delete_project(id, current_user.id)
     return None 

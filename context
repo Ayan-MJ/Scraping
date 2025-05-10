@@ -1,29 +1,32 @@
-You are Cursor, an AI coding assistant.  
-Repo: github.com/Ayan-MJ/scraping (backend folder)  
-Current state:
-- FastAPI CRUD for Projects, Runs, Schedules, Templates, Results.
-- Results table stores JSONB data, created_at.
-- Celery worker (process_scrape_run) writes results and streams SSE.
-Next objective: implement error flagging & retry endpoint.
+You are Cursor, an AI coding assistant.
+Repo: github.com/Ayan-MJ/scraping-wizard
 
-Tasks:
-1. Extend the results table and Pydantic models to include:
-   - url: TEXT NOT NULL
-   - status: TEXT NOT NULL (“success” | “failed”)
-   - error_message: TEXT NULL
-2. Update migrations: alter `scripts/init_results_table.sql` or create a new migration.
-3. In `app/schemas/result.py`, add `url`, `status`, and `error_message` fields to models.
-4. In `app/services/result_service.py`, adjust `create_result` to accept url, status, error_message.
-   Add a helper to fetch failed records: `get_failed_results(run_id: int) -> List[Result]`.
-5. In `app/worker.py`, wrap each URL extraction in try/except:
-   - On success: create_result(url=url, status="success", error_message=None).
-   - On failure: create_result(url=url, status="failed", error_message=str(exception)).
-6. Create a new Celery task `process_single_url(run_id: int, url: str, selector_schema: dict)`, extracting one URL and recording its result.
-7. In `app/routers/runs.py`, add endpoint:
-POST /projects/{project_id}/runs/{run_id}/retry
-Handler should:
-- Call `get_failed_results(run_id)`
-- For each, dispatch `process_single_url.delay(run_id, result.url, selector_schema)`
-- Return JSON `{ retried: <count> }`.
-8. Write tests for the retry endpoint: seed a failed result, call `/retry`, and assert tasks are enqueued.
-9. Update README with the new endpoint documentation.
+Current State:
+- Frontend: Next.js app in `frontend/`, fully wired to backend and Supabase Auth.
+- Backend: FastAPI service in `backend/`, containerized via Docker, connected to Supabase and Redis.
+
+Next Objective:
+Create GitHub Actions workflows for automated CI/CD:
+
+1. **frontend/.github/workflows/frontend.yml**  
+   - Trigger: `push` and `pull_request` on `main`
+   - Steps:
+     • actions/checkout  
+     • setup-node@v3 (use Node 16)  
+     • `npm ci`, `npm run lint`, `npm test`, `npm run build` in `frontend/`  
+     • Deploy to Vercel via `amondnet/vercel-action@v20` using secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+
+2. **backend/.github/workflows/backend.yml**  
+   - Trigger: `push` and `pull_request` on `main`
+   - Steps:
+     • actions/checkout  
+     • setup-python@v4 (use Python 3.10)  
+     • Install Poetry, then `poetry install --no-dev` in `backend/`  
+     • `poetry run flake8` and `poetry run pytest`  
+     • Build Docker image `scraping-wizard-api:latest`  
+     • Log in and push to GitHub Container Registry (use secret `CR_PAT`)  
+     • Deploy to AWS ECS via AWS CLI, using secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `ECS_CLUSTER`, `ECS_SERVICE`
+
+Environment & Secrets:
+- Frontend: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`  
+- Backend: `CR_PAT`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `ECS_CLUSTER`, `ECS_SERVICE`  
