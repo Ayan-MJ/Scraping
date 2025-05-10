@@ -3,6 +3,7 @@ import sys
 import pytest
 from dotenv import load_dotenv
 from fastapi.testclient import TestClient
+from unittest.mock import MagicMock
 
 # Add the app directory to the Python path
 app_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -166,3 +167,20 @@ def mock_db():
 def mock_redis():
     """Fixture to provide a mock Redis client for testing."""
     return MockRedis()
+
+@pytest.fixture
+def mock_redis_client():
+    redis_mock = MagicMock()
+    redis_mock.get.return_value = None
+    redis_mock.set.return_value = True
+    redis_mock.delete.return_value = True
+    return redis_mock
+
+@pytest.fixture
+def mock_supabase_client():
+    supabase_mock = MagicMock()
+    supabase_mock.table.return_value.select.return_value.execute.return_value = {"data": []}
+    supabase_mock.table.return_value.insert.return_value.execute.return_value = {"data": [{"id": "test-id"}]}
+    supabase_mock.table.return_value.update.return_value.eq.return_value.execute.return_value = {"data": [{"id": "test-id"}]}
+    supabase_mock.table.return_value.delete.return_value.eq.return_value.execute.return_value = {"data": []}
+    return supabase_mock
