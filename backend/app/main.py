@@ -11,6 +11,7 @@ try:
     SENTRY_AVAILABLE = True
 except ImportError:
     SENTRY_AVAILABLE = False
+    print("Sentry SDK not available. Install with 'pip install sentry-sdk' to enable error tracking.")
 
 # Define a hook to filter sensitive data before sending to Sentry
 def before_send(event, hint):
@@ -24,21 +25,26 @@ def before_send(event, hint):
 
 # Initialize Sentry only if it's available and DSN is configured
 if SENTRY_AVAILABLE and settings.SENTRY_DSN:
-    sentry_sdk.init(
-        dsn=settings.SENTRY_DSN,
-        integrations=[
-            FastApiIntegration(),
-        ],
-        traces_sample_rate=0.1,
-        # Set to True to capture potentially sensitive data (URL, headers, etc.)
-        send_default_pii=False,
-        environment=settings.ENVIRONMENT,
-        before_send=before_send,
-        # Add release information if available
-        release=settings.VERSION if hasattr(settings, 'VERSION') else None,
-        # Add server_name if you want to identify which server instance sent the event
-        server_name=settings.SERVER_NAME if hasattr(settings, 'SERVER_NAME') else None,
-    )
+    try:
+        sentry_sdk.init(
+            dsn=settings.SENTRY_DSN,
+            integrations=[
+                FastApiIntegration(),
+            ],
+            traces_sample_rate=0.1,
+            # Set to True to capture potentially sensitive data (URL, headers, etc.)
+            send_default_pii=False,
+            environment=settings.ENVIRONMENT,
+            before_send=before_send,
+            # Add release information if available
+            release=settings.VERSION if hasattr(settings, 'VERSION') else None,
+            # Add server_name if you want to identify which server instance sent the event
+            server_name=settings.SERVER_NAME if hasattr(settings, 'SERVER_NAME') else None,
+        )
+        print(f"Sentry initialized for environment: {settings.ENVIRONMENT}")
+    except Exception as e:
+        print(f"Error initializing Sentry: {e}")
+        SENTRY_AVAILABLE = False
 
 # Import routers
 from app.routers import projects, runs, schedules, templates, results, stream
@@ -86,7 +92,11 @@ app.add_middleware(
 
 # Add Sentry middleware only if Sentry is available
 if SENTRY_AVAILABLE and settings.SENTRY_DSN:
-    app = SentryAsgiMiddleware(app)
+    try:
+        app = SentryAsgiMiddleware(app)
+        print("Sentry ASGI middleware added")
+    except Exception as e:
+        print(f"Error adding Sentry middleware: {e}")
 
 # Include routers
 app.include_router(projects.router, prefix=settings.API_V1_STR)
@@ -119,7 +129,11 @@ async def test_sentry():
         return {"message": "Sentry is not configured or available"}
         
     if settings.ENVIRONMENT == "development":
-        raise Exception("This is a test error to verify Sentry is capturing exceptions")
+        try:
+            raise Exception("This is a test error to verify Sentry is capturing exceptions")
+        except Exception as e:
+            sentry_sdk.capture_exception(e)
+            return {"message": "Test error sent to Sentry"}
     return {"message": "Sentry test endpoint only available in development mode"}
 
 @app.on_event("startup")
@@ -127,12 +141,18 @@ async def startup_event():
     """
     Actions to run on application startup.
     """
+    print(f"Starting Scraping Wizard API in {settings.ENVIRONMENT} environment")
+    
     # Load and register schedules
     # Commented out for now as we need to initialize the database tables first
     # from app.services import schedule_service
     # await schedule_service.load_and_register_schedules()
 
     # Create templates table for testing
+    if settings.USE_INMEM_DB:
+        print("Using in-memory database for testing")
+        return
+        
     try:
         from app.core.supabase import supabase
 

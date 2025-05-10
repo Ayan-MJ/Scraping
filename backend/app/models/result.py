@@ -25,4 +25,4 @@ class Result(Model):
     error: Optional[str] = String(max_length=10000, nullable=True)
     metadata: Dict[str, Any] = JSON(nullable=True)
     created_at: datetime = DateTime(default=datetime.utcnow)
-    updated_at: Optional[datetime] = DateTime(nullable=True) 
+    updated_at: Optional[datetime] = DateTime(nullable=True)
