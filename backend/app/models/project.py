@@ -22,4 +22,3 @@ class Project(Model):
     configuration: Dict[str, Any] = JSON(default=dict)
     created_at: datetime = DateTime(default=datetime.utcnow)
     updated_at: Optional[datetime] = DateTime(nullable=True)
-
