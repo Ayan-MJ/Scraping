@@ -164,4 +164,5 @@ async def delete_project(id: int, user_id: UUID) -> None:
         raise
     except Exception as e:
         logger.error(f"Error in delete_project: {e}")
-        raise HTTPException(status_code=500, detail=str(e)) 
+        raise HTTPException(status_code=500, detail=str(e))
+
