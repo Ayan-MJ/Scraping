@@ -24,7 +24,7 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           
       - name: Install dependencies
-        run: poetry install --no-dev
+        run: poetry install --without dev
         working-directory: backend
         
       - name: Lint
@@ -34,10 +34,18 @@ jobs:
       - name: Test
         run: poetry run pytest --maxfail=1 --disable-warnings -q
         working-directory: backend
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          ENVIRONMENT: 'test'
         
       - name: Build Docker image
         if: github.ref == 'refs/heads/main'
-        run: docker build -t ghcr.io/${{ github.repository }}/scraping-wizard-api:latest ./backend
+        run: |
+          # Add build args for Sentry
+          docker build \
+            --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN }} \
+            --build-arg ENVIRONMENT=production \
+            -t ghcr.io/${{ github.repository }}/scraping-wizard-api:latest ./backend
         
       - name: Log in to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
