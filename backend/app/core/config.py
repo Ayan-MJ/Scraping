@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     PROJECT_NAME: str = "Scraping Wizard"
     
+    # Environment
+    ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
+    
     # Process BACKEND_CORS_ORIGINS from string to list
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
     
@@ -19,6 +22,9 @@ class Settings(BaseSettings):
     SUPABASE_URL: str
     SUPABASE_KEY: str  # Public client key (anon key)
     SUPABASE_SERVICE_KEY: str  # Service role key for admin operations
+    
+    # Sentry settings
+    SENTRY_DSN: Optional[str] = None
     
     # Database settings
     USE_INMEM_DB: bool = False
