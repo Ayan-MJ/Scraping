@@ -30,7 +30,14 @@ SAMPLE_USER = {
 # Mock authenticated user for testing
 async def mock_get_current_user_authenticated():
     """Mock the get_current_user function to return a valid user"""
-    return MagicMock(id=SAMPLE_USER["id"], email=SAMPLE_USER["email"])
+    mock_user = MagicMock()
+    mock_user.id = SAMPLE_USER["id"]
+    mock_user.email = SAMPLE_USER["email"]
+    mock_user.app_metadata = SAMPLE_USER["app_metadata"]
+    mock_user.user_metadata = SAMPLE_USER["user_metadata"]
+    mock_user.aud = SAMPLE_USER["aud"]
+    mock_user.role = SAMPLE_USER["role"]
+    return mock_user
 
 # Mock unauthenticated user for testing
 async def mock_get_current_user_unauthenticated():
@@ -47,7 +54,7 @@ def test_health_check_no_auth_required():
     assert response.status_code == 200
     assert response.json()["status"] == "ok"
 
-@patch("app.routers.projects.get_current_user", mock_get_current_user_authenticated)
+@patch("app.core.auth.get_current_user", mock_get_current_user_authenticated)
 def test_successful_authentication():
     """Test successful API access with valid token"""
     # When the auth dependency is mocked to return a valid user
@@ -56,7 +63,7 @@ def test_successful_authentication():
     # Then the request should succeed
     assert response.status_code == 200
 
-@patch("app.routers.projects.get_current_user", mock_get_current_user_unauthenticated)
+@patch("app.core.auth.get_current_user", mock_get_current_user_unauthenticated)
 def test_failed_authentication_invalid_token():
     """Test API access fails with invalid token"""
     # When the auth dependency is mocked to fail authentication
@@ -75,7 +82,7 @@ def test_failed_authentication_no_token():
     assert response.status_code in (401, 403)
 
 @patch("app.services.project_service.get_projects")
-@patch("app.routers.projects.get_current_user", mock_get_current_user_authenticated)
+@patch("app.core.auth.get_current_user", mock_get_current_user_authenticated)
 def test_user_isolation(mock_get_projects):
     """Test that a user can only access their own projects"""
     # Given the service will return some projects
