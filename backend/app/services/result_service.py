@@ -1,13 +1,14 @@
 """
 Service layer for handling scraping results.
 """
-from typing import List, Dict, Any
-from fastapi import HTTPException
+from typing import List, Dict, Any, Optional
+from fastapi import HTTPException, status
 from app.schemas.result import Result, ResultCreate
 from app.core.supabase import supabase
 from datetime import datetime
 import logging
 import os
+from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +22,13 @@ use_in_memory_db = os.getenv("USE_INMEM_DB", "false").lower() == "true"
 in_memory_results = []
 result_id_counter = 1
 
+# Define ResultUpdate schema
+class ResultUpdate(BaseModel):
+    """Model for updating an existing result."""
+    data: Optional[Dict[str, Any]] = None
+    status: Optional[str] = None
+    error_message: Optional[str] = None
+
 async def get_results(run_id: int = None) -> List[Result]:
     """
     Get all results, optionally filtered by run_id.
@@ -31,12 +39,29 @@ async def get_results(run_id: int = None) -> List[Result]:
     Returns:
         List of Result objects
     """
-    query = ResultModel.objects()
-    if run_id is not None:
-        query = query.filter(run_id=run_id)
+    if use_in_memory_db:
+        if run_id is not None:
+            results = [Result(**result) for result in in_memory_results if result["run_id"] == run_id]
+        else:
+            results = [Result(**result) for result in in_memory_results]
+        return results
         
-    results = await query.execute()
-    return [Result.model_validate(result) for result in results]
+    try:
+        query = supabase.table(RESULTS_TABLE).select("*")
+        
+        if run_id is not None:
+            query = query.eq("run_id", run_id)
+            
+        response = query.execute()
+        
+        if hasattr(response, 'error') and response.error is not None:
+            logger.error(f"Error fetching results: {response.error}")
+            raise HTTPException(status_code=500, detail="Failed to fetch results")
+        
+        return [Result(**result_data) for result_data in response.data]
+    except Exception as e:
+        logger.error(f"Error in get_results: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 async def get_failed_results(run_id: int) -> List[Result]:
     """
@@ -48,13 +73,25 @@ async def get_failed_results(run_id: int) -> List[Result]:
     Returns:
         List of failed Result objects
     """
-    query = ResultModel.objects().filter(
-        run_id=run_id,
-        status="failed"
-    )
+    if use_in_memory_db:
+        results = [Result(**result) for result in in_memory_results 
+                  if result["run_id"] == run_id and result.get("status") == "failed"]
+        return results
     
-    results = await query.execute()
-    return [Result.model_validate(result) for result in results]
+    try:
+        response = supabase.table(RESULTS_TABLE).select("*")\
+            .eq("run_id", run_id)\
+            .eq("status", "failed")\
+            .execute()
+        
+        if hasattr(response, 'error') and response.error is not None:
+            logger.error(f"Error fetching failed results: {response.error}")
+            raise HTTPException(status_code=500, detail="Failed to fetch failed results")
+        
+        return [Result(**result_data) for result_data in response.data]
+    except Exception as e:
+        logger.error(f"Error in get_failed_results: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 async def get_result(result_id: int) -> Result:
     """
@@ -69,15 +106,34 @@ async def get_result(result_id: int) -> Result:
     Raises:
         HTTPException: If result not found
     """
-    result = await ResultModel.objects().get_or_none(id=result_id)
-    if not result:
-        from fastapi import HTTPException, status
+    if use_in_memory_db:
+        for result in in_memory_results:
+            if result["id"] == result_id:
+                return Result(**result)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Result with ID {result_id} not found"
         )
     
-    return Result.model_validate(result)
+    try:
+        response = supabase.table(RESULTS_TABLE).select("*").eq("id", result_id).execute()
+        
+        if hasattr(response, 'error') and response.error is not None:
+            logger.error(f"Error fetching result {result_id}: {response.error}")
+            raise HTTPException(status_code=500, detail="Failed to fetch result")
+            
+        if not response.data:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Result with ID {result_id} not found"
+            )
+        
+        return Result(**response.data[0])
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error in get_result: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 async def create_result(data: ResultCreate) -> Result:
     """
@@ -97,6 +153,7 @@ async def create_result(data: ResultCreate) -> Result:
         result_data = data.model_dump()
         result_data["id"] = result_id_counter
         result_data["created_at"] = now
+        result_data["updated_at"] = now
         
         in_memory_results.append(result_data)
         result_id_counter += 1
@@ -109,6 +166,7 @@ async def create_result(data: ResultCreate) -> Result:
         
         # Set timestamps
         result_data["created_at"] = now
+        result_data["updated_at"] = now
         
         response = supabase.table(RESULTS_TABLE).insert(result_data).execute()
         
@@ -143,19 +201,36 @@ async def update_result(result_id: int, result_data: ResultUpdate) -> Result:
     Raises:
         HTTPException: If result not found
     """
-    result = await get_result(result_id)
+    # First make sure the result exists
+    await get_result(result_id)
     
     # Filter out None values
     update_data = {k: v for k, v in result_data.model_dump().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow().isoformat()
     
     if not update_data:
-        return result
+        return await get_result(result_id)
     
-    # Update the result
-    await ResultModel.objects().filter(id=result_id).update(**update_data)
+    if use_in_memory_db:
+        for i, result in enumerate(in_memory_results):
+            if result["id"] == result_id:
+                in_memory_results[i].update(update_data)
+                return Result(**in_memory_results[i])
+    else:
+        try:
+            response = supabase.table(RESULTS_TABLE).update(update_data).eq("id", result_id).execute()
+            
+            if hasattr(response, 'error') and response.error is not None:
+                logger.error(f"Error updating result {result_id}: {response.error}")
+                raise HTTPException(status_code=500, detail="Failed to update result")
+                
+            return Result(**response.data[0])
+        except Exception as e:
+            logger.error(f"Error in update_result: {e}")
+            raise HTTPException(status_code=500, detail=str(e))
     
-    # Return the updated result
-    return await get_result(result_id)
+    # If we get here, something went wrong
+    raise HTTPException(status_code=500, detail="Failed to update result")
 
 async def delete_result(result_id: int) -> None:
     """
@@ -167,8 +242,23 @@ async def delete_result(result_id: int) -> None:
     Raises:
         HTTPException: If result not found
     """
-    result = await get_result(result_id)
-    await ResultModel.objects().filter(id=result_id).delete() 
+    # First make sure the result exists
+    await get_result(result_id)
+    
+    if use_in_memory_db:
+        global in_memory_results
+        in_memory_results = [r for r in in_memory_results if r["id"] != result_id]
+        return
+    
+    try:
+        response = supabase.table(RESULTS_TABLE).delete().eq("id", result_id).execute()
+        
+        if hasattr(response, 'error') and response.error is not None:
+            logger.error(f"Error deleting result {result_id}: {response.error}")
+            raise HTTPException(status_code=500, detail="Failed to delete result")
+    except Exception as e:
+        logger.error(f"Error in delete_result: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 async def get_results_by_run(run_id: int) -> List[Result]:
     """
