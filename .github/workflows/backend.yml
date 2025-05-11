@@ -10,31 +10,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
-    services:
-      redis:
-        image: redis:alpine
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_DB: testing
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    
     steps:
       - uses: actions/checkout@v3
       
@@ -43,79 +18,21 @@ jobs:
         with:
           python-version: '3.10'
           
-      - name: Cache pip dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-          
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           
-      - name: Cache Poetry dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-poetry-
-          
-      - name: Install dependencies
-        run: poetry install --no-root
+      - name: Update dependencies
+        run: |
+          # Force regenerate the lock file
+          rm -f poetry.lock
+          poetry lock
+          # Install dependencies
+          poetry install --without dev --no-root
         working-directory: backend
         
-      - name: Install additional packages
-        run: |
-          poetry add requests sentry-sdk croniter ormar --group dev
-          pip install croniter ormar
-        working-directory: backend
-        
-      - name: Create test configuration
-        run: |
-          echo "ENVIRONMENT=test" > .env.test
-          echo "USE_INMEM_DB=true" >> .env.test
-          echo "SUPABASE_URL=https://example.com" >> .env.test
-          echo "SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test" >> .env.test
-          echo "SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test-service" >> .env.test
-          echo "REDIS_HOST=localhost" >> .env.test
-          echo "REDIS_PORT=6379" >> .env.test
-          echo "CELERY_BROKER_URL=redis://localhost:6379/0" >> .env.test
-          echo "CELERY_RESULT_BACKEND=redis://localhost:6379/0" >> .env.test
-          echo "SENTRY_DSN=${{ secrets.SENTRY_DSN || '' }}" >> .env.test
-          echo "DATABASE_URL=postgres://postgres:postgres@localhost:5432/testing" >> .env.test
-        working-directory: backend
-        
-      - name: Create test directory structure
-        run: |
-          mkdir -p tests/api
-          mkdir -p tests/unit
-          mkdir -p tests/integration
-          
-          # Create an empty __init__.py in each directory to ensure it's a proper Python package
-          touch tests/__init__.py
-          touch tests/api/__init__.py
-          touch tests/unit/__init__.py
-          touch tests/integration/__init__.py
-        working-directory: backend
-      
-      - name: Create test files
-        run: |
-          echo "from fastapi.testclient import TestClient" > tests/test_health.py
-          echo "from app.main import app" >> tests/test_health.py
-          echo "" >> tests/test_health.py
-          echo "def test_health_endpoint():" >> tests/test_health.py
-          echo '    """Test that the health endpoint returns 200 OK."""' >> tests/test_health.py
-          echo "    client = TestClient(app)" >> tests/test_health.py
-          echo "    response = client.get(\"/health\")" >> tests/test_health.py
-          echo "    assert response.status_code == 200" >> tests/test_health.py
-          echo "    assert response.json() == {\"status\": \"ok\", \"message\": \"Scraping Wizard API is running\"}" >> tests/test_health.py
-        working-directory: backend
-        
-      - name: Install test tools outside Poetry
+      - name: Install development tools
         run: pip install flake8 pytest
         working-directory: backend
         
@@ -123,32 +40,13 @@ jobs:
         run: poetry run flake8
         working-directory: backend
         
-      - name: Run tests with increased verbosity
-        run: poetry run pytest -v
+      - name: Test
+        run: poetry run pytest --maxfail=1 --disable-warnings -q
         working-directory: backend
-        env:
-          ENVIRONMENT: 'test'
-          USE_INMEM_DB: 'true'
-          SUPABASE_URL: 'https://example.com'
-          SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test'
-          SUPABASE_SERVICE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test-service'
-          REDIS_HOST: 'localhost'
-          REDIS_PORT: '6379'
-          CELERY_BROKER_URL: 'redis://localhost:6379/0'
-          CELERY_RESULT_BACKEND: 'redis://localhost:6379/0'
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN || '' }}
-          DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing'
-          PYTHONPATH: ${{ github.workspace }}/backend
         
       - name: Build Docker image
         if: github.ref == 'refs/heads/main'
-        run: |
-          # Add build args for Sentry
-          docker build \
-            --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN || '' }} \
-            --build-arg ENVIRONMENT=production \
-            --build-arg SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN || '' }} \
-            -t ghcr.io/${{ github.repository }}/scraping-wizard-api:latest ./backend
+        run: docker build -t ghcr.io/${{ github.repository }}/scraping-wizard-api:latest ./backend
         
       - name: Log in to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
