@@ -24,7 +24,9 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           
       - name: Update Poetry lock file
-        run: poetry lock --no-update
+        run: |
+          rm -f poetry.lock
+          poetry lock
         working-directory: backend
           
       - name: Install dependencies
