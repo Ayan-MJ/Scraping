@@ -17,7 +17,7 @@ aioredis = "^2.0.1"
 sse-starlette = "^1.8.2"
 playwright = "^1.38.0"
 python-dotenv = "~=0.21.0"
-pydantic = ">=1.8.1,<1.10.9"
+pydantic = ">=2.5.3,<2.9.0"
 croniter = "^6.0.0"
 ormar = "^0.20.2"
 sentry-sdk = {extras = ["celery"], version = "^2.27.0"}
