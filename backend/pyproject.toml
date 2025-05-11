@@ -6,7 +6,7 @@ authors = ["Scraping Wizard Team"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.14"
-fastapi = "^0.95.0"
+fastapi = "^0.110.0"
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
 supabase = "^2.0.0"
 sqlalchemy = "^1.4.42"

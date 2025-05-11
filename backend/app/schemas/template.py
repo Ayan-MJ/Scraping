@@ -31,5 +31,6 @@ class Template(TemplateBase):
     created_at: datetime = Field(..., description="Creation timestamp")
     updated_at: datetime = Field(..., description="Last update timestamp")
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }

@@ -1,32 +1,35 @@
 from fastapi import APIRouter, HTTPException, status, Depends, Path, Query, Body
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Annotated
 from app.schemas.run import Run, RunCreate, RunUpdate
 from app.services import run_service, project_service, result_service
 from app.worker import celery as celery_app
 from app.core.auth import get_current_user
+import logging
 
 # Create router with prefix and tags
 router = APIRouter(tags=["runs"])
+logger = logging.getLogger(__name__)
 
 
-@router.get("/projects/{project_id}/runs", response_model=List[Run])
-async def get_runs_for_project(
-    project_id: int = Path(..., description="The ID of the project"),
-    current_user = Depends(get_current_user),
+@router.get("/", response_model=List[Run])
+async def get_all_runs(
+    current_user: Annotated[dict, Depends(get_current_user)],
+    project_id: Optional[int] = None
 ):
     """
-    Retrieve all runs for a project owned by the authenticated user.
+    Retrieve all runs, optionally filtered by project ID.
 
     Args:
-        project_id (int): The ID of the project
+        project_id (Optional[int]): Filter runs by project ID
 
     Returns:
-        List[Run]: List of runs for the project
+        List[Run]: List of runs
     """
-    # Verify project exists and belongs to the user
-    await project_service.get_project(project_id, current_user.id)
+    # If a project ID is provided, verify that the project belongs to the current user
+    if project_id is not None:
+        await project_service.get_project(project_id, current_user.id)
 
-    return await run_service.get_runs(project_id=project_id)
+    return await run_service.get_runs(project_id)
 
 
 @router.get("/runs/{run_id}", response_model=Run)

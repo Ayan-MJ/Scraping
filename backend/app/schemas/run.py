@@ -40,10 +40,13 @@ class RunUpdate(BaseModel):
 class Run(RunBase):
     """Model for run responses."""
     id: int = Field(..., description="Unique run identifier")
+    project_id: int = Field(..., description="ID of the project this run belongs to")
+    status: RunStatus = Field(..., description="Current status of the run")
     created_at: datetime = Field(..., description="Creation timestamp")
     updated_at: datetime = Field(..., description="Last update timestamp")
-    results: Optional[Dict[str, Any]] = Field(None, description="Results of the run")
-    error: Optional[str] = Field(None, description="Error message if run failed")
+    completed_at: Optional[datetime] = Field(None, description="Completion timestamp")
+    error: Optional[str] = Field(None, description="Error message if the run failed")
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }
