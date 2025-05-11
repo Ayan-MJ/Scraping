@@ -43,10 +43,12 @@ class ScheduleUpdate(BaseModel):
 class Schedule(ScheduleBase):
     """Model for schedule responses."""
     id: int = Field(..., description="Unique schedule identifier")
+    project_id: int = Field(..., description="ID of the project this schedule belongs to")
     created_at: datetime = Field(..., description="Creation timestamp")
     updated_at: datetime = Field(..., description="Last update timestamp")
-    last_run: Optional[datetime] = Field(None, description="Last time the schedule was executed")
-    next_run: Optional[datetime] = Field(None, description="Next time the schedule will be executed")
+    last_run_at: Optional[datetime] = Field(None, description="Timestamp of the last run")
+    next_run_at: Optional[datetime] = Field(None, description="Timestamp of the next run")
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }
