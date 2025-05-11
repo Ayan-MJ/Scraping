@@ -2,39 +2,36 @@
 Schema for scraping results data.
 """
 from pydantic import BaseModel, Field
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Literal
 from datetime import datetime
 
 
 class ResultBase(BaseModel):
-    """Base class for Result schemas."""
-    url: str = Field(..., description="The URL that was scraped")
+    """Base model for result data."""
     run_id: int = Field(..., description="ID of the run this result belongs to")
-    status: str = Field(..., description="Status of the scraping result (success, failed, etc.)")
-    data: Optional[Dict[str, Any]] = Field(default=None, description="Scraped data from the URL")
-    error: Optional[str] = Field(default=None, description="Error message if scraping failed")
-    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata about the scraping process")
+    data: Dict[str, Any] = Field(..., description="JSON data extracted from the scraping operation")
+    url: str = Field(..., description="URL that was scraped")
+    status: Literal["success", "failed"] = Field("success", description="Status of the scraping operation")
+    error_message: Optional[str] = Field(None, description="Error message if scraping failed")
 
 
 class ResultCreate(ResultBase):
-    """Schema for creating a new Result."""
+    """Model for creating a new result."""
     pass
 
 
-class ResultUpdate(BaseModel):
-    """Schema for updating an existing Result."""
-    status: Optional[str] = Field(default=None, description="Status of the scraping result")
-    data: Optional[Dict[str, Any]] = Field(default=None, description="Scraped data from the URL")
-    error: Optional[str] = Field(default=None, description="Error message if scraping failed")
-    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata about the scraping process")
-
-
 class Result(ResultBase):
-    """Schema for a complete Result with database fields."""
-    id: int = Field(..., description="Unique ID of the result")
+    """Model for returning a result."""
+    id: int = Field(..., description="Unique identifier for the result")
     created_at: datetime = Field(..., description="When the result was created")
-    updated_at: Optional[datetime] = Field(default=None, description="When the result was last updated")
 
     class Config:
-        """Pydantic config."""
-        from_attributes = True 
+        from_attributes = True
+
+
+class ResultsResponse(BaseModel):
+    """Response model for paginated results."""
+    results: list[Result]
+    total: int
+    page: int
+    page_size: int 

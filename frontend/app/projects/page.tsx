@@ -8,8 +8,19 @@ import { useProjects } from '@/hooks/useProjects';
 import { Project } from '@/types';
 import { ErrorAlert } from '@/components/ui/ErrorAlert';
 import { ProtectedRoute } from '@/components/auth/protected-route';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { ProjectCard } from '@/components/project-card';
 import { format } from 'date-fns';
+
+// Adapter function to convert Project to ProjectCard format
+const adaptProjectForCard = (project: Project) => {
+  return {
+    id: project.id.toString(),
+    name: project.name,
+    status: "active" as const, // Default to active
+    lastRun: format(new Date(project.updated_at), 'PPP'),
+    duration: "N/A" // Placeholder
+  };
+};
 
 export default function ProjectsPage() {
   const { data: projects, isLoading, error } = useProjects();
@@ -61,7 +72,7 @@ export default function ProjectsPage() {
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project: Project) => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard key={project.id} project={adaptProjectForCard(project)} />
             ))}
           </div>
         )}
@@ -73,45 +84,5 @@ export default function ProjectsPage() {
     <ProtectedRoute>
       {content()}
     </ProtectedRoute>
-  );
-}
-
-// Project card component
-function ProjectCard({ project }: { project: Project }) {
-  return (
-    <Card className="overflow-hidden">
-      <CardHeader className="p-6 pb-3">
-        <div className="flex justify-between">
-          <h3 className="text-xl font-bold">{project.name}</h3>
-        </div>
-        <p className="text-sm text-muted-foreground line-clamp-2">
-          {project.description || 'No description provided'}
-        </p>
-      </CardHeader>
-      <CardContent className="p-6 pt-0 pb-4">
-        <div className="space-y-2 text-sm">
-          <div className="flex items-center">
-            <span>Created: {format(new Date(project.created_at), 'PPP')}</span>
-          </div>
-          <div className="flex items-center">
-            <span>Updated: {format(new Date(project.updated_at), 'PPP')}</span>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter className="p-4 bg-muted/30">
-        <div className="flex gap-2 w-full">
-          <Button asChild variant="secondary" className="flex-1">
-            <Link href={`/projects/${project.id}/settings`}>
-              Settings
-            </Link>
-          </Button>
-          <Button asChild className="flex-1">
-            <Link href={`/projects/${project.id}`}>
-              View Details
-            </Link>
-          </Button>
-        </div>
-      </CardFooter>
-    </Card>
   );
 } 

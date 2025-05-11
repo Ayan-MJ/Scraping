@@ -8,6 +8,7 @@ try:
     import sentry_sdk
     from sentry_sdk.integrations.fastapi import FastApiIntegration
     from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
+    from sentry_sdk.integrations.celery import CeleryIntegration
     SENTRY_AVAILABLE = True
 except ImportError:
     SENTRY_AVAILABLE = False
@@ -30,6 +31,7 @@ if SENTRY_AVAILABLE and settings.SENTRY_DSN:
             dsn=settings.SENTRY_DSN,
             integrations=[
                 FastApiIntegration(),
+                CeleryIntegration(),
             ],
             traces_sample_rate=0.1,
             # Set to True to capture potentially sensitive data (URL, headers, etc.)
