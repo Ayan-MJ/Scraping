@@ -23,14 +23,13 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           
-      - name: Update Poetry lock file
+      - name: Update dependencies
         run: |
+          # Force regenerate the lock file
           rm -f poetry.lock
           poetry lock
-        working-directory: backend
-          
-      - name: Install dependencies
-        run: poetry install --without dev --no-root
+          # Install dependencies
+          poetry install --without dev --no-root
         working-directory: backend
         
       - name: Install development tools
