@@ -1,8 +1,8 @@
+import React, { useEffect } from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from './providers'
 import { DashboardHeader } from '@/components/dashboard-header'
-import { useEffect } from 'react'
 
 // Initialize LogRocket in client-side environment
 const InitLogRocket = () => {
