@@ -2,6 +2,15 @@
   "extends": ["next/core-web-vitals", "eslint:recommended"],
   "rules": {
     "react/no-unescaped-entities": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-unused-vars": ["error", { 
+      "argsIgnorePattern": "^_", 
+      "varsIgnorePattern": "^_",
+      "args": "none" 
+    }],
+    "no-case-declarations": "warn",
+    "@next/next/no-img-element": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-unreachable": "error"
   }
 } 
