@@ -1,39 +1,63 @@
+'use client';
+
+import { useState } from 'react';
 import { SentryTest } from '@/components/ui/SentryTest';
 import { LogRocketTest } from '@/components/ui/LogRocketTest';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default function MonitoringTestPage() {
+export default function MonitoringPage() {
   return (
-    <div className="container mx-auto py-8 px-4">
-      <h1 className="text-2xl font-bold mb-6">Monitoring Test Page</h1>
-      
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <h2 className="text-xl font-semibold mb-3">Sentry Error Monitoring</h2>
-          <p className="text-gray-600 mb-4">
-            Click the button below to trigger a test error that will be captured and sent to Sentry.
-          </p>
-          <SentryTest />
-        </div>
+    <div className="container mx-auto py-10 space-y-6">
+      <h1 className="text-3xl font-bold">Monitoring &amp; Analytics</h1>
+      <p className="text-lg text-muted-foreground">
+        Test and verify your monitoring and analytics integrations.
+      </p>
+
+      <Tabs defaultValue="sentry">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="sentry">Sentry</TabsTrigger>
+          <TabsTrigger value="logrocket">LogRocket</TabsTrigger>
+        </TabsList>
         
-        <div>
-          <h2 className="text-xl font-semibold mb-3">LogRocket Session Recording</h2>
-          <p className="text-gray-600 mb-4">
-            Test LogRocket integration by logging events or identifying a test user.
-          </p>
-          <LogRocketTest />
-        </div>
-      </div>
-      
-      <div className="mt-8 p-4 bg-gray-50 rounded-md border">
-        <h2 className="text-xl font-semibold mb-3">Monitoring Setup Information</h2>
-        <ul className="list-disc pl-5 space-y-2">
-          <li><strong>Sentry:</strong> Error monitoring and performance tracking for both frontend and backend</li>
-          <li><strong>LogRocket:</strong> Session recording and user analytics for frontend interactions</li>
-        </ul>
-        <p className="mt-4 text-sm text-gray-500">
-          Note: This page is for development and testing purposes only. It should not be accessible in production.
-        </p>
-      </div>
+        <TabsContent value="sentry" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Sentry Error Monitoring</CardTitle>
+              <CardDescription>
+                Test Sentry error capturing capabilities by generating test errors.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SentryTest />
+            </CardContent>
+            <CardFooter>
+              <p className="text-sm text-muted-foreground">
+                View errors in your <a href="https://sentry.io" target="_blank" rel="noopener noreferrer" className="underline">Sentry dashboard</a>.
+              </p>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="logrocket" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>LogRocket Session Recording</CardTitle>
+              <CardDescription>
+                Test LogRocket session recording and user identification.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <LogRocketTest />
+            </CardContent>
+            <CardFooter>
+              <p className="text-sm text-muted-foreground">
+                View sessions in your <a href="https://app.logrocket.com" target="_blank" rel="noopener noreferrer" className="underline">LogRocket dashboard</a>.
+              </p>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 } 

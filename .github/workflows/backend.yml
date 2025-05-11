@@ -147,6 +147,7 @@ jobs:
           docker build \
             --build-arg SENTRY_DSN=${{ secrets.SENTRY_DSN || '' }} \
             --build-arg ENVIRONMENT=production \
+            --build-arg SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN || '' }} \
             -t ghcr.io/${{ github.repository }}/scraping-wizard-api:latest ./backend
         
       - name: Log in to GitHub Container Registry

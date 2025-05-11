@@ -20,7 +20,7 @@ python-dotenv = "~=0.21.0"
 pydantic = ">=1.8.1,<1.10.9"
 croniter = "^6.0.0"
 ormar = "^0.12.2"
-sentry-sdk = "^2.27.0"
+sentry-sdk = {extras = ["celery"], version = "^2.27.0"}
 requests = "^2.32.3"
 
 [tool.poetry.group.dev.dependencies]

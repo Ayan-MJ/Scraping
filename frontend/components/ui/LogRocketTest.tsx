@@ -1,40 +1,100 @@
 'use client';
 
 import { useState } from 'react';
-import LogRocket from 'logrocket';
 import { Button } from './button';
+import { Alert, AlertDescription, AlertTitle } from './alert';
+import { CheckCircle2 } from 'lucide-react';
+import { Input } from './input';
+import { Label } from './label';
 
 export function LogRocketTest() {
-  const [message, setMessage] = useState<string | null>(null);
-  
-  const triggerEvent = () => {
-    // Log a custom event
-    LogRocket.track('test_event', { timestamp: new Date().toISOString() });
-    setMessage('Event logged to LogRocket!');
-  };
+  const [status, setStatus] = useState<'idle' | 'success'>('idle');
+  const [message, setMessage] = useState('');
+  const [userId, setUserId] = useState('test-user-123');
+  const [userName, setUserName] = useState('Test User');
+  const [userEmail, setUserEmail] = useState('test@example.com');
   
   const identifyUser = () => {
-    // Identify a test user
-    LogRocket.identify('test-user-id', {
-      name: 'Test User',
-      email: 'test@example.com',
-    });
-    setMessage('Test user identified in LogRocket!');
+    if (typeof window !== 'undefined') {
+      import('logrocket').then(LogRocket => {
+        LogRocket.default.identify(userId, {
+          name: userName,
+          email: userEmail,
+          // Add other custom user attributes
+          subscriptionTier: 'premium',
+          role: 'tester'
+        });
+        
+        setStatus('success');
+        setMessage(`User identified in LogRocket: ${userName} (${userEmail})`);
+      });
+    }
+  };
+  
+  const logCustomEvent = () => {
+    if (typeof window !== 'undefined') {
+      import('logrocket').then(LogRocket => {
+        LogRocket.default.track('test_event', {
+          category: 'Testing',
+          action: 'Clicked test button',
+          timestamp: new Date().toISOString()
+        });
+        
+        setStatus('success');
+        setMessage('Custom event logged in LogRocket');
+      });
+    }
   };
   
   return (
-    <div className="p-4 border rounded-md bg-white">
-      <h3 className="text-lg font-medium mb-2">LogRocket Test</h3>
-      <div className="space-x-2">
-        <Button onClick={triggerEvent} variant="outline" size="sm">
-          Log Test Event
+    <div className="space-y-4">
+      <div className="grid gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="userId">User ID</Label>
+          <Input 
+            id="userId" 
+            value={userId} 
+            onChange={(e) => setUserId(e.target.value)}
+            placeholder="Enter user ID" 
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="userName">Name</Label>
+          <Input 
+            id="userName" 
+            value={userName} 
+            onChange={(e) => setUserName(e.target.value)}
+            placeholder="Enter user name" 
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="userEmail">Email</Label>
+          <Input 
+            id="userEmail" 
+            value={userEmail} 
+            onChange={(e) => setUserEmail(e.target.value)}
+            placeholder="Enter user email" 
+            type="email"
+          />
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+        <Button onClick={identifyUser} variant="outline">
+          Identify User
         </Button>
-        <Button onClick={identifyUser} variant="outline" size="sm">
-          Identify Test User
+        
+        <Button onClick={logCustomEvent} variant="outline">
+          Log Custom Event
         </Button>
       </div>
-      {message && (
-        <p className="mt-2 text-sm text-green-600">{message}</p>
+      
+      {status === 'success' && (
+        <Alert>
+          <CheckCircle2 className="h-4 w-4" />
+          <AlertTitle>Success</AlertTitle>
+          <AlertDescription>{message}</AlertDescription>
+        </Alert>
       )}
     </div>
   );

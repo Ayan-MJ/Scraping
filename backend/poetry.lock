@@ -1848,6 +1848,7 @@ files = [
 ]
 
 [package.dependencies]
+celery = {version = ">=3", optional = true, markers = "extra == \"celery\""}
 certifi = "*"
 urllib3 = ">=1.26.11"
 
@@ -2571,4 +2572,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.14"
-content-hash = "c88e02aacef11fe59affaa4ad3cfdb9df8850df8e99d1c055a327b4375b07399"
+content-hash = "35d8141ad51b270113810785b70b019e93ddb149ff3d5b920839a2370d587c81"
