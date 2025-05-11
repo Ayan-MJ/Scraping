@@ -21,12 +21,15 @@ class ResultCreate(ResultBase):
 
 
 class Result(ResultBase):
-    """Model for returning a result."""
-    id: int = Field(..., description="Unique identifier for the result")
-    created_at: datetime = Field(..., description="When the result was created")
+    """Model for result responses."""
+    id: int = Field(..., description="Unique result identifier")
+    run_id: int = Field(..., description="ID of the run this result belongs to")
+    created_at: datetime = Field(..., description="Creation timestamp")
+    updated_at: datetime = Field(..., description="Last update timestamp")
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }
 
 
 class ResultsResponse(BaseModel):

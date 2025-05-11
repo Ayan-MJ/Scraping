@@ -9,7 +9,7 @@ router = APIRouter(prefix="/projects", tags=["projects"])
 
 
 @router.get("/", response_model=List[Project])
-async def get_all_projects(current_user = Depends(get_current_user)):
+async def get_all_projects(current_user: Annotated[dict, Depends(get_current_user)]):
     """
     Retrieve all projects owned by the authenticated user.
 
@@ -20,7 +20,7 @@ async def get_all_projects(current_user = Depends(get_current_user)):
 
 
 @router.get("/{id}", response_model=Project)
-async def get_project_by_id(id: int, current_user = Depends(get_current_user)):
+async def get_project_by_id(id: int, current_user: Annotated[dict, Depends(get_current_user)]):
     """
     Retrieve a project by ID if it belongs to the authenticated user.
 
@@ -37,7 +37,7 @@ async def get_project_by_id(id: int, current_user = Depends(get_current_user)):
 
 
 @router.post("/", response_model=Project, status_code=status.HTTP_201_CREATED)
-async def create_new_project(project: ProjectCreate, current_user = Depends(get_current_user)):
+async def create_new_project(project: ProjectCreate, current_user: Annotated[dict, Depends(get_current_user)]):
     """
     Create a new project owned by the authenticated user.
 
@@ -54,7 +54,7 @@ async def create_new_project(project: ProjectCreate, current_user = Depends(get_
 async def update_existing_project(
     id: int,
     project: ProjectUpdate,
-    current_user = Depends(get_current_user)
+    current_user: Annotated[dict, Depends(get_current_user)]
 ):
     """
     Update an existing project if it belongs to the authenticated user.
@@ -73,7 +73,7 @@ async def update_existing_project(
 
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_existing_project(id: int, current_user = Depends(get_current_user)):
+async def delete_existing_project(id: int, current_user: Annotated[dict, Depends(get_current_user)]):
     """
     Delete a project if it belongs to the authenticated user.
 
