@@ -3,31 +3,90 @@
 import { useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
 import { Button } from './button';
+import { Alert, AlertDescription, AlertTitle } from './alert';
+import { AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export function SentryTest() {
-  const [error, setError] = useState<string | null>(null);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
   
-  const triggerError = () => {
+  const triggerFrontendError = () => {
     try {
-      // Intentionally throw an error
-      throw new Error('This is a test error for Sentry');
-    } catch (e) {
-      if (e instanceof Error) {
-        // Capture the error with Sentry
-        Sentry.captureException(e);
-        setError('Test error sent to Sentry!');
+      // Intentionally throw an error for testing
+      throw new Error('Test frontend error from SentryTest component');
+    } catch (error) {
+      if (error instanceof Error) {
+        Sentry.captureException(error);
+        setStatus('success');
+        setMessage('Frontend error captured by Sentry');
       }
     }
   };
   
+  const triggerBackendError = async () => {
+    try {
+      const response = await fetch('/api/sentry-example-api');
+      if (!response.ok) {
+        setStatus('success');
+        setMessage('Backend error triggered and captured by Sentry');
+      }
+    } catch (error) {
+      setStatus('error');
+      setMessage('Failed to reach the API endpoint');
+    }
+  };
+  
+  const triggerPerformanceIssue = () => {
+    // Simulate a slow operation
+    const start = Date.now();
+    let result = 0;
+    for (let i = 0; i < 10000000; i++) {
+      result += Math.random();
+    }
+    
+    // Capture a custom measurement
+    Sentry.captureMessage('Performance test', {
+      level: 'info',
+      tags: {
+        operation: 'performance_test',
+        duration_ms: Date.now() - start
+      }
+    });
+    
+    setStatus('success');
+    setMessage(`Performance information sent to Sentry (operation took ${Date.now() - start}ms)`);
+  };
+  
   return (
-    <div className="p-4 border rounded-md bg-white">
-      <h3 className="text-lg font-medium mb-2">Sentry Test</h3>
-      <Button onClick={triggerError} variant="outline">
-        Trigger Test Error
-      </Button>
-      {error && (
-        <p className="mt-2 text-sm text-green-600">{error}</p>
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <Button onClick={triggerFrontendError} variant="outline">
+          Trigger Frontend Error
+        </Button>
+        
+        <Button onClick={triggerBackendError} variant="outline">
+          Trigger Backend Error
+        </Button>
+        
+        <Button onClick={triggerPerformanceIssue} variant="outline">
+          Track Performance
+        </Button>
+      </div>
+      
+      {status !== 'idle' && (
+        <Alert variant={status === 'success' ? 'default' : 'destructive'}>
+          {status === 'success' ? (
+            <CheckCircle2 className="h-4 w-4" />
+          ) : (
+            <AlertCircle className="h-4 w-4" />
+          )}
+          <AlertTitle>
+            {status === 'success' ? 'Success' : 'Error'}
+          </AlertTitle>
+          <AlertDescription>
+            {message}
+          </AlertDescription>
+        </Alert>
       )}
     </div>
   );

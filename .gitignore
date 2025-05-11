@@ -71,3 +71,4 @@ htmlcov/
 # Large files that exceed GitHub's limit
 backend/venv/lib/python3.11/site-packages/playwright/driver/node
 frontend/node_modules/@next/swc-darwin-arm64/next-swc.darwin-arm64.node 
+.vercel

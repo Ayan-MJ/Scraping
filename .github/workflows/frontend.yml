@@ -41,6 +41,7 @@ jobs:
           NEXT_PUBLIC_LOGROCKET_APP_ID: ${{ secrets.NEXT_PUBLIC_LOGROCKET_APP_ID }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           
       - name: Deploy to Vercel
         if: github.ref == 'refs/heads/main'
