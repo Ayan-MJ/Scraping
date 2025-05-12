@@ -46,7 +46,7 @@ jobs:
         
       - name: Build Docker image
         if: github.ref == 'refs/heads/main'
-        run: docker build -t ghcr.io/${{ github.repository }}/scraping-wizard-api:latest ./backend
+        run: docker build -t ghcr.io/${GITHUB_REPOSITORY,,}/scraping-wizard-api:latest ./backend
         
       - name: Log in to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
@@ -54,7 +54,7 @@ jobs:
         
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
-        run: docker push ghcr.io/${{ github.repository }}/scraping-wizard-api:latest
+        run: docker push ghcr.io/${GITHUB_REPOSITORY,,}/scraping-wizard-api:latest
         
       - name: Deploy to AWS ECS
         if: github.ref == 'refs/heads/main'
