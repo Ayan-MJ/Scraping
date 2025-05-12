@@ -222,7 +222,7 @@ def test_run_api_workflow(mock_get_supabase_client, mock_supabase_client, auth_h
     run_id = enqueue_response.json()["id"]
     
     # Get all runs for the project
-    get_all_response = client.get(f"/api/v1/projects/1/runs", headers=auth_headers)
+    get_all_response = client.get("/api/v1/projects/1/runs", headers=auth_headers)
     assert get_all_response.status_code == 200
     
     # Get a specific run
