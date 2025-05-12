@@ -46,16 +46,15 @@ export function NewScheduleModal({ isOpen, onClose, projects, onCreateSchedule }
     }
   }
 
-  const getCronExpression = () => {
+  const getCronExpression = (): string => {
     const [hours, minutes] = time.split(":")
 
     switch (frequency) {
       case "one-off":
         return ""
       case "hourly": {
-        const minutes = value.split(':').map(Number)[1];
-        setCronExpression(`0 ${minutes} * * * *`);
-        break;
+        const minuteValue = Number.parseInt(minutes);
+        return `0 ${minuteValue} * * * *`;
       }
       case "daily": {
         return `0 ${Number.parseInt(hours)} * * *`
