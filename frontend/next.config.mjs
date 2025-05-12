@@ -12,9 +12,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  sentry: {
-    hideSourceMaps: true,
-  },
 }
 
 // Wrap with Sentry configuration

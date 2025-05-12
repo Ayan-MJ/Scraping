@@ -64,4 +64,9 @@ export function useFailedResults(runId: number) {
     },
     enabled: !!runId,
   });
-} 
+}
+
+/**
+ * Export useRunResults as useResults to maintain backward compatibility
+ */
+export const useResults = useRunResults; 
