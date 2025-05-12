@@ -18,7 +18,7 @@ const ToastContext = createContext<ToastContextProps>({
 })
 
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
-  const [toasts, setToasts] = useState<ToastProps[]>([])
+  const [_toasts, setToasts] = useState<ToastProps[]>([])
 
   const toast = (props: ToastProps) => {
     setToasts((prev) => [...prev, props])

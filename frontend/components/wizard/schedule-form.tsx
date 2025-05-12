@@ -70,7 +70,7 @@ export function ScheduleForm({ config, setConfig }: ScheduleFormProps) {
   }
 
   const handleTimeChange = (time: string) => {
-    const [hours, minutes] = time.split(":")
+    const [hours, _minutes] = time.split(":")
     let cronExpression = ""
 
     if (config.frequency === "daily") {
@@ -115,7 +115,7 @@ export function ScheduleForm({ config, setConfig }: ScheduleFormProps) {
       })
       .join(",")
 
-    const [hours, minutes] = (config.time || "09:00").split(":")
+    const [hours, _minutes] = (config.time || "09:00").split(":")
     const cronExpression = `0 ${Number.parseInt(hours)} * * ${weekdayNumbers}`
 
     setConfig({
@@ -127,7 +127,7 @@ export function ScheduleForm({ config, setConfig }: ScheduleFormProps) {
 
   const handleCronExpressionChange = (expression: string) => {
     try {
-      const isValid = validateCronExpression(expression)
+      const _isValid = validateCronExpression(expression)
       setCronError(null)
       setConfig({
         ...config,

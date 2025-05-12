@@ -83,7 +83,7 @@ export function FieldMappingsSettings({ settings, onChange }: FieldMappingsSetti
     setIsRuleModalOpen(false)
   }
 
-  const handleMoveRule = (fromIndex: number, toIndex: number) => {
+  const _handleMoveRule = (fromIndex: number, toIndex: number) => {
     if (
       fromIndex < 0 ||
       fromIndex >= settings.fieldMappings.length ||
