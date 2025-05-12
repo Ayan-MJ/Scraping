@@ -52,10 +52,14 @@ export function NewScheduleModal({ isOpen, onClose, projects, onCreateSchedule }
     switch (frequency) {
       case "one-off":
         return ""
-      case "hourly":
-        return "0 * * * *"
-      case "daily":
+      case "hourly": {
+        const minutes = value.split(':').map(Number)[1];
+        setCronExpression(`0 ${minutes} * * * *`);
+        break;
+      }
+      case "daily": {
         return `0 ${Number.parseInt(hours)} * * *`
+      }
       case "weekly":
         const weekdayNum = getWeekdayNumber(weekday)
         return `0 ${Number.parseInt(hours)} * * ${weekdayNum}`
