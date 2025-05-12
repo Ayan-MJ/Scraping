@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/nextjs';
 import { Button } from './button';
 import { Alert, AlertDescription, AlertTitle } from './alert';
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 export function SentryTest() {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -39,9 +40,9 @@ export function SentryTest() {
   const triggerPerformanceIssue = () => {
     // Simulate a slow operation
     const start = Date.now();
-    let result = 0;
+    let _result = 0;
     for (let i = 0; i < 10000000; i++) {
-      result += Math.random();
+      _result += Math.random();
     }
     
     // Capture a custom measurement
@@ -55,6 +56,18 @@ export function SentryTest() {
     
     setStatus('success');
     setMessage(`Performance information sent to Sentry (operation took ${Date.now() - start}ms)`);
+  };
+  
+  const _handleBackendCrash = async () => {
+    try {
+      // Call your backend API endpoint to trigger an error
+      const response = await fetch('/api/sentry-example-api/backend-error');
+      // Use underscore prefix to indicate unused variable
+      const _result = await response.json();
+      // This will never execute because the backend will crash
+    } catch (error) {
+      toast.error('Backend Error: Server error occurred');
+    }
   };
   
   return (

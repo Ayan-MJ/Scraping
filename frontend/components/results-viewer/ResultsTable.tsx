@@ -7,6 +7,7 @@ import {
   useReactTable,
   type ColumnDef,
   type SortingState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -24,8 +25,22 @@ import {
   DropdownMenuContent,
   DropdownMenuCheckboxItem,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown as _ChevronDown, ChevronLeft, ChevronRight, SlidersHorizontal } from 'lucide-react';
-import { Result } from '@/hooks/useResults';
+// Import but mark as unused with underscore prefix in the import aliases
+import {
+  ChevronDown as _ChevronDown,
+  ChevronUp as _ChevronUp,
+  MoreHorizontal as _MoreHorizontal,
+  Download as _Download,
+  ChevronLeft,
+  ChevronRight,
+  SlidersHorizontal
+} from "lucide-react";
+
+interface Result {
+  id: string;
+  data: any;
+  created_at: string;
+}
 
 interface ResultsTableProps {
   results: Result[];
@@ -33,8 +48,9 @@ interface ResultsTableProps {
 }
 
 export function ResultsTable({ results, isLoading = false }: ResultsTableProps) {
+  const [_data, _setData] = useState<any[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<Record<string, string>>({});
+  const [_columnFilters, _setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>({});
   
   // Generate columns dynamically based on the fields in the results
@@ -239,7 +255,7 @@ export function ResultsTable({ results, isLoading = false }: ResultsTableProps) 
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage() || isLoading}
         >
-          <_ChevronDown className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4" />
           Previous
         </Button>
         <Button
@@ -249,7 +265,7 @@ export function ResultsTable({ results, isLoading = false }: ResultsTableProps) 
           disabled={!table.getCanNextPage() || isLoading}
         >
           Next
-          <_ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
     </div>

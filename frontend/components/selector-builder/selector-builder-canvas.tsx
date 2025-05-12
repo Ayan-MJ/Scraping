@@ -23,7 +23,7 @@ export function SelectorBuilderCanvas() {
     },
   ])
 
-  const [targetUrl, setTargetUrl] = useState("https://example.com/products")
+  const [targetUrl, _setTargetUrl] = useState<string>("")
 
   const handleAddField = () => {
     const newField = {
