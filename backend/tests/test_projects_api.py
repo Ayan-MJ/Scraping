@@ -2,158 +2,241 @@
 """
 Test script for the Projects API endpoints.
 """
-import requests
 import json
-import sys
+import pytest
+from unittest.mock import patch, MagicMock
+from fastapi.testclient import TestClient
+from app.main import app
 from datetime import datetime
+from app.core.auth import get_supabase_client
 
-# Configuration
-API_BASE_URL = "http://localhost:9000/api/v1"  # Update if your port differs
-PROJECTS_URL = f"{API_BASE_URL}/projects"
+# Test client for FastAPI
+client = TestClient(app)
 
+# Sample user data
+SAMPLE_USER = {
+    "id": "00000000-0000-0000-0000-000000000001",
+    "email": "test@example.com"
+}
+
+# Mock user for authentication
+mock_user = MagicMock()
+mock_user.id = SAMPLE_USER["id"]
+mock_user.email = SAMPLE_USER["email"]
+
+# Prepare mock Supabase get_user() response
+mock_supabase_response = MagicMock()
+mock_supabase_response.user = mock_user
+
+# Mock Supabase client
+mock_supabase_client = MagicMock()
+mock_supabase_client.auth.get_user.return_value = mock_supabase_response
+
+# Reset function for mocks before each test
+@pytest.fixture(autouse=True)
+def reset_mocks():
+    # Create a fresh mock for each test
+    global mock_supabase_client
+    mock_supabase_client = MagicMock()
+    mock_supabase_client.auth.get_user.return_value = mock_supabase_response
+    yield
 
 def print_response(response):
     """Print response details for debugging"""
     print(f"Status Code: {response.status_code}")
     try:
-        print(f"Response: {json.dumps(response.json(), indent=2)}")
+        content = response.json() if hasattr(response, "json") else response
+        print(f"Response: {json.dumps(content, indent=2)}")
     except:
         print(f"Response Text: {response.text}")
     print("-" * 50)
 
-
-def test_create_project():
+@patch("app.core.auth.get_supabase_client")
+def test_create_project(mock_get_supabase_client_func):
     """Test creating a new project"""
     print("\n1. Testing CREATE project...")
-
+    
+    # Configure the mock supabase client
+    mock_get_supabase_client_func.return_value = mock_supabase_client
+    
     project_data = {
         "name": f"Test Project {datetime.now().isoformat()}",
         "description": "This is a test project created from the API test script"
     }
 
-    response = requests.post(PROJECTS_URL, json=project_data)
+    # Add auth header
+    headers = {"Authorization": "Bearer faketoken"}
+    
+    response = client.post("/api/v1/projects/", json=project_data, headers=headers)
     print_response(response)
 
-    if response.status_code == 201:
-        print("✅ Create project test PASSED")
-        return response.json()["id"]
-    else:
-        print("❌ Create project test FAILED")
-        return None
+    assert response.status_code == 201
+    print("✅ Create project test PASSED")
+    return response.json()["id"]
 
-
-def test_get_all_projects():
+@patch("app.core.auth.get_supabase_client")
+def test_get_all_projects(mock_get_supabase_client_func):
     """Test getting all projects"""
     print("\n2. Testing GET ALL projects...")
-
-    response = requests.get(PROJECTS_URL)
+    
+    # Configure the mock supabase client
+    mock_get_supabase_client_func.return_value = mock_supabase_client
+    
+    # Add auth header
+    headers = {"Authorization": "Bearer faketoken"}
+    
+    response = client.get("/api/v1/projects/", headers=headers)
     print_response(response)
 
-    if response.status_code == 200:
-        print("✅ Get all projects test PASSED")
-        return True
-    else:
-        print("❌ Get all projects test FAILED")
-        return False
+    assert response.status_code == 200
+    print("✅ Get all projects test PASSED")
+    return True
 
-
-def test_get_project(project_id):
+@patch("app.core.auth.get_supabase_client")
+def test_get_project(mock_get_supabase_client_func, project_id):
     """Test getting a specific project"""
     print(f"\n3. Testing GET project (ID: {project_id})...")
-
-    response = requests.get(f"{PROJECTS_URL}/{project_id}")
+    
+    # Configure the mock supabase client
+    mock_get_supabase_client_func.return_value = mock_supabase_client
+    
+    # Add auth header
+    headers = {"Authorization": "Bearer faketoken"}
+    
+    response = client.get(f"/api/v1/projects/{project_id}", headers=headers)
     print_response(response)
 
-    if response.status_code == 200:
-        print("✅ Get project test PASSED")
-        return True
-    else:
-        print("❌ Get project test FAILED")
-        return False
+    assert response.status_code == 200
+    print("✅ Get project test PASSED")
+    return True
 
-
-def test_update_project(project_id):
+@patch("app.core.auth.get_supabase_client")
+def test_update_project(mock_get_supabase_client_func, project_id):
     """Test updating a project"""
     print(f"\n4. Testing UPDATE project (ID: {project_id})...")
-
+    
+    # Configure the mock supabase client
+    mock_get_supabase_client_func.return_value = mock_supabase_client
+    
     update_data = {
         "name": f"Updated Project {datetime.now().isoformat()}",
         "description": "This project was updated via the API test script"
     }
 
-    response = requests.put(f"{PROJECTS_URL}/{project_id}", json=update_data)
+    # Add auth header
+    headers = {"Authorization": "Bearer faketoken"}
+    
+    response = client.put(f"/api/v1/projects/{project_id}", json=update_data, headers=headers)
     print_response(response)
 
-    if response.status_code == 200:
-        print("✅ Update project test PASSED")
-        return True
-    else:
-        print("❌ Update project test FAILED")
-        return False
-
-
-def test_delete_project(project_id):
-    """Test deleting a project"""
-    print(f"\n5. Testing DELETE project (ID: {project_id})...")
-
-    response = requests.delete(f"{PROJECTS_URL}/{project_id}")
-    print_response(response)
-
-    if response.status_code == 204:
-        print("✅ Delete project test PASSED")
-
-        # Verify deletion
-        get_response = requests.get(f"{PROJECTS_URL}/{project_id}")
-        if get_response.status_code == 404:
-            print("✅ Verified deletion - project no longer exists")
-            return True
-        else:
-            print("❌ Failed to verify deletion - project still exists")
-            return False
-    else:
-        print("❌ Delete project test FAILED")
-        return False
-
-
-def run_all_tests():
-    """Run all API tests in sequence"""
-    print("Starting Projects API tests...")
-
-    # Test creating a project
-    project_id = test_create_project()
-    if project_id is None:
-        print("❌ Cannot continue tests without a valid project ID")
-        return False
-
-    # Test getting all projects
-    test_get_all_projects()
-
-    # Test getting a specific project
-    test_get_project(project_id)
-
-    # Test updating a project
-    test_update_project(project_id)
-
-    # Test deleting a project
-    test_delete_project(project_id)
-
-    print("\nCompleted all tests!")
+    assert response.status_code == 200
+    print("✅ Update project test PASSED")
     return True
 
+@patch("app.core.auth.get_supabase_client")
+def test_delete_project(mock_get_supabase_client_func, project_id):
+    """Test deleting a project"""
+    print(f"\n5. Testing DELETE project (ID: {project_id})...")
+    
+    # Configure the mock supabase client
+    mock_get_supabase_client_func.return_value = mock_supabase_client
+    
+    # Add auth header
+    headers = {"Authorization": "Bearer faketoken"}
+    
+    response = client.delete(f"/api/v1/projects/{project_id}", headers=headers)
+    print_response(response)
 
-if __name__ == "__main__":
-    print("Projects API Test Script")
-    print("=" * 50)
+    assert response.status_code == 204
+    print("✅ Delete project test PASSED")
 
-    # Check API health before starting tests
-    try:
-        health_response = requests.get(f"{API_BASE_URL.split('/api')[0]}/health")
-        if health_response.status_code != 200:
-            print(f"❌ API health check failed: {health_response.status_code}")
-            sys.exit(1)
-    except requests.exceptions.ConnectionError:
-        print("❌ Failed to connect to the API. Make sure the server is running.")
-        sys.exit(1)
+    # Verify deletion
+    get_response = client.get(f"/api/v1/projects/{project_id}", headers=headers)
+    assert get_response.status_code == 404
+    print("✅ Verified deletion - project no longer exists")
+    return True
 
-    print("✅ API is running")
-    run_all_tests()
+# Mock project service to avoid actual database calls
+@pytest.fixture
+def mock_project_service():
+    with patch("app.services.project_service.get_projects") as mock_get_projects, \
+         patch("app.services.project_service.get_project") as mock_get_project, \
+         patch("app.services.project_service.create_project") as mock_create_project, \
+         patch("app.services.project_service.update_project") as mock_update_project, \
+         patch("app.services.project_service.delete_project") as mock_delete_project:
+        
+        # Mock create_project to return a project with an ID
+        mock_create_project.return_value = {
+            "id": 1,
+            "name": "Test Project",
+            "description": "Test description",
+            "user_id": SAMPLE_USER["id"],
+            "created_at": datetime.now().isoformat(),
+            "updated_at": datetime.now().isoformat()
+        }
+        
+        # Mock get_projects to return a list with the test project
+        mock_get_projects.return_value = [mock_create_project.return_value]
+        
+        # Mock get_project to return the test project
+        mock_get_project.return_value = mock_create_project.return_value
+        
+        # Mock update_project to return the updated project
+        mock_update_project.return_value = {
+            **mock_create_project.return_value,
+            "name": "Updated Test Project",
+            "description": "Updated description",
+            "updated_at": datetime.now().isoformat()
+        }
+        
+        # Mock delete_project to return None
+        mock_delete_project.return_value = None
+        
+        yield {
+            "get_projects": mock_get_projects,
+            "get_project": mock_get_project,
+            "create_project": mock_create_project,
+            "update_project": mock_update_project,
+            "delete_project": mock_delete_project
+        }
+
+@pytest.mark.usefixtures("mock_project_service")
+def test_project_api_workflow():
+    """
+    Test the complete project API workflow:
+    - Create a project
+    - Get all projects
+    - Get a specific project
+    - Update a project
+    - Delete a project
+    """
+    with patch("app.core.auth.get_supabase_client", return_value=mock_supabase_client):
+        # Set up auth headers
+        headers = {"Authorization": "Bearer faketoken"}
+        
+        # Create a project
+        create_response = client.post("/api/v1/projects/", json={
+            "name": "Test Project",
+            "description": "Test description"
+        }, headers=headers)
+        assert create_response.status_code == 201
+        project_id = create_response.json()["id"]
+        
+        # Get all projects
+        get_all_response = client.get("/api/v1/projects/", headers=headers)
+        assert get_all_response.status_code == 200
+        
+        # Get a specific project
+        get_response = client.get(f"/api/v1/projects/{project_id}", headers=headers)
+        assert get_response.status_code == 200
+        
+        # Update a project
+        update_response = client.put(f"/api/v1/projects/{project_id}", json={
+            "name": "Updated Test Project",
+            "description": "Updated description"
+        }, headers=headers)
+        assert update_response.status_code == 200
+        
+        # Delete a project
+        delete_response = client.delete(f"/api/v1/projects/{project_id}", headers=headers)
+        assert delete_response.status_code == 204
