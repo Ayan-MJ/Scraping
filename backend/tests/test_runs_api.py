@@ -59,6 +59,7 @@ def print_response(response):
 @pytest.fixture
 def sample_run():
     """Return a sample run for testing"""
+    # Define the run data with proper types
     run_data = {
         "id": 1,
         "project_id": 1,
@@ -67,37 +68,46 @@ def sample_run():
         "config": {"selector": ".content"},
         "user_id": SAMPLE_USER["id"],
         "created_at": datetime.now().isoformat(),
-        "updated_at": datetime.now().isoformat()
+        "updated_at": datetime.now().isoformat(),
+        "error": None  # Explicitly set to None
     }
     
-    # Create a MagicMock that behaves like a Run object
+    # Create a MagicMock with proper attribute types
     mock_run = MagicMock()
-    # Add all attributes from the dictionary
     for key, value in run_data.items():
         setattr(mock_run, key, value)
+    
+    # Ensure model_dump method returns a dictionary of the attributes
+    mock_run.model_dump = MagicMock(return_value=run_data)
     
     return mock_run
 
 @pytest.fixture
 def sample_run_updated(sample_run):
     """Return an updated sample run for testing"""
+    # Define the updated fields
     updated_data = {
         "status": "cancelled",
-        "error": "Test cancellation",
+        "error": "Test cancellation",  # This is a string as expected
         "updated_at": datetime.now().isoformat()
     }
     
-    # Create a new MagicMock based on sample_run
-    mock_run_updated = MagicMock()
-    
-    # Copy all attributes from sample_run
+    # Get the base data from sample_run
+    base_data = {}
     for attr_name in dir(sample_run):
-        if not attr_name.startswith('_') and not callable(getattr(sample_run, attr_name)):
-            setattr(mock_run_updated, attr_name, getattr(sample_run, attr_name))
+        if not attr_name.startswith('_') and not callable(getattr(sample_run, attr_name)) and attr_name != 'model_dump':
+            base_data[attr_name] = getattr(sample_run, attr_name)
     
-    # Update with new values
-    for key, value in updated_data.items():
+    # Merge with updated data
+    full_data = {**base_data, **updated_data}
+    
+    # Create a new MagicMock with the merged data
+    mock_run_updated = MagicMock()
+    for key, value in full_data.items():
         setattr(mock_run_updated, key, value)
+    
+    # Ensure model_dump method returns a dictionary of the attributes
+    mock_run_updated.model_dump = MagicMock(return_value=full_data)
     
     return mock_run_updated
 
@@ -114,12 +124,23 @@ def mock_run_service(sample_run, sample_run_updated):
         mock_get_runs.return_value = [sample_run]
         mock_get_run.return_value = sample_run
         
-        # Create a pending run based on sample_run
-        pending_run = MagicMock()
+        # Create a pending run with proper field types
+        # Get the base data from sample_run
+        base_data = {}
         for attr_name in dir(sample_run):
-            if not attr_name.startswith('_') and not callable(getattr(sample_run, attr_name)):
-                setattr(pending_run, attr_name, getattr(sample_run, attr_name))
-        pending_run.status = "pending"
+            if not attr_name.startswith('_') and not callable(getattr(sample_run, attr_name)) and attr_name != 'model_dump':
+                base_data[attr_name] = getattr(sample_run, attr_name)
+        
+        # Update with pending status
+        pending_data = {**base_data, "status": "pending"}
+        
+        # Create the pending run mock
+        pending_run = MagicMock()
+        for key, value in pending_data.items():
+            setattr(pending_run, key, value)
+            
+        # Add model_dump method
+        pending_run.model_dump = MagicMock(return_value=pending_data)
         
         mock_enqueue_run.return_value = pending_run
         mock_update_run.return_value = sample_run_updated
