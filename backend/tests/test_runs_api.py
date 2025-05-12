@@ -83,7 +83,7 @@ def sample_run_updated(sample_run):
 @pytest.fixture
 def mock_run_service(sample_run, sample_run_updated):
     """Mock run service functions"""
-    with patch("app.services.run_service.get_runs_for_project", new_callable=AsyncMock) as mock_get_runs, \
+    with patch("app.services.run_service.get_runs", new_callable=AsyncMock) as mock_get_runs, \
          patch("app.services.run_service.get_run", new_callable=AsyncMock) as mock_get_run, \
          patch("app.services.run_service.enqueue_run", new_callable=AsyncMock) as mock_enqueue_run, \
          patch("app.services.run_service.update_run", new_callable=AsyncMock) as mock_update_run, \
@@ -106,7 +106,7 @@ def mock_run_service(sample_run, sample_run_updated):
         mock_get_run.side_effect = get_run_side_effect
         
         yield {
-            "get_runs_for_project": mock_get_runs,
+            "get_runs": mock_get_runs,
             "get_run": mock_get_run,
             "enqueue_run": mock_enqueue_run,
             "update_run": mock_update_run,
@@ -123,7 +123,7 @@ def test_get_runs_for_project(mock_get_supabase_client, mock_supabase_client, au
     print_response(response)
 
     assert response.status_code == 200
-    mock_run_service["get_runs_for_project"].assert_called_once_with(1, SAMPLE_USER["id"])
+    mock_run_service["get_runs"].assert_called_once_with(1)
 
 @patch("app.core.auth.get_supabase_client")
 def test_enqueue_run(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
