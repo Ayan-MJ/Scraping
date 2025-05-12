@@ -2,7 +2,6 @@ import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch, MagicMock
 from app.main import app
-from app.core.auth import get_current_user
 
 # Test client for FastAPI
 client = TestClient(app)
@@ -27,26 +26,33 @@ SAMPLE_USER = {
     "role": "authenticated"
 }
 
-# Mock authenticated user for testing
-async def mock_get_current_user_authenticated():
-    """Mock the get_current_user function to return a valid user"""
-    mock_user = MagicMock()
-    mock_user.id = SAMPLE_USER["id"]
-    mock_user.email = SAMPLE_USER["email"]
-    mock_user.app_metadata = SAMPLE_USER["app_metadata"]
-    mock_user.user_metadata = SAMPLE_USER["user_metadata"]
-    mock_user.aud = SAMPLE_USER["aud"]
-    mock_user.role = SAMPLE_USER["role"]
-    return mock_user
+# Prepare a mock user object
+mock_user_data = MagicMock()
+mock_user_data.id = SAMPLE_USER["id"]
+mock_user_data.email = SAMPLE_USER["email"]
+mock_user_data.app_metadata = SAMPLE_USER["app_metadata"]
+mock_user_data.user_metadata = SAMPLE_USER["user_metadata"]
+mock_user_data.aud = SAMPLE_USER["aud"]
+mock_user_data.role = SAMPLE_USER["role"]
 
-# Mock unauthenticated user for testing
-async def mock_get_current_user_unauthenticated():
-    """Mock the get_current_user function to raise an exception"""
-    from fastapi import HTTPException, status
-    raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid authentication credentials"
-    )
+# Prepare mock Supabase get_user() response
+mock_supabase_get_user_response_success = MagicMock()
+mock_supabase_get_user_response_success.user = mock_user_data
+
+# Mock Supabase client
+mock_supabase_client = MagicMock()
+
+# Exception for auth failure
+class MockSupabaseAuthFailureException(Exception):
+    pass
+
+# Reset function for mocks before each test
+@pytest.fixture(autouse=True)
+def reset_mocks():
+    # Create a fresh mock for each test
+    global mock_supabase_client
+    mock_supabase_client = MagicMock()
+    yield
 
 def test_health_check_no_auth_required():
     """Test that health check doesn't require authentication"""
@@ -54,42 +60,58 @@ def test_health_check_no_auth_required():
     assert response.status_code == 200
     assert response.json()["status"] == "ok"
 
-@patch("app.core.auth.get_current_user", mock_get_current_user_authenticated)
-def test_successful_authentication():
+# Patch the get_supabase_client function in the auth module
+@patch("app.core.auth.get_supabase_client")
+def test_successful_authentication(mock_get_supabase_client_func):
     """Test successful API access with valid token"""
-    # When the auth dependency is mocked to return a valid user
-    response = client.get("/api/v1/projects/")
+    # Configure the mock supabase client that get_supabase_client will return
+    mock_supabase_client.auth.get_user.return_value = mock_supabase_get_user_response_success
+    mock_get_supabase_client_func.return_value = mock_supabase_client
 
-    # Then the request should succeed
+    headers = {"Authorization": "Bearer faketoken"}
+    response = client.get("/api/v1/projects/", headers=headers)
+
     assert response.status_code == 200
+    mock_get_supabase_client_func.assert_called_once()
+    mock_supabase_client.auth.get_user.assert_called_once_with("faketoken")
 
-@patch("app.core.auth.get_current_user", mock_get_current_user_unauthenticated)
-def test_failed_authentication_invalid_token():
+@patch("app.core.auth.get_supabase_client")
+def test_failed_authentication_invalid_token(mock_get_supabase_client_func):
     """Test API access fails with invalid token"""
-    # When the auth dependency is mocked to fail authentication
-    response = client.get("/api/v1/projects/")
+    # Configure the mock supabase client to raise an exception
+    mock_supabase_client.auth.get_user.side_effect = MockSupabaseAuthFailureException("Invalid token")
+    mock_get_supabase_client_func.return_value = mock_supabase_client
 
-    # Then the request should fail with 401
+    headers = {"Authorization": "Bearer invalidtoken"}
+    response = client.get("/api/v1/projects/", headers=headers)
+
     assert response.status_code == 401
-    assert "Invalid authentication credentials" in response.json()["detail"]
+    assert "Invalid authentication credentials: Invalid token" in response.json()["detail"]
+    mock_get_supabase_client_func.assert_called_once()
+    mock_supabase_client.auth.get_user.assert_called_once_with("invalidtoken")
+    # Reset side effect for other tests if client is reused globally (good practice)
+    mock_supabase_client.auth.get_user.side_effect = None
 
 def test_failed_authentication_no_token():
     """Test API access fails without a token"""
-    # When no token is provided
     response = client.get("/api/v1/projects/")
-
-    # Then the request should fail with 401 or 403
-    assert response.status_code in (401, 403)
+    assert response.status_code in (401, 403) # FastAPI returns 403 if HTTPBearer fails to get a token
 
 @patch("app.services.project_service.get_projects")
-@patch("app.core.auth.get_current_user", mock_get_current_user_authenticated)
-def test_user_isolation(mock_get_projects):
+@patch("app.core.auth.get_supabase_client")
+def test_user_isolation(mock_get_supabase_client_func, mock_get_projects_service): # Order matters for decorators
     """Test that a user can only access their own projects"""
-    # Given the service will return some projects
-    mock_get_projects.return_value = []
+    # Configure the mock supabase client for successful auth
+    mock_supabase_client.auth.get_user.return_value = mock_supabase_get_user_response_success
+    mock_get_supabase_client_func.return_value = mock_supabase_client
+    
+    mock_get_projects_service.return_value = []
+    headers = {"Authorization": "Bearer faketoken"}
 
-    # When the user requests their projects
-    client.get("/api/v1/projects/")
+    client.get("/api/v1/projects/", headers=headers)
 
-    # Then the service should be called with the correct user_id
-    mock_get_projects.assert_called_once_with(SAMPLE_USER["id"])
+    mock_get_supabase_client_func.assert_called_once()
+    mock_supabase_client.auth.get_user.assert_called_once_with("faketoken")
+    mock_get_projects_service.assert_called_once_with(mock_user_data.id)
+    # Reset side effect for other tests
+    mock_supabase_client.auth.get_user.side_effect = None

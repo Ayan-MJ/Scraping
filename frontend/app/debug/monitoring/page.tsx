@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState as _useState } from 'react';
 import { SentryTest } from '@/components/ui/SentryTest';
 import { LogRocketTest } from '@/components/ui/LogRocketTest';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';

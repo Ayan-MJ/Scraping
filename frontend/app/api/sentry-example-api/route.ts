@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server"; // Removed unused import
 
 export const dynamic = "force-dynamic";
 class SentryExampleAPIError extends Error {

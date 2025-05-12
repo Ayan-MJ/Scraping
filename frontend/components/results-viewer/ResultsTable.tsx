@@ -24,7 +24,7 @@ import {
   DropdownMenuContent,
   DropdownMenuCheckboxItem,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, ChevronLeft, ChevronRight, SlidersHorizontal } from 'lucide-react';
+import { ChevronDown as _ChevronDown, ChevronLeft, ChevronRight, SlidersHorizontal } from 'lucide-react';
 import { Result } from '@/hooks/useResults';
 
 interface ResultsTableProps {
@@ -239,7 +239,7 @@ export function ResultsTable({ results, isLoading = false }: ResultsTableProps) 
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage() || isLoading}
         >
-          <ChevronLeft className="h-4 w-4" />
+          <_ChevronDown className="h-4 w-4" />
           Previous
         </Button>
         <Button
@@ -249,7 +249,7 @@ export function ResultsTable({ results, isLoading = false }: ResultsTableProps) 
           disabled={!table.getCanNextPage() || isLoading}
         >
           Next
-          <ChevronRight className="h-4 w-4" />
+          <_ChevronRight className="h-4 w-4" />
         </Button>
       </div>
     </div>
