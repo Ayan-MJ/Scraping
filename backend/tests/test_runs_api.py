@@ -114,10 +114,14 @@ def mock_run_service(sample_run, sample_run_updated):
         }
 
 @patch("app.core.auth.get_supabase_client")
-def test_get_runs_for_project(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
+@patch("app.services.project_service.get_project")
+def test_get_runs_for_project(mock_get_project, mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
     """Test getting all runs for a project"""
     # Configure the mock supabase client
     mock_get_supabase_client.return_value = mock_supabase_client
+    
+    # Configure the mock project service to return a valid project
+    mock_get_project.return_value = {"id": 1, "name": "Test Project", "user_id": SAMPLE_USER["id"]}
     
     response = client.get("/api/v1/projects/1/runs", headers=auth_headers)
     print_response(response)
@@ -126,10 +130,14 @@ def test_get_runs_for_project(mock_get_supabase_client, mock_supabase_client, au
     mock_run_service["get_runs"].assert_called_once_with(1)
 
 @patch("app.core.auth.get_supabase_client")
-def test_enqueue_run(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
+@patch("app.services.project_service.get_project")
+def test_enqueue_run(mock_get_project, mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
     """Test enqueueing a new run"""
     # Configure the mock supabase client
     mock_get_supabase_client.return_value = mock_supabase_client
+    
+    # Configure the mock project service to return a valid project
+    mock_get_project.return_value = {"id": 1, "name": "Test Project", "user_id": SAMPLE_USER["id"]}
     
     config = {"selector": ".content", "wait_for": ".loaded"}
     
@@ -198,7 +206,8 @@ def test_delete_run(mock_get_supabase_client, mock_supabase_client, auth_headers
     mock_run_service["delete_run"].assert_called_once_with(1, SAMPLE_USER["id"])
 
 @patch("app.core.auth.get_supabase_client")
-def test_run_api_workflow(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
+@patch("app.services.project_service.get_project")
+def test_run_api_workflow(mock_get_project, mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
     """
     Test the complete run API workflow:
     - Create a run by enqueueing
@@ -209,6 +218,9 @@ def test_run_api_workflow(mock_get_supabase_client, mock_supabase_client, auth_h
     """
     # Configure the mock supabase client
     mock_get_supabase_client.return_value = mock_supabase_client
+    
+    # Configure the mock project service to return a valid project
+    mock_get_project.return_value = {"id": 1, "name": "Test Project", "user_id": SAMPLE_USER["id"]}
     
     # Enqueue a run
     config = {"selector": ".content"}
