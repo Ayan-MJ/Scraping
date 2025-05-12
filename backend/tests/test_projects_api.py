@@ -115,7 +115,7 @@ def test_get_project(mock_get_project, mock_get_supabase_client_func):
     # Add auth header
     headers = {"Authorization": "Bearer faketoken"}
     
-    response = client.get(f"/api/v1/projects/1", headers=headers)
+    response = client.get("/api/v1/projects/1", headers=headers)
     print_response(response)
 
     assert response.status_code == 200
@@ -162,7 +162,7 @@ def test_update_project(mock_update_project, mock_get_project, mock_get_supabase
     # Add auth header
     headers = {"Authorization": "Bearer faketoken"}
     
-    response = client.put(f"/api/v1/projects/1", json=update_data, headers=headers)
+    response = client.put("/api/v1/projects/1", json=update_data, headers=headers)
     print_response(response)
 
     assert response.status_code == 200
@@ -196,7 +196,7 @@ def test_delete_project(mock_delete_project, mock_get_project, mock_get_supabase
     # Add auth header
     headers = {"Authorization": "Bearer faketoken"}
     
-    response = client.delete(f"/api/v1/projects/1", headers=headers)
+    response = client.delete("/api/v1/projects/1", headers=headers)
     print_response(response)
 
     assert response.status_code == 204
@@ -208,7 +208,7 @@ def test_delete_project(mock_delete_project, mock_get_project, mock_get_supabase
     mock_get_project.side_effect = Exception("Project not found")
     
     # Verify deletion
-    get_response = client.get(f"/api/v1/projects/1", headers=headers)
+    get_response = client.get("/api/v1/projects/1", headers=headers)
     assert get_response.status_code == 404
     print("✅ Verified deletion - project no longer exists")
     return True
