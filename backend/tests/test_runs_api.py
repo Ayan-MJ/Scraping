@@ -59,7 +59,7 @@ def print_response(response):
 @pytest.fixture
 def sample_run():
     """Return a sample run for testing"""
-    return {
+    run_data = {
         "id": 1,
         "project_id": 1,
         "status": "completed",
@@ -69,16 +69,37 @@ def sample_run():
         "created_at": datetime.now().isoformat(),
         "updated_at": datetime.now().isoformat()
     }
+    
+    # Create a MagicMock that behaves like a Run object
+    mock_run = MagicMock()
+    # Add all attributes from the dictionary
+    for key, value in run_data.items():
+        setattr(mock_run, key, value)
+    
+    return mock_run
 
 @pytest.fixture
 def sample_run_updated(sample_run):
     """Return an updated sample run for testing"""
-    return {
-        **sample_run,
+    updated_data = {
         "status": "cancelled",
         "error": "Test cancellation",
         "updated_at": datetime.now().isoformat()
     }
+    
+    # Create a new MagicMock based on sample_run
+    mock_run_updated = MagicMock()
+    
+    # Copy all attributes from sample_run
+    for attr_name in dir(sample_run):
+        if not attr_name.startswith('_') and not callable(getattr(sample_run, attr_name)):
+            setattr(mock_run_updated, attr_name, getattr(sample_run, attr_name))
+    
+    # Update with new values
+    for key, value in updated_data.items():
+        setattr(mock_run_updated, key, value)
+    
+    return mock_run_updated
 
 @pytest.fixture
 def mock_run_service(sample_run, sample_run_updated):
@@ -92,7 +113,15 @@ def mock_run_service(sample_run, sample_run_updated):
         # Set return values
         mock_get_runs.return_value = [sample_run]
         mock_get_run.return_value = sample_run
-        mock_enqueue_run.return_value = {**sample_run, "status": "pending"}
+        
+        # Create a pending run based on sample_run
+        pending_run = MagicMock()
+        for attr_name in dir(sample_run):
+            if not attr_name.startswith('_') and not callable(getattr(sample_run, attr_name)):
+                setattr(pending_run, attr_name, getattr(sample_run, attr_name))
+        pending_run.status = "pending"
+        
+        mock_enqueue_run.return_value = pending_run
         mock_update_run.return_value = sample_run_updated
         mock_delete_run.return_value = None
         
