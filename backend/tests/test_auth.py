@@ -46,6 +46,14 @@ mock_supabase_client = MagicMock()
 class MockSupabaseAuthFailureException(Exception):
     pass
 
+# Reset function for mocks before each test
+@pytest.fixture(autouse=True)
+def reset_mocks():
+    # Create a fresh mock for each test
+    global mock_supabase_client
+    mock_supabase_client = MagicMock()
+    yield
+
 def test_health_check_no_auth_required():
     """Test that health check doesn't require authentication"""
     response = client.get("/health")
