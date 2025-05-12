@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write  # Needed for GitHub Container Registry
     
     steps:
       - uses: actions/checkout@v3
@@ -50,7 +53,7 @@ jobs:
         
       - name: Log in to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
-        run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
         
       - name: Push Docker image
         if: github.ref == 'refs/heads/main'
