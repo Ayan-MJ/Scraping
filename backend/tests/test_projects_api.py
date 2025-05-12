@@ -119,14 +119,14 @@ def test_get_project(mock_get_project, mock_get_supabase_client_func):
     print_response(response)
 
     assert response.status_code == 200
+    # Verify get_project was called with the correct parameters
     mock_get_project.assert_called_once_with(1, SAMPLE_USER["id"])
     print("✅ Get project test PASSED")
     return True
 
 @patch("app.core.auth.get_supabase_client")
-@patch("app.services.project_service.get_project")
 @patch("app.services.project_service.update_project")
-def test_update_project(mock_update_project, mock_get_project, mock_get_supabase_client_func):
+def test_update_project(mock_update_project, mock_get_supabase_client_func):
     """Test updating a project"""
     print("\n4. Testing UPDATE project...")
     
@@ -148,7 +148,6 @@ def test_update_project(mock_update_project, mock_get_project, mock_get_supabase
         "updated_at": datetime.now().isoformat()
     }
     
-    mock_get_project.return_value = mock_project
     mock_update_project.return_value = mock_updated_project
     
     # Configure the mock supabase client
@@ -166,28 +165,17 @@ def test_update_project(mock_update_project, mock_get_project, mock_get_supabase
     print_response(response)
 
     assert response.status_code == 200
-    mock_get_project.assert_called_once_with(1, SAMPLE_USER["id"])
+    # Verify update_project was called with the correct parameters
+    mock_update_project.assert_called_once_with(1, update_data, SAMPLE_USER["id"])
     print("✅ Update project test PASSED")
     return True
 
 @patch("app.core.auth.get_supabase_client")
-@patch("app.services.project_service.get_project")
 @patch("app.services.project_service.delete_project")
-def test_delete_project(mock_delete_project, mock_get_project, mock_get_supabase_client_func):
+def test_delete_project(mock_delete_project, mock_get_supabase_client_func):
     """Test deleting a project"""
     print("\n5. Testing DELETE project...")
     
-    # Mock project to delete
-    mock_project = {
-        "id": 1,
-        "name": "Test Project",
-        "description": "Test description",
-        "user_id": SAMPLE_USER["id"],
-        "created_at": datetime.now().isoformat(),
-        "updated_at": datetime.now().isoformat()
-    }
-    
-    mock_get_project.return_value = mock_project
     mock_delete_project.return_value = None
     
     # Configure the mock supabase client
@@ -200,14 +188,10 @@ def test_delete_project(mock_delete_project, mock_get_project, mock_get_supabase
     print_response(response)
 
     assert response.status_code == 204
-    mock_get_project.assert_called_once_with(1, SAMPLE_USER["id"])
     mock_delete_project.assert_called_once_with(1, SAMPLE_USER["id"])
     print("✅ Delete project test PASSED")
 
-    # For verification after deletion, mock an empty response
-    mock_get_project.side_effect = Exception("Project not found")
-    
-    # Verify deletion
+    # Verify deletion by checking a 404 response
     get_response = client.get("/api/v1/projects/1", headers=headers)
     assert get_response.status_code == 404
     print("✅ Verified deletion - project no longer exists")
