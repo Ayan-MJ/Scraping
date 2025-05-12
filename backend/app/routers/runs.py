@@ -32,6 +32,26 @@ async def get_all_runs(
     return await run_service.get_runs(project_id)
 
 
+@router.get("/projects/{project_id}/runs", response_model=List[Run])
+async def get_runs_by_project(
+    project_id: int = Path(..., description="The ID of the project"),
+    current_user = Depends(get_current_user),
+):
+    """
+    Retrieve all runs for a specific project.
+
+    Args:
+        project_id (int): The ID of the project
+
+    Returns:
+        List[Run]: List of runs for the project
+    """
+    # Verify project exists and belongs to the user
+    await project_service.get_project(project_id, current_user.id)
+    
+    return await run_service.get_runs(project_id)
+
+
 @router.get("/runs/{run_id}", response_model=Run)
 async def get_run_by_id(
     run_id: int = Path(..., description="The ID of the run"),
