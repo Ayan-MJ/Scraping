@@ -97,7 +97,7 @@ def mock_run_service(sample_run, sample_run_updated):
         mock_delete_run.return_value = None
         
         # Configure get_run to raise exception for non-existent runs
-        async def get_run_side_effect(id, user_id):
+        async def get_run_side_effect(id):
             if id == 999:
                 from fastapi import HTTPException
                 raise HTTPException(status_code=404, detail="Run not found")
@@ -162,7 +162,7 @@ def test_get_run(mock_get_supabase_client, mock_supabase_client, auth_headers, m
     print_response(response)
 
     assert response.status_code == 200
-    mock_run_service["get_run"].assert_called_once_with(1, SAMPLE_USER["id"])
+    mock_run_service["get_run"].assert_called_once_with(1)
 
 @patch("app.core.auth.get_supabase_client")
 def test_get_nonexistent_run(mock_get_supabase_client, mock_supabase_client, auth_headers):
@@ -191,7 +191,7 @@ def test_update_run(mock_get_supabase_client, mock_supabase_client, auth_headers
     print_response(response)
 
     assert response.status_code == 200
-    mock_run_service["update_run"].assert_called_once_with(1, ANY, SAMPLE_USER["id"])
+    mock_run_service["update_run"].assert_called_once_with(1, ANY)
 
 @patch("app.core.auth.get_supabase_client")
 def test_delete_run(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
@@ -203,7 +203,7 @@ def test_delete_run(mock_get_supabase_client, mock_supabase_client, auth_headers
     print_response(response)
 
     assert response.status_code == 204
-    mock_run_service["delete_run"].assert_called_once_with(1, SAMPLE_USER["id"])
+    mock_run_service["delete_run"].assert_called_once_with(1)
 
 @patch("app.core.auth.get_supabase_client")
 @patch("app.services.project_service.get_project")
