@@ -203,10 +203,14 @@ def test_enqueue_run(mock_get_project, mock_get_supabase_client, mock_supabase_c
     mock_run_service["enqueue_run"].assert_called_once()
 
 @patch("app.core.auth.get_supabase_client")
-def test_get_run(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
+@patch("app.services.project_service.get_project")
+def test_get_run(mock_get_project, mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
     """Test getting a specific run"""
     # Configure the mock supabase client
     mock_get_supabase_client.return_value = mock_supabase_client
+    
+    # Configure the mock project service to return a valid project
+    mock_get_project.return_value = {"id": 1, "name": "Test Project", "user_id": SAMPLE_USER["id"]}
     
     response = client.get("/api/v1/runs/1", headers=auth_headers)
     print_response(response)
@@ -215,10 +219,14 @@ def test_get_run(mock_get_supabase_client, mock_supabase_client, auth_headers, m
     mock_run_service["get_run"].assert_called_once_with(1)
 
 @patch("app.core.auth.get_supabase_client")
-def test_get_nonexistent_run(mock_get_supabase_client, mock_supabase_client, auth_headers):
+@patch("app.services.project_service.get_project")
+def test_get_nonexistent_run(mock_get_project, mock_get_supabase_client, mock_supabase_client, auth_headers):
     """Test getting a non-existent run"""
     # Configure the mock supabase client
     mock_get_supabase_client.return_value = mock_supabase_client
+    
+    # No need to configure mock_get_project as it should not be called in this test
+    # since the run_service.get_run will raise a 404 first
     
     response = client.get("/api/v1/runs/999", headers=auth_headers)
     print_response(response)
@@ -227,10 +235,14 @@ def test_get_nonexistent_run(mock_get_supabase_client, mock_supabase_client, aut
     assert "not found" in response.json()["detail"].lower()
 
 @patch("app.core.auth.get_supabase_client")
-def test_update_run(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
+@patch("app.services.project_service.get_project")
+def test_update_run(mock_get_project, mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
     """Test updating a run"""
     # Configure the mock supabase client
     mock_get_supabase_client.return_value = mock_supabase_client
+    
+    # Configure the mock project service to return a valid project
+    mock_get_project.return_value = {"id": 1, "name": "Test Project", "user_id": SAMPLE_USER["id"]}
     
     update_data = {
         "status": "cancelled",
@@ -244,10 +256,14 @@ def test_update_run(mock_get_supabase_client, mock_supabase_client, auth_headers
     mock_run_service["update_run"].assert_called_once_with(1, ANY)
 
 @patch("app.core.auth.get_supabase_client")
-def test_delete_run(mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
+@patch("app.services.project_service.get_project")
+def test_delete_run(mock_get_project, mock_get_supabase_client, mock_supabase_client, auth_headers, mock_run_service):
     """Test deleting a run"""
     # Configure the mock supabase client
     mock_get_supabase_client.return_value = mock_supabase_client
+    
+    # Configure the mock project service to return a valid project
+    mock_get_project.return_value = {"id": 1, "name": "Test Project", "user_id": SAMPLE_USER["id"]}
     
     response = client.delete("/api/v1/runs/1", headers=auth_headers)
     print_response(response)
