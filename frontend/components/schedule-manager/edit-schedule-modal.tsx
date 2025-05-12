@@ -100,10 +100,13 @@ export function EditScheduleModal({ isOpen, onClose, schedule, projects, onUpdat
     switch (frequency) {
       case "one-off":
         return ""
-      case "hourly":
-        return "0 * * * *"
-      case "daily":
+      case "hourly": {
+        const minuteValue = Number.parseInt(minutes);
+        return `0 ${minuteValue} * * * *`;
+      }
+      case "daily": {
         return `0 ${Number.parseInt(hours)} * * *`
+      }
       case "weekly":
         const weekdayNum = getWeekdayNumber(weekday)
         return `0 ${Number.parseInt(hours)} * * ${weekdayNum}`
