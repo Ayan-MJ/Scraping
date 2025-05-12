@@ -1,5 +1,6 @@
+"use client"
+
 import React, { useEffect } from 'react'
-import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from './providers'
 import { DashboardHeader } from '@/components/dashboard-header'
@@ -24,12 +25,6 @@ const InitLogRocket = () => {
   
   return null;
 };
-
-export const metadata: Metadata = {
-  title: 'Scraping Wizard',
-  description: 'A no-code web scraping platform',
-  generator: 'v0.dev',
-}
 
 export default function RootLayout({
   children,
