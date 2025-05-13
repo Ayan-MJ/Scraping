@@ -15,4 +15,4 @@ export function register() {
 }
 
 // Add the required hook for Sentry to instrument navigations
-export const onRouterTransitionStart = Sentry.captureRouterTransitionStart; 
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
