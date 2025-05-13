@@ -28,6 +28,9 @@ yarn-debug.log
 yarn-error.log
 .pnpm-debug.log
 frontend/node_modules/
+# Next.js build output
+.next/
+frontend/.next/
 
 # Environment variables
 .env
