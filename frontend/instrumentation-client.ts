@@ -12,4 +12,11 @@ export function register() {
       // Include any other Sentry configuration options
     });
   }
+feature/cicd-testing
 }
+
+// Add the required hook for Sentry to instrument navigations
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
+=======
+}
+ main
