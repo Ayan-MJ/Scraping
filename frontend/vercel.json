@@ -8,7 +8,7 @@
         "installCommand": "npm install",
         "buildCommand": "npm run build",
         "outputDirectory": ".next",
-        "nodeVersion": "18.x"
+        "nodeVersion": "22.x"
       }
     }
   ],
