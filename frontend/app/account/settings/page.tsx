@@ -12,6 +12,9 @@ import { useToast } from "@/hooks/use-toast"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
+// Force server-side rendering for this page
+export const dynamic = 'force-dynamic';
+
 export type TabType = "profile" | "team" | "billing" | "proxy"
 
 export interface AccountSettings {

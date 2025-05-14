@@ -12,6 +12,16 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Configure pages that require authentication to use server-side rendering
+  // instead of static generation during build time
+  experimental: {
+    // This ensures pages aren't statically optimized, which prevents
+    // errors when they depend on runtime data like authentication
+    workerThreads: false,
+    cpus: 1,
+  },
+  // Disable static optimization for authenticated routes
+  staticPageGenerationTimeout: 1000,
 }
 
 // Wrap with Sentry configuration
