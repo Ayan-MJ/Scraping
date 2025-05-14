@@ -1,10 +1,10 @@
-name: Frontend CI/CD
+name: Frontend CI/CD (Disabled)
 
 on: 
   push:
-    branches: [main]
+    branches: [none]  # Disabled
   pull_request:
-    branches: [main]
+    branches: [none]  # Disabled
 
 jobs:
   build-and-deploy:
