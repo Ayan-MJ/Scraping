@@ -1,29 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next",
-      "config": {
-        "installCommand": "npm install",
-        "buildCommand": "npm run build",
-        "outputDirectory": ".next",
-        "nodeVersion": "22.x"
-      }
-    }
-  ],
-  "env": {
-    "NEXT_PUBLIC_API_URL": "${NEXT_PUBLIC_API_URL}",
-    "NEXT_PUBLIC_SUPABASE_URL": "${NEXT_PUBLIC_SUPABASE_URL}",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "${NEXT_PUBLIC_SUPABASE_ANON_KEY}",
-    "NEXT_PUBLIC_SENTRY_DSN": "${NEXT_PUBLIC_SENTRY_DSN}"
-  },
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_API_URL": "${NEXT_PUBLIC_API_URL}",
-      "NEXT_PUBLIC_SUPABASE_URL": "${NEXT_PUBLIC_SUPABASE_URL}",
-      "NEXT_PUBLIC_SUPABASE_ANON_KEY": "${NEXT_PUBLIC_SUPABASE_ANON_KEY}",
-      "NEXT_PUBLIC_SENTRY_DSN": "${NEXT_PUBLIC_SENTRY_DSN}"
-    }
-  }
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install"
 } 
