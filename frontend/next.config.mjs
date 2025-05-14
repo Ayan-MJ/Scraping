@@ -18,8 +18,6 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
   },
-  // Configure optimizations for build
-  swcMinify: true,
   // Set all pages to static generation for build time
   output: 'standalone',
   // Disable static optimization for authenticated routes
