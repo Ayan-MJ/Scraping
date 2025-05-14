@@ -1,5 +1,8 @@
 "use client"
 
+// Force server-side rendering for this page
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from "react"
 import { ProjectSettingsHeader } from "@/components/project-settings/project-settings-header"
 import { TabNavigation } from "@/components/project-settings/tab-navigation"

@@ -2,6 +2,9 @@
 
 import type React from "react"
 
+// Force server-side rendering for this page
+export const dynamic = 'force-dynamic';
+
 import { useState } from "react"
 import Link from "next/link"
 import { useAuth } from "@/components/auth/auth-provider"
