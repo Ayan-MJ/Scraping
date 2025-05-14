@@ -12,14 +12,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Configure pages that require authentication to use server-side rendering
-  // instead of static generation during build time
-  experimental: {
-    // This ensures pages aren't statically optimized, which prevents
-    // errors when they depend on runtime data like authentication
-    workerThreads: false,
-    cpus: 1,
+  // Configure for Vercel deployment
+  env: {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
   },
+  // Set all pages to static generation for build time
+  output: 'standalone',
   // Disable static optimization for authenticated routes
   staticPageGenerationTimeout: 1000,
 }
