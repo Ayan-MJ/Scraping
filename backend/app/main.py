@@ -92,14 +92,6 @@ app.add_middleware(
     allow_headers=["Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"],
 )
 
-# Add Sentry middleware only if Sentry is available
-if SENTRY_AVAILABLE and settings.SENTRY_DSN:
-    try:
-        app = SentryAsgiMiddleware(app)
-        print("Sentry ASGI middleware added")
-    except Exception as e:
-        print(f"Error adding Sentry middleware: {e}")
-
 # Include routers
 app.include_router(projects.router, prefix=settings.API_V1_STR)
 app.include_router(runs.router, prefix=settings.API_V1_STR)
@@ -107,6 +99,14 @@ app.include_router(schedules.router, prefix=settings.API_V1_STR)
 app.include_router(templates.router, prefix=settings.API_V1_STR)
 app.include_router(results.router, prefix=settings.API_V1_STR)
 app.include_router(stream.router, prefix=settings.API_V1_STR, tags=["stream"])
+
+# Add Sentry middleware only if Sentry is available (must be after routers are included)
+if SENTRY_AVAILABLE and settings.SENTRY_DSN:
+    try:
+        app = SentryAsgiMiddleware(app)
+        print("Sentry ASGI middleware added")
+    except Exception as e:
+        print(f"Error adding Sentry middleware: {e}")
 
 @app.get("/health", tags=["health"])
 async def health_check():
