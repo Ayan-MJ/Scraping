@@ -100,6 +100,13 @@ app.include_router(templates.router, prefix=settings.API_V1_STR)
 app.include_router(results.router, prefix=settings.API_V1_STR)
 app.include_router(stream.router, prefix=settings.API_V1_STR, tags=["stream"])
 
+@app.get("/api/v1", tags=["root"])
+async def api_v1_root():
+    """
+    Root endpoint for /api/v1 to avoid 307 redirects.
+    """
+    return {"message": "Welcome to the Scraping Wizard API v1"}
+
 @app.get("/health", tags=["health"])
 async def health_check():
     """
@@ -147,30 +154,29 @@ async def startup_event():
         print("Using in-memory database for testing")
         return
         
-    try:
-        from app.core.supabase import supabase
-
-        # Create templates table if it doesn't exist
-        result = supabase.rpc(
-            "create_templates_table_if_not_exists",
-            {
-                "sql_query": """
-                    CREATE TABLE IF NOT EXISTS public.templates (
-                      id SERIAL PRIMARY KEY,
-                      name TEXT NOT NULL,
-                      description TEXT,
-                      thumbnail_url TEXT,
-                      selector_schema JSONB NOT NULL,
-                      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-                      updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-                    );
-                """
-            }
-        ).execute()
-
-        print("Templates table ready for testing")
-    except Exception as e:
-        print(f"Error creating templates table: {e}")
+    # The following Supabase function call is commented out to avoid errors on production
+    # try:
+    #     from app.core.supabase import supabase
+    #     # Create templates table if it doesn't exist
+    #     result = supabase.rpc(
+    #         "create_templates_table_if_not_exists",
+    #         {
+    #             "sql_query": """
+    #                 CREATE TABLE IF NOT EXISTS public.templates (
+    #                   id SERIAL PRIMARY KEY,
+    #                   name TEXT NOT NULL,
+    #                   description TEXT,
+    #                   thumbnail_url TEXT,
+    #                   selector_schema JSONB NOT NULL,
+    #                   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    #                   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    #                 );
+    #             """
+    #         }
+    #     ).execute()
+    #     print("Templates table ready for testing")
+    # except Exception as e:
+    #     print(f"Error creating templates table: {e}")
 
 # Add Sentry middleware only if Sentry is available (must be after all routes and event handlers)
 if SENTRY_AVAILABLE and settings.SENTRY_DSN:
