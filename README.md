@@ -80,6 +80,13 @@ The backend provides a Server-Sent Events (SSE) endpoint to stream real-time pro
 
 * **Endpoint:** `GET /api/v1/runs/{run_id}/stream`
 
+## Deployment
+
+The backend is now deployed on [Render.com](https://render.com/). The previous AWS ECS deployment is deprecated.
+
+### Frontend API URL
+After deploying the backend, update the `NEXT_PUBLIC_API_URL` in `frontend/.env` to the Render.com backend URL (e.g., `https://your-backend-service.onrender.com/api/v1`).
+
 ## License
 
 MIT 

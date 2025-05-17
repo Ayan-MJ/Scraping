@@ -1,1 +1,36 @@
-{}
+{
+  "app/layout.tsx -> logrocket": {
+    "id": 93899,
+    "files": [
+      "static/chunks/3899.2d0affaae3b882df.js"
+    ]
+  },
+  "components/ui/LogRocketTest.tsx -> logrocket": {
+    "id": 93899,
+    "files": [
+      "static/chunks/3899.2d0affaae3b882df.js"
+    ]
+  },
+  "node_modules/@supabase/auth-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  },
+  "node_modules/@supabase/functions-js/dist/module/helper.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  },
+  "node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  },
+  "node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js -> ws": {
+    "id": 20294,
+    "files": [
+      "static/chunks/294.0ca5cd21c6f6b21e.js"
+    ]
+  },
+  "node_modules/@supabase/storage-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 92410,
+    "files": []
+  }
+}
