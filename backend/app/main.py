@@ -100,14 +100,6 @@ app.include_router(templates.router, prefix=settings.API_V1_STR)
 app.include_router(results.router, prefix=settings.API_V1_STR)
 app.include_router(stream.router, prefix=settings.API_V1_STR, tags=["stream"])
 
-# Add Sentry middleware only if Sentry is available (must be after routers are included)
-if SENTRY_AVAILABLE and settings.SENTRY_DSN:
-    try:
-        app = SentryAsgiMiddleware(app)
-        print("Sentry ASGI middleware added")
-    except Exception as e:
-        print(f"Error adding Sentry middleware: {e}")
-
 @app.get("/health", tags=["health"])
 async def health_check():
     """
@@ -179,6 +171,14 @@ async def startup_event():
         print("Templates table ready for testing")
     except Exception as e:
         print(f"Error creating templates table: {e}")
+
+# Add Sentry middleware only if Sentry is available (must be after all routes and event handlers)
+if SENTRY_AVAILABLE and settings.SENTRY_DSN:
+    try:
+        app = SentryAsgiMiddleware(app)
+        print("Sentry ASGI middleware added")
+    except Exception as e:
+        print(f"Error adding Sentry middleware: {e}")
 
 if __name__ == "__main__":
     import uvicorn
