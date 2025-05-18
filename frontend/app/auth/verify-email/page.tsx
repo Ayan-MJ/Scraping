@@ -7,8 +7,10 @@ import { useAuth } from "@/components/auth/auth-provider"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Loader2, CheckCircle, Mail, ArrowRight } from "lucide-react"
+import { Suspense } from "react"
 
-export default function VerifyEmailPage() {
+// Client component that uses useSearchParams
+function VerifyEmailContent() {
   const [error, setError] = useState("")
   const [isVerifying, setIsVerifying] = useState(false)
   const [resendDisabled, setResendDisabled] = useState(false)
@@ -137,5 +139,26 @@ export default function VerifyEmailPage() {
         </CardFooter>
       </Card>
     </div>
+  )
+}
+
+// Main page component with Suspense
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold text-center">Loading</CardTitle>
+            <CardDescription className="text-center">Please wait...</CardDescription>
+          </CardHeader>
+          <CardContent className="flex justify-center py-8">
+            <Loader2 className="h-12 w-12 animate-spin text-[#4F46E5]" />
+          </CardContent>
+        </Card>
+      </div>
+    }>
+      <VerifyEmailContent />
+    </Suspense>
   )
 } 
