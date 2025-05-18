@@ -102,7 +102,7 @@ export function ResultsViewerToolbar({
                     <Checkbox
                       id={`column-${column.id}`}
                       checked={columnVisibility[column.id]}
-                      onCheckedChange={(checked) => onColumnVisibilityChange(column.id, checked as boolean)}
+                      onCheckedChange={(checked: boolean) => onColumnVisibilityChange(column.id, checked)}
                     />
                     <Label htmlFor={`column-${column.id}`} className="text-sm">
                       {column.name}

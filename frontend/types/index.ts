@@ -5,6 +5,7 @@ export interface User {
   name?: string;
   avatar_url?: string;
   created_at: string;
+  emailVerified?: boolean;
 }
 
 // Project type matching backend Project model

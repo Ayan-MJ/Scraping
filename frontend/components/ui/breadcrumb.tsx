@@ -1,115 +1,100 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
+"use client"
 
-import { cn } from "@/lib/utils"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { ChevronRight, Home } from "lucide-react"
 
-const Breadcrumb = React.forwardRef<
-  HTMLElement,
-  React.ComponentPropsWithoutRef<"nav"> & {
-    separator?: React.ReactNode
+interface BreadcrumbProps {
+  homeRoute?: string
+  customLabels?: Record<string, string>
+  customComponents?: Record<string, React.ReactNode>
+}
+
+export function Breadcrumb({
+  homeRoute = "/",
+  customLabels = {},
+  customComponents = {},
+}: BreadcrumbProps) {
+  const pathname = usePathname()
+  
+  // Skip rendering if we're on the home page
+  if (pathname === "/" || pathname === homeRoute) {
+    return null
   }
->(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />)
-Breadcrumb.displayName = "Breadcrumb"
 
-const BreadcrumbList = React.forwardRef<
-  HTMLOListElement,
-  React.ComponentPropsWithoutRef<"ol">
->(({ className, ...props }, ref) => (
-  <ol
-    ref={ref}
-    className={cn(
-      "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5",
-      className
-    )}
-    {...props}
-  />
-))
-BreadcrumbList.displayName = "BreadcrumbList"
-
-const BreadcrumbItem = React.forwardRef<
-  HTMLLIElement,
-  React.ComponentPropsWithoutRef<"li">
->(({ className, ...props }, ref) => (
-  <li
-    ref={ref}
-    className={cn("inline-flex items-center gap-1.5", className)}
-    {...props}
-  />
-))
-BreadcrumbItem.displayName = "BreadcrumbItem"
-
-const BreadcrumbLink = React.forwardRef<
-  HTMLAnchorElement,
-  React.ComponentPropsWithoutRef<"a"> & {
-    asChild?: boolean
+  // Split the pathname and filter out empty segments
+  const segments = pathname.split("/").filter(Boolean)
+  
+  // If there are no segments, return null
+  if (!segments.length) {
+    return null
   }
->(({ asChild, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : "a"
+
+  // Function to format segment name (convert kebab-case to Title Case)
+  const formatSegmentName = (segment: string) => {
+    // First check if we have a custom label
+    if (customLabels[segment]) {
+      return customLabels[segment]
+    }
+    
+    // If it's a numeric or ID pattern, don't transform
+    if (/^\d+$|^[0-9a-f]{8,}$/.test(segment)) {
+      return segment
+    }
+    
+    // Replace hyphens with spaces and capitalize each word
+    return segment
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase())
+  }
+
+  // Build breadcrumb items
+  const items = segments.map((segment, index) => {
+    // Build the href by joining all segments up to the current one
+    const href = `/${segments.slice(0, index + 1).join("/")}`
+    
+    // Get the formatted name
+    const name = formatSegmentName(segment)
+    
+    // Check if we have a custom component for this segment
+    const customComponent = customComponents[segment]
+    
+    return {
+      href,
+      name,
+      isLast: index === segments.length - 1,
+      customComponent,
+    }
+  })
 
   return (
-    <Comp
-      ref={ref}
-      className={cn("transition-colors hover:text-foreground", className)}
-      {...props}
-    />
+    <nav className="flex items-center text-sm">
+      <Link
+        href={homeRoute}
+        className="text-muted-foreground hover:text-foreground transition-colors flex items-center"
+      >
+        <Home className="h-4 w-4" />
+        <span className="sr-only">Home</span>
+      </Link>
+      
+      {items.map((item, index) => (
+        <div key={item.href} className="flex items-center">
+          <ChevronRight className="h-4 w-4 mx-2 text-muted-foreground" />
+          
+          {item.isLast ? (
+            <span className="text-foreground font-medium">
+              {item.customComponent || item.name}
+            </span>
+          ) : (
+            <Link
+              href={item.href}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {item.customComponent || item.name}
+            </Link>
+          )}
+        </div>
+      ))}
+    </nav>
   )
-})
-BreadcrumbLink.displayName = "BreadcrumbLink"
-
-const BreadcrumbPage = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentPropsWithoutRef<"span">
->(({ className, ...props }, ref) => (
-  <span
-    ref={ref}
-    role="link"
-    aria-disabled="true"
-    aria-current="page"
-    className={cn("font-normal text-foreground", className)}
-    {...props}
-  />
-))
-BreadcrumbPage.displayName = "BreadcrumbPage"
-
-const BreadcrumbSeparator = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"li">) => (
-  <li
-    role="presentation"
-    aria-hidden="true"
-    className={cn("[&>svg]:w-3.5 [&>svg]:h-3.5", className)}
-    {...props}
-  >
-    {children ?? <ChevronRight />}
-  </li>
-)
-BreadcrumbSeparator.displayName = "BreadcrumbSeparator"
-
-const BreadcrumbEllipsis = ({
-  className,
-  ...props
-}: React.ComponentProps<"span">) => (
-  <span
-    role="presentation"
-    aria-hidden="true"
-    className={cn("flex h-9 w-9 items-center justify-center", className)}
-    {...props}
-  >
-    <MoreHorizontal className="h-4 w-4" />
-    <span className="sr-only">More</span>
-  </span>
-)
-BreadcrumbEllipsis.displayName = "BreadcrumbElipssis"
-
-export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
 }

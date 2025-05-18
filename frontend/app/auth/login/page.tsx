@@ -11,14 +11,21 @@ import { useAuth } from "@/components/auth/auth-provider"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Loader2 } from "lucide-react"
+import { Loader2, AlertCircle } from "lucide-react"
+import { SocialLoginButton } from "@/components/auth/social-login-button"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useSearchParams } from "next/navigation"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
-  const { login, isLoading } = useAuth()
+  const [processingProvider, setProcessingProvider] = useState<string | null>(null)
+  const { login, loginWithSocial, isLoading } = useAuth()
+  const searchParams = useSearchParams()
+  const resetSuccess = searchParams.get("reset") === "success"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,6 +43,17 @@ export default function LoginPage() {
     }
   }
 
+  const handleSocialLogin = async (provider: "github" | "gitlab" | "bitbucket") => {
+    try {
+      setProcessingProvider(provider)
+      await loginWithSocial(provider)
+    } catch (err) {
+      setError(`Failed to login with ${provider}`)
+    } finally {
+      setProcessingProvider(null)
+    }
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
       <Card className="w-full max-w-md">
@@ -43,7 +61,45 @@ export default function LoginPage() {
           <CardTitle className="text-2xl font-bold text-center">Welcome Back</CardTitle>
           <CardDescription className="text-center">Enter your credentials to access your account</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
+          {resetSuccess && (
+            <Alert className="mb-4 bg-green-50 border-green-200 text-green-700">
+              <AlertDescription>
+                Your password has been reset successfully. Please log in with your new password.
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <div className="space-y-2">
+            <SocialLoginButton
+              provider="github"
+              onClick={handleSocialLogin}
+              isLoading={isLoading}
+              isProcessing={processingProvider === "github"}
+            />
+            <SocialLoginButton
+              provider="gitlab"
+              onClick={handleSocialLogin}
+              isLoading={isLoading}
+              isProcessing={processingProvider === "gitlab"}
+            />
+            <SocialLoginButton
+              provider="bitbucket"
+              onClick={handleSocialLogin}
+              isLoading={isLoading}
+              isProcessing={processingProvider === "bitbucket"}
+            />
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <Separator className="w-full" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
