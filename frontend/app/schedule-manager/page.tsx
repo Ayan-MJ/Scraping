@@ -210,7 +210,7 @@ export default function ScheduleManagerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] flex flex-col">
+    <div className="min-h-screen bg-[#18181b] flex flex-col">
       <ScheduleManagerHeader onNewSchedule={() => setIsNewScheduleModalOpen(true)} />
 
       <div className="flex flex-1 flex-col xl:flex-row">

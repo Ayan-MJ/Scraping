@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
 import type { Schedule } from "@/app/schedule-manager/page"
+import { Card } from "@/components/ui/card"
 
 interface CalendarViewProps {
   schedules: Schedule[]
@@ -127,7 +128,7 @@ export function CalendarView({
     <div className="space-y-6">
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">{formatMonth(currentMonth)}</h2>
+        <h2 className="text-xl font-semibold text-white">{formatMonth(currentMonth)}</h2>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" onClick={handlePrevMonth} className="h-8 w-8">
             <ChevronLeft className="h-4 w-4" />
@@ -141,7 +142,7 @@ export function CalendarView({
       </div>
 
       {/* Calendar Grid */}
-      <div className="rounded-lg border bg-white overflow-hidden">
+      <Card className="rounded-lg border bg-[#232329] text-white overflow-hidden">
         {/* Day Headers */}
         <div className="grid grid-cols-7 border-b">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
@@ -162,7 +163,7 @@ export function CalendarView({
                   <button
                     className={cn(
                       "h-24 sm:h-32 p-2 border-r border-b relative transition-colors duration-150",
-                      isCurrentMonth(date) ? "bg-white" : "bg-gray-50",
+                      isCurrentMonth(date) ? "bg-[#232329]" : "bg-[#18181b]",
                       isSelectedDate(date) && "ring-2 ring-[#4F46E5] ring-inset",
                       isToday(date) && "font-bold text-[#4F46E5]",
                     )}
@@ -233,7 +234,7 @@ export function CalendarView({
             )
           })}
         </div>
-      </div>
+      </Card>
     </div>
   )
 }

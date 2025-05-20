@@ -2,6 +2,7 @@
 
 import { Clock } from "lucide-react"
 import type { Schedule } from "@/app/schedule-manager/page"
+import { Card } from "@/components/ui/card"
 
 interface ScheduleSidebarProps {
   schedules: Schedule[]
@@ -36,19 +37,19 @@ export function ScheduleSidebar({ schedules }: ScheduleSidebarProps) {
   }
 
   return (
-    <aside className="hidden xl:block w-80 border-l bg-white p-6">
-      <div className="space-y-6">
+    <aside className="hidden xl:block w-80 border-l bg-[#18181b] p-6">
+      <Card className="bg-[#232329] text-white border-none p-4 space-y-6">
         {/* Quick Stats Panel */}
         <div>
           <h3 className="font-semibold mb-4">Quick Stats</h3>
           <div className="space-y-4">
-            <div className="rounded-md border p-4">
+            <div className="rounded-md border p-4 bg-[#232329]">
               <div className="text-2xl font-bold">{totalSchedules}</div>
               <div className="text-sm text-muted-foreground">Total Schedules</div>
             </div>
 
             {nextSchedule && (
-              <div className="rounded-md border p-4">
+              <div className="rounded-md border p-4 bg-[#232329]">
                 <div className="flex items-start gap-2">
                   <Clock className="h-4 w-4 mt-0.5 text-[#4F46E5]" />
                   <div>
@@ -76,7 +77,7 @@ export function ScheduleSidebar({ schedules }: ScheduleSidebarProps) {
             </div>
           </div>
         </div>
-      </div>
+      </Card>
     </aside>
   )
 }

@@ -10,7 +10,7 @@ interface ScheduleManagerHeaderProps {
 
 export function ScheduleManagerHeader({ onNewSchedule }: ScheduleManagerHeaderProps) {
   return (
-    <header className="bg-white border-b">
+    <header className="bg-[#18181b] border-b border-[#232329]">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
@@ -21,11 +21,11 @@ export function ScheduleManagerHeader({ onNewSchedule }: ScheduleManagerHeaderPr
               <ArrowLeft className="mr-1 h-4 w-4" />
               Back to Dashboard
             </Link>
-            <h1 className="text-2xl font-bold tracking-tight">Schedule Manager</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-white">Schedule Manager</h1>
             <p className="text-muted-foreground mt-1">View and manage all your scheduled scrapes</p>
           </div>
 
-          <Button onClick={onNewSchedule} className="bg-[#4F46E5] hover:bg-[#4338CA]">
+          <Button onClick={onNewSchedule} variant="primary">
             <Plus className="mr-2 h-4 w-4" />
             New Schedule
           </Button>
