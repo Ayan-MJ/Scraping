@@ -121,40 +121,7 @@ export default function ResultsViewerPage() {
     }, {} as ColumnVisibility),
   )
 
-  // Simulate loading data
-  useEffect(() => {
-    setIsLoading(true)
-    // Mock API call
-    setTimeout(() => {
-      const mockData: ExtractedData[] = Array.from({ length: 50 }, (_, i) => {
-        const date = new Date()
-        date.setDate(date.getDate() - Math.floor(Math.random() * 30))
-
-        const categories = ["Electronics", "Clothing", "Home & Kitchen", "Books", "Toys"]
-        const category = categories[Math.floor(Math.random() * categories.length)]
-
-        const price = (Math.floor(Math.random() * 200) + 10).toFixed(2)
-
-        return {
-          id: `item-${i + 1}`,
-          title: `Product ${i + 1} ${category}`,
-          price: `$${price}`,
-          description: `This is a detailed description for product ${i + 1}. It contains features and benefits.`,
-          category,
-          rating: Math.floor(Math.random() * 5) + 1,
-          inStock: Math.random() > 0.2,
-          dateAdded: date,
-          url: `https://example.com/products/${i + 1}`,
-          imageUrl: `https://example.com/images/product-${i + 1}.jpg`,
-        }
-      })
-
-      setData(mockData)
-      setFilteredData(mockData)
-      setIsLoading(false)
-      setLastUpdated(new Date())
-    }, 1500)
-  }, [])
+  // Data fetching removed: integrate real API here.
 
   // Apply filters and search
   useEffect(() => {

@@ -66,91 +66,13 @@ export interface ProjectSettings {
 export default function ProjectSettingsPage({ params }: { params: { id: string } }) {
   const [activeTab, setActiveTab] = useState<TabType>("general")
   const [settings, setSettings] = useState<ProjectSettings | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [hasChanges, setHasChanges] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const { toast } = useToast()
   const isMobile = useMediaQuery("(max-width: 768px)")
 
-  // Fetch project settings
-  useEffect(() => {
-    const fetchSettings = async () => {
-      setIsLoading(true)
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Mock data
-      const mockSettings: ProjectSettings = {
-        id: params.id,
-        name: "E-commerce Product Scraper",
-        description: "Scrapes product details from major e-commerce websites",
-        concurrency: 10,
-        cloudRegion: "us-east-1",
-        captchaSolver: {
-          enabled: true,
-          provider: "2captcha",
-          apiKey: "mock-api-key-12345",
-        },
-        behaviorSimulation: {
-          randomMouseMovements: true,
-          randomClickDelays: true,
-          customJavaScript: "// Add custom behavior here\nconsole.log('Custom behavior loaded');\n",
-        },
-        proxy: {
-          useProxyPool: true,
-          proxies: [
-            {
-              id: "proxy-1",
-              host: "proxy1.example.com",
-              port: 8080,
-              username: "user1",
-              password: "pass1",
-            },
-            {
-              id: "proxy-2",
-              host: "proxy2.example.com",
-              port: 8080,
-              username: "user2",
-              password: "pass2",
-            },
-          ],
-          simulateLocation: "United States",
-          autoRotateLocation: false,
-        },
-        integrations: {
-          exportFormats: {
-            csv: true,
-            json: true,
-            excel: false,
-          },
-          webhook: {
-            enabled: false,
-            url: "",
-          },
-          apiKey: "sk_live_mock_api_key_for_project_12345",
-        },
-        fieldMappings: [
-          {
-            id: "mapping-1",
-            targetField: "price",
-            transformationType: "regex",
-            parameters: "\\$([0-9.]+)",
-          },
-          {
-            id: "mapping-2",
-            targetField: "title",
-            transformationType: "trim",
-            parameters: "",
-          },
-        ],
-      }
-
-      setSettings(mockSettings)
-      setIsLoading(false)
-    }
-
-    fetchSettings()
-  }, [params.id])
+  // Data fetching removed: integrate real API here.
 
   const handleSettingsChange = (newSettings: Partial<ProjectSettings>) => {
     if (settings) {

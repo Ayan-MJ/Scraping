@@ -25,7 +25,7 @@ export interface Run {
 }
 
 export default function JobHistoryPage() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [runs, setRuns] = useState<Run[]>([])
   const [filteredRuns, setFilteredRuns] = useState<Run[]>([])
   const [searchQuery, setSearchQuery] = useState("")
@@ -42,45 +42,7 @@ export default function JobHistoryPage() {
   const [selectedRunId, setSelectedRunId] = useState<string | null>(null)
   const [isLogModalOpen, setIsLogModalOpen] = useState(false)
 
-  // Simulate fetching data
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      // Sample data
-      const sampleRuns: Run[] = Array.from({ length: 25 }, (_, i) => {
-        const status = ["success", "failed", "running"][Math.floor(Math.random() * 3)] as
-          | "success"
-          | "failed"
-          | "running"
-        const startTime = new Date()
-        startTime.setDate(startTime.getDate() - Math.floor(Math.random() * 30))
-
-        return {
-          id: `run-${i + 1}`,
-          runId: `RUN-${1000 + i}`,
-          projectName: ["E-commerce Scraper", "News Aggregator", "Social Media Monitor", "Price Tracker"][
-            Math.floor(Math.random() * 4)
-          ],
-          status,
-          startTime,
-          duration:
-            status === "running"
-              ? "Running..."
-              : `${Math.floor(Math.random() * 10) + 1}m ${Math.floor(Math.random() * 60)}s`,
-          recordsExtracted: status === "running" ? Math.floor(Math.random() * 100) : Math.floor(Math.random() * 1000),
-        }
-      })
-
-      setRuns(sampleRuns)
-      setTotalItems(sampleRuns.length)
-      setIsLoading(false)
-    }
-
-    fetchData()
-  }, [])
+  // Data fetching removed: integrate real API here.
 
   // Apply filters and search
   useEffect(() => {

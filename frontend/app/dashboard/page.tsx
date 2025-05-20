@@ -17,19 +17,9 @@ export default function DashboardPage() {
   // Quick stats calculation
   const totalProjects = projects?.length || 0
   const activeProjects = projects?.filter(p => p.status !== "inactive").length || 0
-  const recentActivity = [
-    { type: "project_created", name: "E-commerce Scraper", time: "2 hours ago" },
-    { type: "run_completed", name: "News Articles Extractor", time: "Yesterday" },
-    { type: "run_failed", name: "Social Media Profiles", time: "3 days ago" },
-  ]
 
   // Map API projects to ProjectWithUIData format for display
-  const projectsWithUI: ProjectWithUIData[] = projects?.slice(0, 3).map(project => ({
-    ...project,
-    status: Math.random() > 0.7 ? 'error' : Math.random() > 0.4 ? 'warning' : 'active',
-    lastRun: ['1 hour ago', '2 hours ago', '1 day ago', '3 days ago'][Math.floor(Math.random() * 4)],
-    duration: ['2m 30s', '45s', '1m 15s', 'Failed'][Math.floor(Math.random() * 4)],
-  })) || []
+  const projectsWithUI: ProjectWithUIData[] = projects?.slice(0, 3) || []
 
   return (
     <ProtectedRoute>
@@ -157,7 +147,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                {recentActivity.map((activity, i) => (
+                {/* recentActivity.map((activity, i) => (
                   <div key={i} className="flex items-start">
                     <div className="mr-4">
                       {activity.type === "project_created" && (
@@ -187,7 +177,7 @@ export default function DashboardPage() {
                       </p>
                     </div>
                   </div>
-                ))}
+                )) */}
               </div>
             </CardContent>
             <CardFooter>

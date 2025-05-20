@@ -37,7 +37,7 @@ export interface Project {
 
 export default function ScheduleManagerPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("calendar")
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [schedules, setSchedules] = useState<Schedule[]>([])
   const [filteredSchedules, setFilteredSchedules] = useState<Schedule[]>([])
   const [projects, setProjects] = useState<Project[]>([])
@@ -50,77 +50,7 @@ export default function ScheduleManagerPage() {
   const [deletingSchedule, setDeletingSchedule] = useState<Schedule | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
-  // Simulate fetching data
-  useEffect(() => {
-    setIsLoading(true)
-    // Mock API call
-    setTimeout(() => {
-      const mockProjects: Project[] = [
-        { id: "1", name: "E-commerce Scraper" },
-        { id: "2", name: "News Aggregator" },
-        { id: "3", name: "Social Media Monitor" },
-        { id: "4", name: "Price Tracker" },
-      ]
-
-      const mockSchedules: Schedule[] = Array.from({ length: 15 }, (_, i) => {
-        const project = mockProjects[Math.floor(Math.random() * mockProjects.length)]
-        const frequencies: FrequencyType[] = ["hourly", "daily", "weekly", "monthly", "custom"]
-        const frequency = frequencies[Math.floor(Math.random() * frequencies.length)]
-
-        let humanReadableSchedule = ""
-        let cronExpression = ""
-
-        switch (frequency) {
-          case "hourly":
-            humanReadableSchedule = "Every hour"
-            cronExpression = "0 * * * *"
-            break
-          case "daily":
-            humanReadableSchedule = "Daily at 09:00"
-            cronExpression = "0 9 * * *"
-            break
-          case "weekly":
-            humanReadableSchedule = "Weekly on Monday at 10:00"
-            cronExpression = "0 10 * * 1"
-            break
-          case "monthly":
-            humanReadableSchedule = "Monthly on the 1st at 12:00"
-            cronExpression = "0 12 1 * *"
-            break
-          case "custom":
-            humanReadableSchedule = "Custom schedule"
-            cronExpression = "0 */6 * * *"
-            break
-        }
-
-        const nextRun = new Date()
-        nextRun.setDate(nextRun.getDate() + Math.floor(Math.random() * 14))
-        nextRun.setHours(Math.floor(Math.random() * 24), 0, 0, 0)
-
-        const createdAt = new Date()
-        createdAt.setDate(createdAt.getDate() - Math.floor(Math.random() * 90))
-
-        return {
-          id: `schedule-${i + 1}`,
-          name: `${project.name} - ${frequency.charAt(0).toUpperCase() + frequency.slice(1)} Run`,
-          projectId: project.id,
-          projectName: project.name,
-          frequency,
-          cronExpression,
-          humanReadableSchedule,
-          nextRun,
-          enabled: Math.random() > 0.2,
-          createdAt,
-          updatedAt: new Date(createdAt.getTime() + Math.random() * 1000 * 60 * 60 * 24 * 30),
-        }
-      })
-
-      setProjects(mockProjects)
-      setSchedules(mockSchedules)
-      setFilteredSchedules(mockSchedules)
-      setIsLoading(false)
-    }, 1500)
-  }, [])
+  // Data fetching removed: integrate real API here.
 
   // Apply filters and search
   useEffect(() => {
