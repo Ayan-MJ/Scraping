@@ -79,10 +79,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Top navbar */}
         <header className="h-16 border-b flex items-center justify-between px-6">
           <Breadcrumb />
-          <div className="flex items-center space-x-2">
-            <ThemeModeToggle />
-            <ThemeSettings />
-          </div>
+          <div />
         </header>
 
         {/* Page content */}

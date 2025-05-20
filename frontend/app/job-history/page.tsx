@@ -8,6 +8,7 @@ import { LogViewerModal } from "@/components/job-history/log-viewer-modal"
 import { Pagination } from "@/components/job-history/pagination"
 import { EmptyState } from "@/components/job-history/empty-state"
 import { TableSkeleton } from "@/components/job-history/table-skeleton"
+import { Card } from "@/components/ui/card"
 
 export type StatusType = "all" | "success" | "failed" | "running"
 export type SortDirection = "asc" | "desc"
@@ -181,11 +182,10 @@ export default function JobHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-secondary">
+    <div className="min-h-screen bg-[#18181b]">
       <div className="container mx-auto py-6 space-y-6">
         <JobHistoryHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
-        <main className="container mx-auto px-4 py-6">
+        <Card className="bg-[#232329] text-white border-none p-6">
           <FilterBar
             statusFilter={statusFilter}
             setStatusFilter={setStatusFilter}
@@ -209,7 +209,6 @@ export default function JobHistoryPage() {
                 onDownloadData={handleDownloadData}
                 onRetryRun={handleRetryRun}
               />
-
               <Pagination
                 currentPage={currentPage}
                 totalItems={totalItems}
@@ -219,7 +218,7 @@ export default function JobHistoryPage() {
               />
             </>
           )}
-        </main>
+        </Card>
 
         <LogViewerModal isOpen={isLogModalOpen} onClose={() => setIsLogModalOpen(false)} runId={selectedRunId} />
       </div>

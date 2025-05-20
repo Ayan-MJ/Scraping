@@ -54,13 +54,13 @@ export function RunsTable({
   }
 
   return (
-    <div className="rounded-md border bg-white overflow-hidden">
+    <div className="rounded-md border bg-[#232329] overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead>
-            <tr className="border-b bg-muted/50">
+          <thead className="bg-[#18181b]">
+            <tr className="border-b border-[#232329]">
               <th
-                className="px-4 py-3 text-left text-sm font-medium text-muted-foreground cursor-pointer"
+                className="px-4 py-3 text-left text-sm font-semibold text-white cursor-pointer"
                 onClick={() => onSort("runId")}
               >
                 <div className="flex items-center">
@@ -69,7 +69,7 @@ export function RunsTable({
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-medium text-muted-foreground cursor-pointer"
+                className="px-4 py-3 text-left text-sm font-semibold text-white cursor-pointer"
                 onClick={() => onSort("projectName")}
               >
                 <div className="flex items-center">
@@ -78,7 +78,7 @@ export function RunsTable({
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-medium text-muted-foreground cursor-pointer"
+                className="px-4 py-3 text-left text-sm font-semibold text-white cursor-pointer"
                 onClick={() => onSort("status")}
               >
                 <div className="flex items-center">
@@ -87,7 +87,7 @@ export function RunsTable({
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-medium text-muted-foreground cursor-pointer"
+                className="px-4 py-3 text-left text-sm font-semibold text-white cursor-pointer"
                 onClick={() => onSort("startTime")}
               >
                 <div className="flex items-center">
@@ -96,7 +96,7 @@ export function RunsTable({
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-medium text-muted-foreground cursor-pointer"
+                className="px-4 py-3 text-left text-sm font-semibold text-white cursor-pointer"
                 onClick={() => onSort("duration")}
               >
                 <div className="flex items-center">
@@ -105,7 +105,7 @@ export function RunsTable({
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-sm font-medium text-muted-foreground cursor-pointer"
+                className="px-4 py-3 text-left text-sm font-semibold text-white cursor-pointer"
                 onClick={() => onSort("recordsExtracted")}
               >
                 <div className="flex items-center">
@@ -113,7 +113,7 @@ export function RunsTable({
                   {renderSortIcon("recordsExtracted")}
                 </div>
               </th>
-              <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+              <th className="px-4 py-3 text-right text-sm font-semibold text-white">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -121,19 +121,20 @@ export function RunsTable({
               <tr
                 key={run.id}
                 className={cn(
-                  "border-b transition-colors hover:bg-muted/50",
-                  index % 2 === 0 ? "bg-white" : "bg-muted/20",
+                  "border-b border-[#232329] transition-colors",
+                  index % 2 === 0 ? "bg-[#232329]" : "bg-[#29292e]",
+                  "hover:bg-[#232329]/80"
                 )}
               >
                 <td className="px-4 py-3 text-sm font-medium">
                   <button
                     onClick={() => onViewLogs(run.runId)}
-                    className="text-primary hover:underline focus:outline-none"
+                    className="text-[#4F46E5] hover:underline focus:outline-none"
                   >
                     {run.runId}
                   </button>
                 </td>
-                <td className="px-4 py-3 text-sm">{run.projectName}</td>
+                <td className="px-4 py-3 text-sm text-white">{run.projectName}</td>
                 <td className="px-4 py-3 text-sm">
                   <span
                     className={cn(
