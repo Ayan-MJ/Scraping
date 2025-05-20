@@ -82,10 +82,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center space-x-2">
             <ThemeModeToggle />
             <ThemeSettings />
-            <Button variant="ghost" size="icon">
-              <Settings className="h-5 w-5" />
-              <span className="sr-only">Settings</span>
-            </Button>
           </div>
         </header>
 

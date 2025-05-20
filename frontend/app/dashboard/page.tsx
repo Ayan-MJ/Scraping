@@ -35,8 +35,7 @@ export default function DashboardPage() {
     <ProtectedRoute>
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <Breadcrumb />
-          <h1 className="text-3xl font-bold mt-4 mb-2 animate-fade-in">Dashboard</h1>
+          <h1 className="text-3xl font-bold mb-2 animate-fade-in">Dashboard</h1>
           <p className="text-muted-foreground animate-fade-in delay-100">View your scraping activity and performance metrics</p>
         </div>
 
