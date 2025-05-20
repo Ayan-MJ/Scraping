@@ -11,6 +11,7 @@ import { AccountSettingsFooter } from "./_components/account-settings-footer"
 import { useToast } from "@/components/ui/use-toast"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card } from "@/components/ui/card"
 
 export type TabType = "profile" | "team" | "billing" | "proxy"
 
@@ -265,7 +266,7 @@ export default function AccountSettingsPage() {
 
   if (isLoading || !settings) {
     return (
-      <div className="min-h-screen bg-secondary p-4">
+      <div className="min-h-screen bg-[#18181b] p-4">
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-1/3 bg-gray-200 rounded"></div>
           <div className="h-4 w-1/4 bg-gray-200 rounded"></div>
@@ -281,7 +282,7 @@ export default function AccountSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-secondary">
+    <div className="min-h-screen bg-[#18181b]">
       <AccountSettingsHeader />
 
       <div className="container mx-auto px-4 py-6">
@@ -290,28 +291,36 @@ export default function AccountSettingsPage() {
             <AccordionItem value="profile">
               <AccordionTrigger className="text-lg font-semibold">Profile</AccordionTrigger>
               <AccordionContent>
-                <ProfileSettings settings={settings} onChange={handleSettingsChange} />
+                <Card className="bg-[#232329] text-white border-none">
+                  <ProfileSettings settings={settings} onChange={handleSettingsChange} />
+                </Card>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="team">
               <AccordionTrigger className="text-lg font-semibold">Team Management</AccordionTrigger>
               <AccordionContent>
-                <TeamManagementSettings settings={settings} onChange={handleSettingsChange} />
+                <Card className="bg-[#232329] text-white border-none">
+                  <TeamManagementSettings settings={settings} onChange={handleSettingsChange} />
+                </Card>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="billing">
               <AccordionTrigger className="text-lg font-semibold">Billing & Usage</AccordionTrigger>
               <AccordionContent>
-                <BillingSettings settings={settings} onChange={handleSettingsChange} />
+                <Card className="bg-[#232329] text-white border-none">
+                  <BillingSettings settings={settings} onChange={handleSettingsChange} />
+                </Card>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="proxy">
               <AccordionTrigger className="text-lg font-semibold">Global Proxy Pool</AccordionTrigger>
               <AccordionContent>
-                <ProxyPoolSettings settings={settings} onChange={handleSettingsChange} />
+                <Card className="bg-[#232329] text-white border-none">
+                  <ProxyPoolSettings settings={settings} onChange={handleSettingsChange} />
+                </Card>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -319,7 +328,7 @@ export default function AccountSettingsPage() {
           <>
             <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
 
-            <div className="mt-6 bg-white rounded-lg border p-6">
+            <Card className="mt-6 bg-[#232329] text-white border-none p-6">
               {activeTab === "profile" && <ProfileSettings settings={settings} onChange={handleSettingsChange} />}
 
               {activeTab === "team" && <TeamManagementSettings settings={settings} onChange={handleSettingsChange} />}
@@ -327,7 +336,7 @@ export default function AccountSettingsPage() {
               {activeTab === "billing" && <BillingSettings settings={settings} onChange={handleSettingsChange} />}
 
               {activeTab === "proxy" && <ProxyPoolSettings settings={settings} onChange={handleSettingsChange} />}
-            </div>
+            </Card>
           </>
         )}
 
