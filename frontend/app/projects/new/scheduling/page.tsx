@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { WizardHeader } from "@/components/wizard/wizard-header"
-import { WizardSidebar } from "@/components/wizard/wizard-sidebar"
-import { WizardFooter } from "@/components/wizard/wizard-footer"
-import { ScheduleForm } from "@/components/wizard/schedule-form"
-import { NextRunsPreview } from "@/components/wizard/next-runs-preview"
+import { Button } from "@/components/ui/button"
+import { WizardHeader } from "../_components/wizard-header"
+import { WizardSidebar } from "../_components/wizard-sidebar"
+import { WizardFooter } from "../_components/wizard-footer"
+import { ScheduleForm } from "../_components/schedule-form"
+import { NextRunsPreview } from "../_components/next-runs-preview"
 import { calculateNextRuns } from "@/lib/schedule-utils"
 
 export type FrequencyType = "one-off" | "hourly" | "daily" | "weekly" | "custom"

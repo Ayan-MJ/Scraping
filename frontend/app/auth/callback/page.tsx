@@ -35,14 +35,14 @@ function CallbackHandler() {
   }, [router])
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Completing Login</CardTitle>
-          <CardDescription className="text-center">Please wait while we complete your login...</CardDescription>
+    <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
+      <Card className="w-full max-w-md text-center">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">Processing Authentication</CardTitle>
+          <CardDescription>Please wait while we securely log you in.</CardDescription>
         </CardHeader>
-        <CardContent className="flex justify-center py-8">
-          <Loader2 className="h-12 w-12 animate-spin text-[#4F46E5]" />
+        <CardContent>
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
         </CardContent>
       </Card>
     </div>
@@ -53,14 +53,14 @@ function CallbackHandler() {
 export default function CallbackPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">Loading</CardTitle>
-            <CardDescription className="text-center">Please wait...</CardDescription>
+      <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
+        <Card className="w-full max-w-md text-center">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">Loading</CardTitle>
+            <CardDescription>Please wait...</CardDescription>
           </CardHeader>
-          <CardContent className="flex justify-center py-8">
-            <Loader2 className="h-12 w-12 animate-spin text-[#4F46E5]" />
+          <CardContent>
+            <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
           </CardContent>
         </Card>
       </div>

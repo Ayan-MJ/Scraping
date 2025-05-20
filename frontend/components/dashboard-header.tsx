@@ -23,11 +23,11 @@ export function DashboardHeader() {
   const router = useRouter()
 
   return (
-    <header className="sticky top-0 z-10 w-full border-b bg-white">
+    <header className="sticky top-0 z-10 w-full border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center font-bold text-xl">
-          <span className="text-[#4F46E5]">Scrape</span>
+          <span className="text-primary">Scrape</span>
           <span>Wizard</span>
         </Link>
 
@@ -86,10 +86,10 @@ export function DashboardHeader() {
             </>
           ) : (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" className="text-[#6B7280]" onClick={() => router.push("/auth/signup")}>
+              <Button variant="ghost" size="sm" onClick={() => router.push("/auth/signup")}>
                 Sign Up
               </Button>
-              <Button size="sm" className="bg-[#4F46E5] hover:bg-[#4338CA]" onClick={() => router.push("/auth/login")}>
+              <Button variant="primary" size="sm" onClick={() => router.push("/auth/login")}>
                 Log In
               </Button>
             </div>

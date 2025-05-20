@@ -21,34 +21,30 @@ export function FilterBar({ statusFilter, setStatusFilter, dateRange, setDateRan
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
       <div className="flex flex-wrap gap-2">
         <Button
-          variant={statusFilter === "all" ? "default" : "outline"}
+          variant={statusFilter === "all" ? "primary" : "outline"}
           size="sm"
           onClick={() => setStatusFilter("all")}
-          className={statusFilter === "all" ? "bg-[#4F46E5] hover:bg-[#4338CA]" : ""}
         >
           All
         </Button>
         <Button
-          variant={statusFilter === "success" ? "default" : "outline"}
+          variant={statusFilter === "success" ? "success" : "outline"}
           size="sm"
           onClick={() => setStatusFilter("success")}
-          className={statusFilter === "success" ? "bg-[#10B981] hover:bg-[#059669]" : ""}
         >
           Success
         </Button>
         <Button
-          variant={statusFilter === "failed" ? "default" : "outline"}
+          variant={statusFilter === "failed" ? "destructive" : "outline"}
           size="sm"
           onClick={() => setStatusFilter("failed")}
-          className={statusFilter === "failed" ? "bg-[#EF4444] hover:bg-[#DC2626]" : ""}
         >
           Failed
         </Button>
         <Button
-          variant={statusFilter === "running" ? "default" : "outline"}
+          variant={statusFilter === "running" ? "info" : "outline"}
           size="sm"
           onClick={() => setStatusFilter("running")}
-          className={statusFilter === "running" ? "bg-[#3B82F6] hover:bg-[#2563EB]" : ""}
         >
           Running
         </Button>
@@ -105,7 +101,7 @@ export function FilterBar({ statusFilter, setStatusFilter, dateRange, setDateRan
                   thirtyDaysAgo.setDate(today.getDate() - 30)
                   setDateRange({ from: thirtyDaysAgo, to: today })
                 }}
-                className="bg-[#4F46E5] hover:bg-[#4338CA]"
+                variant="primary"
               >
                 Last 30 days
               </Button>

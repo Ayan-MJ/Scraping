@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { JobHistoryHeader } from "@/components/job-history/job-history-header"
-import { FilterBar } from "@/components/job-history/filter-bar"
-import { RunsTable } from "@/components/job-history/runs-table"
-import { LogViewerModal } from "@/components/job-history/log-viewer-modal"
-import { Pagination } from "@/components/job-history/pagination"
-import { EmptyState } from "@/components/job-history/empty-state"
-import { TableSkeleton } from "@/components/job-history/table-skeleton"
+import { JobHistoryHeader } from "./_components/job-history-header"
+import { FilterBar } from "./_components/filter-bar"
+import { RunsTable } from "./_components/runs-table"
+import { LogViewerModal } from "./_components/log-viewer-modal"
+import { Pagination } from "./_components/pagination"
+import { EmptyState } from "./_components/empty-state"
+import { TableSkeleton } from "./_components/table-skeleton"
 
 export type StatusType = "all" | "success" | "failed" | "running"
 export type SortDirection = "asc" | "desc"
@@ -181,46 +181,48 @@ export default function JobHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
-      <JobHistoryHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <div className="min-h-screen bg-secondary">
+      <div className="container mx-auto py-6 space-y-6">
+        <JobHistoryHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <main className="container mx-auto px-4 py-6">
-        <FilterBar
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
-          dateRange={dateRange}
-          setDateRange={setDateRange}
-          onRefresh={handleRefresh}
-        />
+        <main className="container mx-auto px-4 py-6">
+          <FilterBar
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+            dateRange={dateRange}
+            setDateRange={setDateRange}
+            onRefresh={handleRefresh}
+          />
 
-        {isLoading ? (
-          <TableSkeleton />
-        ) : filteredRuns.length === 0 ? (
-          <EmptyState />
-        ) : (
-          <>
-            <RunsTable
-              runs={getCurrentPageItems()}
-              sortColumn={sortColumn}
-              sortDirection={sortDirection}
-              onSort={handleSort}
-              onViewLogs={handleViewLogs}
-              onDownloadData={handleDownloadData}
-              onRetryRun={handleRetryRun}
-            />
+          {isLoading ? (
+            <TableSkeleton />
+          ) : filteredRuns.length === 0 ? (
+            <EmptyState />
+          ) : (
+            <>
+              <RunsTable
+                runs={getCurrentPageItems()}
+                sortColumn={sortColumn}
+                sortDirection={sortDirection}
+                onSort={handleSort}
+                onViewLogs={handleViewLogs}
+                onDownloadData={handleDownloadData}
+                onRetryRun={handleRetryRun}
+              />
 
-            <Pagination
-              currentPage={currentPage}
-              totalItems={totalItems}
-              itemsPerPage={itemsPerPage}
-              setCurrentPage={setCurrentPage}
-              setItemsPerPage={setItemsPerPage}
-            />
-          </>
-        )}
-      </main>
+              <Pagination
+                currentPage={currentPage}
+                totalItems={totalItems}
+                itemsPerPage={itemsPerPage}
+                setCurrentPage={setCurrentPage}
+                setItemsPerPage={setItemsPerPage}
+              />
+            </>
+          )}
+        </main>
 
-      <LogViewerModal isOpen={isLogModalOpen} onClose={() => setIsLogModalOpen(false)} runId={selectedRunId} />
+        <LogViewerModal isOpen={isLogModalOpen} onClose={() => setIsLogModalOpen(false)} runId={selectedRunId} />
+      </div>
     </div>
   )
 }

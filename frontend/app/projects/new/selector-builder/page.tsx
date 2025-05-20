@@ -1,6 +1,6 @@
-import { SelectorBuilderHeader } from "@/components/selector-builder/selector-builder-header"
-import { SelectorBuilderCanvas } from "@/components/selector-builder/selector-builder-canvas"
-import { SelectorBuilderFooter } from "@/components/selector-builder/selector-builder-footer"
+import { SelectorBuilderHeader } from "./_components/selector-builder-header"
+import { SelectorBuilderCanvas } from "./_components/selector-builder-canvas"
+import { SelectorBuilderFooter } from "./_components/selector-builder-footer"
 
 export default function SelectorBuilderPage() {
   return (

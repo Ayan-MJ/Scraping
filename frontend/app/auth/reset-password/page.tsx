@@ -62,7 +62,7 @@ function ResetPasswordForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Create New Password</CardTitle>
@@ -80,7 +80,7 @@ function ResetPasswordForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="border-gray-300 focus:border-[#4F46E5] focus:ring-[#4F46E5] pr-10"
+                  className="border-border focus:border-primary focus:ring-ring pr-10"
                 />
                 <button
                   type="button"
@@ -105,11 +105,11 @@ function ResetPasswordForm() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="border-gray-300 focus:border-[#4F46E5] focus:ring-[#4F46E5]"
+                className="border-border focus:border-primary focus:ring-ring"
               />
             </div>
             {error && <div className="text-sm font-medium text-red-500">{error}</div>}
-            <Button type="submit" className="w-full bg-[#4F46E5] hover:bg-[#4338CA]" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -122,7 +122,7 @@ function ResetPasswordForm() {
           </form>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Link href="/auth/login" className="flex items-center text-sm text-[#6B7280] hover:text-[#4F46E5]">
+          <Link href="/auth/login" className="flex items-center text-sm text-muted-foreground hover:text-primary">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to login
           </Link>
@@ -136,14 +136,14 @@ function ResetPasswordForm() {
 export default function ResetPasswordPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">Loading</CardTitle>
             <CardDescription className="text-center">Please wait...</CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center py-8">
-            <Loader2 className="h-12 w-12 animate-spin text-[#4F46E5]" />
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
           </CardContent>
         </Card>
       </div>

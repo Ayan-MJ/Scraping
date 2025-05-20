@@ -35,7 +35,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Reset Password</CardTitle>
@@ -57,11 +57,11 @@ export default function ForgotPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="border-gray-300 focus:border-[#4F46E5] focus:ring-[#4F46E5]"
+                  className="border-gray-300 focus:border-brand-primary focus:ring-brand-primary"
                 />
               </div>
               {error && <div className="text-sm font-medium text-red-500">{error}</div>}
-              <Button type="submit" className="w-full bg-[#4F46E5] hover:bg-[#4338CA]" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-brand-primary hover:bg-brand-primary-hover text-brand-primary-foreground" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -101,7 +101,7 @@ export default function ForgotPasswordPage() {
           )}
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Link href="/auth/login" className="flex items-center text-sm text-[#6B7280] hover:text-[#4F46E5]">
+          <Link href="/auth/login" className="flex items-center text-sm text-muted-foreground hover:text-brand-primary">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to login
           </Link>

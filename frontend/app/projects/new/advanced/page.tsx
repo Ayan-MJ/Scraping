@@ -1,5 +1,7 @@
-import { WizardHeader } from "@/components/wizard/wizard-header"
-import { WizardFooter } from "@/components/wizard/wizard-footer"
+import { Button } from "@/components/ui/button"
+import { WizardHeader } from "../_components/wizard-header"
+import { WizardFooter } from "../_components/wizard-footer"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 export default function AdvancedOptionsPage() {
   return (

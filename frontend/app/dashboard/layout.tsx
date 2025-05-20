@@ -12,7 +12,6 @@ import {
   Home,
   Layers,
   Settings,
-  Sliders,
   User,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"

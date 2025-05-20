@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export function DashboardFooter() {
   return (
-    <footer className="border-t bg-white py-6">
+    <footer className="border-t bg-background py-6">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
           <Link href="/docs" className="hover:underline hover:text-foreground">

@@ -2,9 +2,6 @@
 
 import type React from "react"
 
-// Force server-side rendering for this page
-export const dynamic = 'force-dynamic';
-
 import { useState } from "react"
 import Link from "next/link"
 import { useAuth } from "@/components/auth/auth-provider"
@@ -13,8 +10,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Loader2, AlertCircle } from "lucide-react"
-import { SocialLoginButton } from "@/components/auth/social-login-button"
+import { Loader2 } from "lucide-react"
+import { SocialLoginButton } from "./_components/social-login-button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
@@ -57,7 +54,7 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Welcome Back</CardTitle>
@@ -112,13 +109,13 @@ function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border-gray-300 focus:border-[#4F46E5] focus:ring-[#4F46E5]"
+                className="border-border focus:border-primary focus:ring-ring"
               />
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link href="/auth/forgot-password" className="text-sm text-[#4F46E5] hover:underline">
+                <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline">
                   Forgot password?
                 </Link>
               </div>
@@ -129,11 +126,11 @@ function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="border-gray-300 focus:border-[#4F46E5] focus:ring-[#4F46E5]"
+                className="border-border focus:border-primary focus:ring-ring"
               />
             </div>
             {error && <div className="text-sm font-medium text-red-500">{error}</div>}
-            <Button type="submit" className="w-full bg-[#4F46E5] hover:bg-[#4338CA]" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -148,7 +145,7 @@ function LoginForm() {
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-500">
             Don't have an account?{" "}
-            <Link href="/auth/signup" className="text-[#6B7280] font-medium hover:underline">
+            <Link href="/auth/signup" className="text-muted-foreground font-medium hover:text-primary hover:underline">
               Sign Up
             </Link>
           </p>
@@ -162,14 +159,14 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">Loading</CardTitle>
             <CardDescription className="text-center">Please wait...</CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center py-8">
-            <Loader2 className="h-12 w-12 animate-spin text-[#4F46E5]" />
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
           </CardContent>
         </Card>
       </div>

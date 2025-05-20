@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { WizardHeader } from "@/components/wizard/wizard-header"
-import { TemplateGrid } from "@/components/wizard/template-grid"
-import { WizardSidebar } from "@/components/wizard/wizard-sidebar"
-import { WizardFooter } from "@/components/wizard/wizard-footer"
+import { Button } from "@/components/ui/button"
+import { WizardHeader } from "../_components/wizard-header"
+import { TemplateGrid } from "../_components/template-grid"
+import { WizardSidebar } from "../_components/wizard-sidebar"
+import { WizardFooter } from "../_components/wizard-footer"
+import { Input } from "@/components/ui/input"
 
 export default function SelectTemplatePage() {
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null)

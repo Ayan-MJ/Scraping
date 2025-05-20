@@ -1,18 +1,15 @@
 "use client"
 
-// Force server-side rendering for this page
-export const dynamic = 'force-dynamic';
-
 import { useState, useEffect } from "react"
-import { ProjectSettingsHeader } from "@/components/project-settings/project-settings-header"
-import { TabNavigation } from "@/components/project-settings/tab-navigation"
-import { GeneralSettings } from "@/components/project-settings/general-settings"
-import { AntiBotSettings } from "@/components/project-settings/anti-bot-settings"
-import { ProxySettings } from "@/components/project-settings/proxy-settings"
-import { IntegrationsSettings } from "@/components/project-settings/integrations-settings"
-import { FieldMappingsSettings } from "@/components/project-settings/field-mappings-settings"
-import { ProjectSettingsFooter } from "@/components/project-settings/project-settings-footer"
-import { useToast } from "@/hooks/use-toast"
+import { ProjectSettingsHeader } from "./_components/project-settings-header"
+import { TabNavigation } from "./_components/tab-navigation"
+import { GeneralSettings } from "./_components/general-settings"
+import { AntiBotSettings } from "./_components/anti-bot-settings"
+import { ProxySettings } from "./_components/proxy-settings"
+import { IntegrationsSettings } from "./_components/integrations-settings"
+import { FieldMappingsSettings } from "./_components/field-mappings-settings"
+import { ProjectSettingsFooter } from "./_components/project-settings-footer"
+import { useToast } from "@/components/ui/use-toast"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
@@ -190,7 +187,7 @@ export default function ProjectSettingsPage({ params }: { params: { id: string }
 
   if (isLoading || !settings) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] p-4">
+      <div className="min-h-screen bg-secondary p-4">
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-1/3 bg-gray-200 rounded"></div>
           <div className="h-4 w-1/4 bg-gray-200 rounded"></div>
@@ -206,7 +203,7 @@ export default function ProjectSettingsPage({ params }: { params: { id: string }
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
+    <div className="min-h-screen bg-secondary">
       <ProjectSettingsHeader
         projectName={settings.name}
         onSave={handleSave}

@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import { useResults } from '@/hooks/useResults';
 import { useRun } from '@/hooks/useRuns';
-import { ResultsTable } from '@/components/results-viewer/ResultsTable';
+import { ResultsTable } from './_components/ResultsTable';
 import { Button } from '@/components/ui/button';
 import { RefreshCw, ChevronLeft } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -17,7 +17,7 @@ import WarningBanner from '@/components/ui/WarningBanner';
 
 // Define the Result type that ResultsTable expects and useResults provides in its `results` array.
 export interface Result {
-  id: number;
+  id: string;
   run_id: number;
   data: ScrapedRecordData; 
   created_at: string;
@@ -105,7 +105,7 @@ export default function ResultsViewerPage() {
     };
 
     const transformSseRecordToResult = (record: ScrapedRecordData, index: number): Result => ({
-      id: record.id || -(Date.now() + index),
+      id: (record.id || -(Date.now() + index)).toString(),
       run_id: runId,
       data: record,
       created_at: record.extracted_at, 

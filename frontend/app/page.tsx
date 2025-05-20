@@ -2,11 +2,12 @@
 
 import { Button } from "@/components/ui/button"
 import { CheckCircle, ArrowRight, Shield, Database, Zap, Code } from "lucide-react"
-import { LandingHeader } from "@/components/landing/landing-header"
-import { LandingFooter } from "@/components/landing/landing-footer"
-import { ClientLogos } from "@/components/landing/client-logos"
-import { FeatureCard } from "@/components/landing/feature-card"
-import { SecurityFeature } from "@/components/landing/security-feature"
+import Link from "next/link"
+import { LandingHeader } from "./_components/landing-header"
+import { LandingFooter } from "./_components/landing-footer"
+import { ClientLogos } from "./_components/client-logos"
+import { FeatureCard } from "./_components/feature-card"
+import { SecurityFeature } from "./_components/security-feature"
 import { Spotlight } from "@/components/ui/spotlight"
 import { AnimatedGradient } from "@/components/ui/animated-gradient"
 import { AnimatedCounter } from "@/components/ui/animated-counter"
@@ -39,13 +40,13 @@ export default function LandingPage() {
                 className="bg-brand-green hover:bg-brand-green-dark text-white group transition-all duration-300"
                 asChild
               >
-                <a href="/auth/signup" className="group">
+                <Link href="/auth/signup" className="group">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="border-gray-700 text-white hover:bg-gray-800" asChild>
-                <a href="/projects">View Dashboard</a>
+                <Link href="/projects">View Dashboard</Link>
               </Button>
             </div>
           </div>
@@ -211,13 +212,13 @@ export default function LandingPage() {
               className="bg-brand-green hover:bg-brand-green-dark text-white group transition-all duration-300"
               asChild
             >
-              <a href="/auth/signup">
+              <Link href="/auth/signup">
                 Get Started for Free
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </Link>
             </Button>
             <Button size="lg" variant="outline" className="border-gray-700 text-white hover:bg-gray-800" asChild>
-              <a href="/docs">Read Documentation</a>
+              <Link href="/docs">Read Documentation</Link>
             </Button>
           </div>
         </div>

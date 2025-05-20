@@ -19,7 +19,7 @@ export function EmptyState() {
       <p className="text-muted-foreground mb-6 max-w-md">
         Create your first scraper to start collecting data from websites automatically.
       </p>
-      <Button className="bg-[#4F46E5] hover:bg-[#4338CA]" asChild>
+      <Button variant="primary" asChild>
         <Link href="/projects/new/select-template">
           <PlusCircle className="mr-2 h-4 w-4" />
           Create your first scraper

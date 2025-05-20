@@ -12,7 +12,6 @@ import { Suspense } from "react"
 // Client component that uses useSearchParams
 function VerifyEmailContent() {
   const [error, setError] = useState("")
-  const [isVerifying, setIsVerifying] = useState(false)
   const [resendDisabled, setResendDisabled] = useState(false)
   const [countdown, setCountdown] = useState(0)
   const { user, verifyEmail, resendVerificationEmail, isLoading } = useAuth()
@@ -23,10 +22,8 @@ function VerifyEmailContent() {
 
   useEffect(() => {
     if (token) {
-      setIsVerifying(true)
       verifyEmail(token).catch((err) => {
         setError("Invalid or expired verification link. Please request a new one.")
-        setIsVerifying(false)
       })
     }
   }, [token, verifyEmail])
@@ -58,7 +55,7 @@ function VerifyEmailContent() {
 
   if (user.emailVerified) {
     return (
-      <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <div className="flex justify-center mb-4">
@@ -68,7 +65,7 @@ function VerifyEmailContent() {
             <CardDescription className="text-center">Your email has been successfully verified.</CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center">
-            <Button onClick={() => router.push("/dashboard")} className="bg-[#4F46E5] hover:bg-[#4338CA]">
+            <Button onClick={() => router.push("/dashboard")} className="bg-primary text-primary-foreground hover:bg-primary/90">
               Go to Dashboard
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -79,11 +76,11 @@ function VerifyEmailContent() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-4">
-            <Mail className="h-16 w-16 text-[#4F46E5]" />
+            <Mail className="h-16 w-16 text-primary" />
           </div>
           <CardTitle className="text-2xl font-bold text-center">Verify Your Email</CardTitle>
           <CardDescription className="text-center">
@@ -133,7 +130,7 @@ function VerifyEmailContent() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Link href="/auth/login" className="text-sm text-[#6B7280] hover:text-[#4F46E5]">
+          <Link href="/auth/login" className="text-sm text-muted-foreground hover:text-primary">
             Back to login
           </Link>
         </CardFooter>
@@ -146,14 +143,14 @@ function VerifyEmailContent() {
 export default function VerifyEmailPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center p-4 bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center p-4 bg-secondary dark:bg-card">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">Loading</CardTitle>
             <CardDescription className="text-center">Please wait...</CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center py-8">
-            <Loader2 className="h-12 w-12 animate-spin text-[#4F46E5]" />
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
           </CardContent>
         </Card>
       </div>

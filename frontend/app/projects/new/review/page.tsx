@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { WizardHeader } from "@/components/wizard/wizard-header"
-import { ReviewSummary } from "@/components/wizard/review-summary"
-import { ConfirmationModal } from "@/components/wizard/confirmation-modal"
+import { WizardHeader } from "../_components/wizard-header"
+import { ReviewSummary } from "../_components/review-summary"
+import { ConfirmationModal } from "../_components/confirmation-modal"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Rocket } from "lucide-react"
 
 export default function ReviewPage() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
@@ -55,10 +55,10 @@ export default function ReviewPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F9FAFB]">
+    <div className="flex min-h-screen flex-col bg-secondary">
       <WizardHeader currentStep={5} totalSteps={5} />
 
-      <div className="flex-1 p-4 pb-24 md:p-8 md:pb-24">
+      <main className="flex-1 p-6">
         <div className="mb-8">
           <h1 className="text-2xl font-bold tracking-tight">Create New Scraper</h1>
           <p className="mt-1 text-muted-foreground">Step 5 of 5: Review & Launch</p>
@@ -115,7 +115,7 @@ export default function ReviewPage() {
                   </div>
                 ))}
                 <div className="flex justify-end">
-                  <Button variant="outline" size="sm" className="text-[#4F46E5]">
+                  <Button variant="outline" size="sm" className="text-primary">
                     Preview Data
                   </Button>
                 </div>
@@ -144,7 +144,7 @@ export default function ReviewPage() {
                     </div>
                   )}
                 </div>
-                <div className="rounded bg-blue-50 p-2 text-sm text-blue-800">
+                <div className="rounded-md bg-blue-50 p-3 text-sm text-blue-800">
                   <p>First run will start immediately after launch</p>
                 </div>
               </div>
@@ -176,22 +176,16 @@ export default function ReviewPage() {
             }
           />
         </div>
-      </div>
 
-      {/* Fixed Footer */}
-      <div className="fixed bottom-0 left-0 right-0 border-t bg-white py-4 px-4">
-        <div className="container mx-auto flex items-center justify-between">
-          <Button variant="outline" className="gap-2" asChild>
-            <Link href="/projects/new/scheduling">
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </Link>
-          </Button>
-          <Button className="gap-2 bg-[#4F46E5] hover:bg-[#4338CA]" onClick={() => setIsConfirmModalOpen(true)}>
-            Launch Scraper
+        <div className="mt-8 flex justify-end space-x-3">
+          <Button variant="outline" onClick={() => {
+            // Implement back functionality
+          }}>Previous Step</Button>
+          <Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => setIsConfirmModalOpen(true)}>
+            <Rocket className="h-4 w-4" /> Create and Launch Project
           </Button>
         </div>
-      </div>
+      </main>
 
       <ConfirmationModal
         isOpen={isConfirmModalOpen}

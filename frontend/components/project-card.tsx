@@ -19,9 +19,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   const statusColors = {
-    active: "bg-[#10B981] text-white",
-    warning: "bg-[#F59E0B] text-white",
-    error: "bg-[#EF4444] text-white",
+    active: "bg-success text-success-foreground",
+    warning: "bg-warning text-warning-foreground",
+    error: "bg-destructive text-destructive-foreground",
   }
 
   const statusLabels = {
@@ -56,9 +56,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
       {/* Card Footer */}
       <div className="flex justify-between items-center">
         <Button
-          variant={isHovered ? "default" : "outline"}
+          variant={isHovered ? "primary" : "outline"}
           size="sm"
-          className={cn("transition-colors duration-150", isHovered && "bg-[#4F46E5] hover:bg-[#4338CA]")}
+          className={cn("transition-colors duration-150")}
         >
           <Play className="h-4 w-4 mr-1" />
           Run Now

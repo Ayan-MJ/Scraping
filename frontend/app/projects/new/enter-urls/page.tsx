@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { WizardHeader } from "@/components/wizard/wizard-header"
-import { UrlInputForm } from "@/components/wizard/url-input-form"
-import { WizardSidebar } from "@/components/wizard/wizard-sidebar"
-import { WizardFooter } from "@/components/wizard/wizard-footer"
-import { UrlList } from "@/components/wizard/url-list"
+import { Button } from "@/components/ui/button"
+import { WizardHeader } from "../_components/wizard-header"
+import { UrlInputForm } from "../_components/url-input-form"
+import { WizardSidebar } from "../_components/wizard-sidebar"
+import { WizardFooter } from "../_components/wizard-footer"
+import { UrlList } from "../_components/url-list"
+import { useToast } from "@/components/ui/use-toast"
 
 interface UrlEntry {
   id: string

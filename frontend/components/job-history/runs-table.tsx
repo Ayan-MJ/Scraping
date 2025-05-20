@@ -43,13 +43,13 @@ export function RunsTable({
   const getStatusColor = (status: string) => {
     switch (status) {
       case "success":
-        return "bg-[#10B981] text-white"
+        return "bg-success text-success-foreground"
       case "failed":
-        return "bg-[#EF4444] text-white"
+        return "bg-destructive text-destructive-foreground"
       case "running":
-        return "bg-[#3B82F6] text-white"
+        return "bg-info text-info-foreground"
       default:
-        return "bg-gray-200 text-gray-800"
+        return "bg-muted text-foreground"
     }
   }
 
@@ -128,7 +128,7 @@ export function RunsTable({
                 <td className="px-4 py-3 text-sm font-medium">
                   <button
                     onClick={() => onViewLogs(run.runId)}
-                    className="text-[#4F46E5] hover:underline focus:outline-none"
+                    className="text-primary hover:underline focus:outline-none"
                   >
                     {run.runId}
                   </button>

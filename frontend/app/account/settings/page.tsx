@@ -1,19 +1,16 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { AccountSettingsHeader } from "@/components/account-settings/account-settings-header"
-import { TabNavigation } from "@/components/account-settings/tab-navigation"
-import { ProfileSettings } from "@/components/account-settings/profile-settings"
-import { TeamManagementSettings } from "@/components/account-settings/team-management-settings"
-import { BillingSettings } from "@/components/account-settings/billing-settings"
-import { ProxyPoolSettings } from "@/components/account-settings/proxy-pool-settings"
-import { AccountSettingsFooter } from "@/components/account-settings/account-settings-footer"
-import { useToast } from "@/hooks/use-toast"
+import { AccountSettingsHeader } from "./_components/account-settings-header"
+import { TabNavigation } from "./_components/tab-navigation"
+import { ProfileSettings } from "./_components/profile-settings"
+import { TeamManagementSettings } from "./_components/team-management-settings"
+import { BillingSettings } from "./_components/billing-settings"
+import { ProxyPoolSettings } from "./_components/proxy-pool-settings"
+import { AccountSettingsFooter } from "./_components/account-settings-footer"
+import { useToast } from "@/components/ui/use-toast"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-
-// Force server-side rendering for this page
-export const dynamic = 'force-dynamic';
 
 export type TabType = "profile" | "team" | "billing" | "proxy"
 
@@ -268,7 +265,7 @@ export default function AccountSettingsPage() {
 
   if (isLoading || !settings) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] p-4">
+      <div className="min-h-screen bg-secondary p-4">
         <div className="animate-pulse space-y-4">
           <div className="h-8 w-1/3 bg-gray-200 rounded"></div>
           <div className="h-4 w-1/4 bg-gray-200 rounded"></div>
@@ -284,7 +281,7 @@ export default function AccountSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
+    <div className="min-h-screen bg-secondary">
       <AccountSettingsHeader />
 
       <div className="container mx-auto px-4 py-6">

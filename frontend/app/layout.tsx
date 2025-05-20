@@ -1,9 +1,8 @@
 "use client"
 
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import './globals.css'
 import { Providers } from './providers'
-import { DashboardHeader } from '@/components/dashboard-header'
 
 // Initialize LogRocket in client-side environment
 const InitLogRocket = () => {
@@ -33,11 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col bg-[#F9FAFB]">
+      <body className="min-h-screen flex flex-col">
         <Providers>
           {/* Initialize LogRocket */}
           <InitLogRocket />
-          <DashboardHeader />
           <div className="flex-1">
             {children}
           </div>

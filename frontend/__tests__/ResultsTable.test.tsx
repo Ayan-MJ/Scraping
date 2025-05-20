@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ResultsTable } from '@/components/results-viewer/ResultsTable';
-import { Result } from '@/hooks/useResults';
+import { ResultsTable } from '@/app/results-viewer/[id]/_components/ResultsTable';
+import type { Result } from '@/app/results-viewer/[id]/page';
 
 // Mock TanStack Table
 jest.mock('@tanstack/react-table', () => ({
@@ -56,34 +56,32 @@ jest.mock('@tanstack/react-table', () => ({
 // Sample results data
 const mockResults: Result[] = [
   {
-    id: 1,
-    run_id: 100,
-    created_at: '2023-06-01T12:00:00Z',
-    data: {
-      url: 'https://example.com',
-      title: 'Example Website',
-      extracted_at: '2023-06-01T12:00:00Z',
-      fields: {
-        title: 'Example Page Title',
-        price: '$99.99',
-        description: 'This is a sample description',
-      },
+    id: "1",
+    run_id: 101,
+    data: { 
+      url: "http://example.com/product/1", 
+      title: "Product 1",
+      extracted_at: new Date().toISOString(),
+      fields: { 
+        price: "$19.99", 
+        image: "http://example.com/image1.jpg" 
+      } 
     },
+    created_at: new Date().toISOString(),
   },
   {
-    id: 2,
-    run_id: 100,
-    created_at: '2023-06-01T12:05:00Z',
-    data: {
-      url: 'https://test.com',
-      title: 'Test Website',
-      extracted_at: '2023-06-01T12:05:00Z',
-      fields: {
-        title: 'Test Page Title',
-        price: '$149.99',
-        description: 'This is another sample description',
-      },
+    id: "2",
+    run_id: 101,
+    data: { 
+      url: "http://example.com/product/2", 
+      title: "Product 2", 
+      extracted_at: new Date(Date.now() - 3600000).toISOString(),
+      fields: { 
+        price: "$29.99", 
+        image: "http://example.com/image2.jpg" 
+      }
     },
+    created_at: new Date(Date.now() - 3600000).toISOString(), 
   },
 ];
 

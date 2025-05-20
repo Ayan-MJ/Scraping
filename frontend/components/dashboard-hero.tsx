@@ -1,20 +1,24 @@
 import { Button } from "@/components/ui/button"
-import { PlusCircle } from "lucide-react"
+import { PlusCircle, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export function DashboardHero() {
   return (
-    <section className="bg-white py-8 border-b">
+    <section className="bg-background py-8 border-b">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Your Scraping Projects</h1>
             <p className="text-muted-foreground mt-1">Overview of status, performance, and quick actions</p>
           </div>
-          <Button className="bg-[#4F46E5] hover:bg-[#4338CA]" asChild>
-            <Link href="/projects/new/select-template">
-              <PlusCircle className="mr-2 h-4 w-4" />
-              New Project
+          <Button variant="outline" asChild>
+            <Link href="/docs">
+              Read Documentation <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button variant="primary" asChild>
+            <Link href="/projects/new">
+              Create New Project <PlusCircle className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>

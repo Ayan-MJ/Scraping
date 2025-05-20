@@ -44,10 +44,10 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
                 <Badge
                   className={
                     project.status === 'active'
-                      ? 'bg-green-500'
+                      ? 'bg-success text-success-foreground'
                       : project.status === 'warning'
-                      ? 'bg-yellow-500'
-                      : 'bg-red-500'
+                      ? 'bg-warning text-warning-foreground'
+                      : 'bg-destructive text-destructive-foreground'
                   }
                 >
                   {project.status}

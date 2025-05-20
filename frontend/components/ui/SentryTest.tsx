@@ -58,18 +58,6 @@ export function SentryTest() {
     setMessage(`Performance information sent to Sentry (operation took ${Date.now() - start}ms)`);
   };
   
-  const _handleBackendCrash = async () => {
-    try {
-      // Call your backend API endpoint to trigger an error
-      const response = await fetch('/api/sentry-example-api/backend-error');
-      // Use underscore prefix to indicate unused variable
-      const _result = await response.json();
-      // This will never execute because the backend will crash
-    } catch (error) {
-      toast.error('Backend Error: Server error occurred');
-    }
-  };
-  
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
