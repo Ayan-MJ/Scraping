@@ -1,14 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ResultsViewerHeader } from "@/components/results-viewer/results-viewer-header"
-import { ResultsViewerToolbar } from "@/components/results-viewer/results-viewer-toolbar"
-import { DataTable } from "@/components/results-viewer/data-table"
-import { FilterSidebar } from "@/components/results-viewer/filter-sidebar"
-import { StatsSidebar } from "@/components/results-viewer/stats-sidebar"
-import { EmptyState } from "@/components/results-viewer/empty-state"
-import { ResultsViewerFooter } from "@/components/results-viewer/results-viewer-footer"
-import { TableSkeleton } from "@/components/results-viewer/table-skeleton"
+import { ResultsViewerHeader } from "./[id]/_components/results-viewer-header"
+import { ResultsViewerToolbar } from "./[id]/_components/results-viewer-toolbar"
+import { DataTable } from "./[id]/_components/data-table"
+import { FilterSidebar } from "./[id]/_components/filter-sidebar"
+import { StatsSidebar } from "./[id]/_components/stats-sidebar"
+import { EmptyState } from "./[id]/_components/empty-state"
+import { ResultsViewerFooter } from "./[id]/_components/results-viewer-footer"
+import { TableSkeleton } from "./[id]/_components/table-skeleton"
 
 export type SortDirection = "asc" | "desc"
 export type ColumnVisibility = Record<string, boolean>
