@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { IframePreview } from "@/components/selector-builder/iframe-preview"
-import { FieldConfigSidebar } from "@/components/selector-builder/field-config-sidebar"
-import { FloatingActionToolbar } from "@/components/selector-builder/floating-action-toolbar"
+import { IframePreview } from "./iframe-preview"
+import { FieldConfigSidebar } from "./field-config-sidebar"
+import { FloatingActionToolbar } from "./floating-action-toolbar"
 
 export function SelectorBuilderCanvas() {
   const [selectedField, setSelectedField] = useState<string | null>(null)

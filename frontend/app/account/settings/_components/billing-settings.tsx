@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { CreditCard, ArrowRight } from "lucide-react"
 import { useState } from "react"
-import { UsageChart } from "@/components/account-settings/usage-chart"
+import { UsageChart } from "./usage-chart"
 import type { AccountSettings } from "@/app/account/settings/page"
 
 interface BillingSettingsProps {
